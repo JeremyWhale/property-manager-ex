@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  ui:
+    image: ui
+    build:
+      context: front-end/ui
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 80:80
+
+  django-api:
+    build:
+      context: back-end
+      dockerfile: ./Dockerfile-django
+    ports:
+      - 8000:8000
