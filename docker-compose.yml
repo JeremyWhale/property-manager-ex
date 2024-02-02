@@ -5,11 +5,11 @@ services:
     image: ui
     build:
       context: front-end/ui
-      dockerfile: ./Dockerfile-ui
+      dockerfile: ./Dockerfile
     environment:
       NODE_ENV: production
     ports:
-      - 80:80
+      - 3000:3000
     stdin_open: true
     tty: true
 

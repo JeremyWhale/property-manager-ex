@@ -9,7 +9,7 @@ import IssueView from './views/issueView';
 import SettingsView from './views/settingsView';
 import LoginView from './views/loginView';
 import PropertyAddView from './views/propertyAddView';
-import TenantView from './views/tenantView';
+import TenantView from './views/TenantView';
 import IssueAddView from './views/issueAddView';
 import IssueEditView from './views/issueEditView';
 import TenantAddView from './views/tenantAddView';
