@@ -16,6 +16,6 @@ services:
   django-api:
     build:
       context: back_end
-      dockerfile: ./Dockerfile-api
+      dockerfile: ./Dockerfile
     ports:
       - 8000:8000
