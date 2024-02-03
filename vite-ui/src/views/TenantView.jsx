@@ -97,6 +97,7 @@ export default function TenantView() {
         }
       } else {
         setMoveInDate("No Property Listed");
+        setAddress("No Property Listed");
       }
     }
 
