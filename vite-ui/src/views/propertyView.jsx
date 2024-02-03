@@ -118,8 +118,6 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const navigate = useNavigate();
-
   const { order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);

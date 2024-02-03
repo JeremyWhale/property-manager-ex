@@ -242,7 +242,7 @@ export default function IssueView() {
             <IcButton
               slot="actions"
               variant="tertiary"
-              href={`/issues/edit?issue=${selectedIssueId}`}
+              onClick={() => navigate(`/issues/edit?issue=${selectedIssueId}`)}
             >
               <Edit slot="left-icon" /> Edit Issue
             </IcButton>

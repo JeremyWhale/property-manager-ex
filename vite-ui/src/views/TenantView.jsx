@@ -119,7 +119,7 @@ export default function TenantView() {
           <IcButton
             slot="actions"
             variant="tertiary"
-            href={`/tenants/edit?tenant=${selectedTenant}`}
+            onClick={() => navigate(`/tenants/edit?tenant=${selectedTenant}`)}
           >
             <Edit slot="left-icon" /> Edit Tenant
           </IcButton>
@@ -163,7 +163,12 @@ export default function TenantView() {
             ) : (
               <Typography>
                 <b>Property: </b>
-                <a href={`/properties?property=${address}`}>{address}</a>
+                <span
+                  className="linkText"
+                  onClick={() => navigate(`/properties?property=${address}`)}
+                >
+                  {address}
+                </span>
               </Typography>
             )}
           </Grid>
