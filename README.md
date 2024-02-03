@@ -2,8 +2,9 @@
 
 ## Cloning
 
+- From the box:
 - Generate ssh key: `ssh keygen -t rsa`
-- Add ssh key to your git account
+- Add ssh key (`cat ~/.ssh/id_rsa.pub`) to your git account
 - Clone into this repo
 
 ## Installation
