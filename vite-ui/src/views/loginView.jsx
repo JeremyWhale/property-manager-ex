@@ -5,20 +5,23 @@ import { Login } from "@mui/icons-material";
 import axios from "axios";
 import apiLocation from "../components/apiLocation";
 
-export default function LoginView() {
+export default function LoginView({ setLoggedIn }) {
   const [loginErrored, setLoginErrored] = useState(false);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
   function handleLogin() {
     axios
-      .post(`${apiLocation}/login/`, `username=${username}&password=${password}`)
+      .post(
+        `${apiLocation}/login/`,
+        `username=${username}&password=${password}`
+      )
       .then((response) => {
         const data = response.data;
         if (data.status === "success") {
           window.localStorage.setItem("user", JSON.stringify(data.name));
           setLoginErrored(false);
-          window.open("/", "_self");
+          setLoggedIn(true);
         } else {
           setLoginErrored(true);
         }
@@ -31,7 +34,14 @@ export default function LoginView() {
   return (
     <>
       <IcPageHeader heading="AJO Property Manager Login" />
-      <Grid container spacing={2}  direction="column" justifyContent="center" alignItems="center" sx={{ paddingTop: 2 }}>
+      <Grid
+        container
+        spacing={2}
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+        sx={{ paddingTop: 2 }}
+      >
         <Grid item>
           <TextField
             error={loginErrored}
@@ -39,7 +49,7 @@ export default function LoginView() {
             label="Username"
             variant="outlined"
             onChange={(e) => setUsername(e.target.value)}
-            sx={{ textAlign: 'center' }}
+            sx={{ textAlign: "center" }}
           />
         </Grid>
         <Grid item>
@@ -50,7 +60,7 @@ export default function LoginView() {
             label="Password"
             variant="outlined"
             onChange={(e) => setPassword(e.target.value)}
-            sx={{ textAlign: 'center' }}
+            sx={{ textAlign: "center" }}
           />
         </Grid>
         <Grid item>
@@ -59,7 +69,7 @@ export default function LoginView() {
             startIcon={<Login />}
             disabled={username === undefined || password === undefined}
             onClick={() => handleLogin()}
-            sx={{ textAlign: 'center' }}
+            sx={{ textAlign: "center" }}
           >
             Log in
           </Button>
