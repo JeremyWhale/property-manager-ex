@@ -29,9 +29,9 @@ export default function LoginView() {
       .then((response) => {
         const data = response.data;
         if (data.status === "success") {
-          // window.localStorage.setItem("user", JSON.stringify(data.name));
           setLoginErrored(false);
           setCurrentUser(data.name);
+          localStorage.setItem("currentUser", data.name);
         } else {
           setLoginErrored(true);
         }

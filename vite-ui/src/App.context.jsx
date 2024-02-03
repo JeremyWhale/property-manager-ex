@@ -4,7 +4,9 @@ import { createContext, useState } from "react";
 export const AppContext = createContext(undefined);
 
 export const AppProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState(
+    localStorage.getItem("currentUser")
+  );
 
   const value = {
     currentUser,
