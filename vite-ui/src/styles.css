@@ -1,0 +1,9 @@
+.linkText {
+    color: #175EC7;
+    cursor: pointer;
+}
+
+.linkText:hover {
+    text-decoration: underline;
+    font-weight: 600;
+}

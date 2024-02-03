@@ -4,13 +4,23 @@ import { IcPageHeader } from "@ukic/react";
 import { Login } from "@mui/icons-material";
 import axios from "axios";
 import apiLocation from "../components/apiLocation";
+import { useAppContext } from "../App.context";
+import { useEffect } from "react";
 
-export default function LoginView({ setLoggedIn }) {
+export default function LoginView() {
+  const { setCurrentUser } = useAppContext();
+
   const [loginErrored, setLoginErrored] = useState(false);
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    console.log(loading);
+  }, [loading]);
 
   function handleLogin() {
+    setLoading(true);
     axios
       .post(
         `${apiLocation}/login/`,
@@ -19,15 +29,17 @@ export default function LoginView({ setLoggedIn }) {
       .then((response) => {
         const data = response.data;
         if (data.status === "success") {
-          window.localStorage.setItem("user", JSON.stringify(data.name));
+          // window.localStorage.setItem("user", JSON.stringify(data.name));
           setLoginErrored(false);
-          setLoggedIn(true);
+          setCurrentUser(data.name);
         } else {
           setLoginErrored(true);
         }
+        setLoading(false);
       })
       .catch((error) => {
         setLoginErrored(true);
+        setLoading(false);
       });
   }
 
@@ -67,11 +79,13 @@ export default function LoginView({ setLoggedIn }) {
           <Button
             variant="contained"
             startIcon={<Login />}
-            disabled={username === undefined || password === undefined}
+            disabled={
+              username === undefined || password === undefined || loading
+            }
             onClick={() => handleLogin()}
             sx={{ textAlign: "center" }}
           >
-            Log in
+            {loading ? "Logging in..." : "Log In"}
           </Button>
         </Grid>
       </Grid>

@@ -1,24 +1,25 @@
 import { IcPageHeader, IcButton } from "@ukic/react";
-import React, { useState, useMemo, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
+import React, { useState, useMemo, useEffect } from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
 // import Toolbar from '@mui/material/Toolbar';
-import Paper from '@mui/material/Paper';
-import { visuallyHidden } from '@mui/utils';
+import Paper from "@mui/material/Paper";
+import { visuallyHidden } from "@mui/utils";
 import { Add, Edit, Engineering } from "@mui/icons-material";
 import axios from "axios";
 import apiLocation from "../components/apiLocation";
 import { Modal, Typography } from "@mui/material";
 import formatDisplayDate from "../components/formatdisplayDate";
+import { useNavigate } from "react-router-dom";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -31,7 +32,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -50,34 +51,34 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'dateReported',
+    id: "dateReported",
     numeric: false,
     disablePadding: false,
-    label: 'Date Reported',
+    label: "Date Reported",
   },
   {
-    id: 'property',
+    id: "property",
     numeric: false,
     disablePadding: false,
-    label: 'Property',
+    label: "Property",
   },
   {
-    id: 'problem',
+    id: "problem",
     numeric: false,
     disablePadding: false,
-    label: 'Problem',
+    label: "Problem",
   },
   {
-    id: 'dateResolved',
+    id: "dateResolved",
     numeric: false,
     disablePadding: false,
-    label: 'Date Resolved',
+    label: "Date Resolved",
   },
   {
-    id: 'contractor',
+    id: "contractor",
     numeric: false,
     disablePadding: false,
-    label: 'Contractor',
+    label: "Contractor",
   },
 ];
 
@@ -93,19 +94,19 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -119,47 +120,50 @@ function EnhancedTableHead(props) {
 EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
 
 export default function IssueView() {
-  const [order, setOrder] = useState('desc');
-  const [orderBy, setOrderBy] = useState('dateReported');
+  const navigate = useNavigate();
+  const [order, setOrder] = useState("desc");
+  const [orderBy, setOrderBy] = useState("dateReported");
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [rows, setRows] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [selectedContractorName, setSelectedContractorName] = useState('');
-  const [selectedIssueId, setSelectedIssueId] = useState('');
+  const [selectedContractorName, setSelectedContractorName] = useState("");
+  const [selectedIssueId, setSelectedIssueId] = useState("");
   const [contractor, setContractor] = useState();
 
   useEffect(() => {
-    axios.get(`${apiLocation}/issues/`)
-      .then(response => {
+    axios
+      .get(`${apiLocation}/issues/`)
+      .then((response) => {
         const data = response.data;
-        const mappedRows = data.map(issue => ({
+        const mappedRows = data.map((issue) => ({
           id: issue.id,
           dateReported: issue.date_reported,
           property: issue.property,
           problem: issue.problem,
           dateResolved: issue.date_fixed,
-          contractor: issue.contractor_responsible
+          contractor: issue.contractor_responsible,
         }));
 
         setRows(mappedRows); // Update the state with the mapped data
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("There was an error fetching the issues:", error);
       });
   }, []);
 
   useEffect(() => {
     // Make an Axios GET request to fetch the data
-    axios.get(`${apiLocation}/contractor-details/${selectedContractorName}/`)
-      .then(response => {
+    axios
+      .get(`${apiLocation}/contractor-details/${selectedContractorName}/`)
+      .then((response) => {
         const data = response.data;
         const mappedContractors = {
           name: data.name,
@@ -167,25 +171,25 @@ export default function IssueView() {
           phoneNumber: data.phone_number,
           email: data.email,
           bankSortCode: data.bank_sort_code,
-          bankAccountNumber: data.bank_account_number
+          bankAccountNumber: data.bank_account_number,
         };
 
         setContractor(mappedContractors);
       })
-      .catch(error => {
-        console.error('Error fetching data:', error);
+      .catch((error) => {
+        console.error("Error fetching data:", error);
       });
-  }, [selectedContractorName])
+  }, [selectedContractorName]);
 
   // Function to open the modal when the contractor name is clicked
   const handleOpenModal = (contractorName, issueID) => {
-    setSelectedContractorName(contractorName)
-    setSelectedIssueId(issueID)
+    setSelectedContractorName(contractorName);
+    setSelectedIssueId(issueID);
   };
 
   const handleNotOpenModal = (contractorName, issueID) => {
-    setSelectedContractorName(contractorName)
-    setSelectedIssueId(issueID)
+    setSelectedContractorName(contractorName);
+    setSelectedIssueId(issueID);
   };
 
   // Function to close the modal
@@ -194,8 +198,8 @@ export default function IssueView() {
   };
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
@@ -216,39 +220,50 @@ export default function IssueView() {
     () =>
       stableSort(rows, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
+        page * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage, rows],
+    [order, orderBy, page, rowsPerPage, rows]
   );
 
   return (
     <>
-      <IcPageHeader heading='Property Issues'>
-      {selectedContractorName.length !== 0 && (
+      <IcPageHeader heading="Property Issues">
+        {selectedContractorName.length !== 0 && (
           <>
-            {selectedContractorName !== 'None' && (
-              <IcButton slot="actions" variant="tertiary" onClick={() => setModalOpen(true)}>
-                <Engineering slot="left-icon"/> Contactor Details
+            {selectedContractorName !== "None" && (
+              <IcButton
+                slot="actions"
+                variant="tertiary"
+                onClick={() => setModalOpen(true)}
+              >
+                <Engineering slot="left-icon" /> Contactor Details
               </IcButton>
             )}
-            <IcButton slot="actions" variant="tertiary" href={`/issues/edit?issue=${selectedIssueId}`}>
-                <Edit slot="left-icon"/> Edit Issue
+            <IcButton
+              slot="actions"
+              variant="tertiary"
+              href={`/issues/edit?issue=${selectedIssueId}`}
+            >
+              <Edit slot="left-icon" /> Edit Issue
             </IcButton>
           </>
-          )
-        }
-        <IcButton slot="actions" variant="primary" href='/issues/add'>
-          <Add slot="left-icon"/> Add Issue
+        )}
+        <IcButton
+          slot="actions"
+          variant="primary"
+          onClick={() => navigate("/issues/add")}
+        >
+          <Add slot="left-icon" /> Add Issue
         </IcButton>
       </IcPageHeader>
-      <Box sx={{ width: '100%' }}>
-        <Paper sx={{ width: '100%', mb: 2 }}>
+      <Box sx={{ width: "100%" }}>
+        <Paper sx={{ width: "100%", mb: 2 }}>
           {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
           <TableContainer>
             <Table
               sx={{ minWidth: 750 }}
               aria-labelledby="tableTitle"
-              size={'medium'}
+              size={"medium"}
             >
               <EnhancedTableHead
                 numSelected={selected.length}
@@ -258,22 +273,29 @@ export default function IssueView() {
                 rowCount={rows.length}
               />
               <TableBody>
-              {visibleRows.map((row, index) => {
-                // Check if the dateResolved is '2000-01-01' and display 'Unresolved' in that case
-                let dateResolvedContent = row.dateResolved
-                let contractorContent = row.contractor
-                {row.dateResolved === '2000-01-01' && (
-                  dateResolvedContent = 'Unallocated'
-                )}
-                {row.dateResolved === '2000-01-01' && (
-                  contractorContent = 'None'
-                )}
-                {row.dateResolved === '2000-01-02' && (
-                  dateResolvedContent = 'Allocated'
-                )}
-                {row.dateResolved !== '2000-01-02' && row.dateResolved !== '2000-01-01' && (
-                  dateResolvedContent = formatDisplayDate(row.dateResolved)
-                )}
+                {visibleRows.map((row, index) => {
+                  // Check if the dateResolved is '2000-01-01' and display 'Unresolved' in that case
+                  let dateResolvedContent = row.dateResolved;
+                  let contractorContent = row.contractor;
+                  {
+                    row.dateResolved === "2000-01-01" &&
+                      (dateResolvedContent = "Unallocated");
+                  }
+                  {
+                    row.dateResolved === "2000-01-01" &&
+                      (contractorContent = "None");
+                  }
+                  {
+                    row.dateResolved === "2000-01-02" &&
+                      (dateResolvedContent = "Allocated");
+                  }
+                  {
+                    row.dateResolved !== "2000-01-02" &&
+                      row.dateResolved !== "2000-01-01" &&
+                      (dateResolvedContent = formatDisplayDate(
+                        row.dateResolved
+                      ));
+                  }
 
                   return (
                     <TableRow
@@ -281,10 +303,16 @@ export default function IssueView() {
                       role="checkbox"
                       tabIndex={-1}
                       key={index}
-                      sx={{ cursor: 'pointer' }}
-                      onClick={() => {(dateResolvedContent !=='Unallocated') ? (handleOpenModal(row.contractor, row.id)) : (handleNotOpenModal('None', row.id))}} // Open modal when contractor name is clicked
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => {
+                        dateResolvedContent !== "Unallocated"
+                          ? handleOpenModal(row.contractor, row.id)
+                          : handleNotOpenModal("None", row.id);
+                      }} // Open modal when contractor name is clicked
                     >
-                      <TableCell align="left">{formatDisplayDate(row.dateReported)}</TableCell>
+                      <TableCell align="left">
+                        {formatDisplayDate(row.dateReported)}
+                      </TableCell>
                       <TableCell align="left">{row.property}</TableCell>
                       <TableCell align="left">{row.problem}</TableCell>
                       <TableCell align="left">{dateResolvedContent}</TableCell>
@@ -316,25 +344,50 @@ export default function IssueView() {
         </Paper>
         {/* Material-UI Modal */}
         <Modal open={modalOpen} onClose={handleCloseModal}>
-          <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'white', p: 2, borderRadius: 4 }}>
-            <Typography id="modal-modal-title" variant="h6" component="h2"> Contractor </Typography>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              bgcolor: "white",
+              p: 2,
+              borderRadius: 4,
+            }}
+          >
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              {" "}
+              Contractor{" "}
+            </Typography>
             {contractor?.name && (
-              <Typography sx={{ mt: 2 }}><b>Name:</b> {contractor.name}</Typography>
+              <Typography sx={{ mt: 2 }}>
+                <b>Name:</b> {contractor.name}
+              </Typography>
             )}
             {contractor?.address && (
-              <Typography sx={{ mt: 2 }}><b>Address:</b> {contractor.address}</Typography>
+              <Typography sx={{ mt: 2 }}>
+                <b>Address:</b> {contractor.address}
+              </Typography>
             )}
             {contractor?.phoneNumber && (
-              <Typography sx={{ mt: 2 }}><b>Phone Number:</b> {contractor.phoneNumber}</Typography>
+              <Typography sx={{ mt: 2 }}>
+                <b>Phone Number:</b> {contractor.phoneNumber}
+              </Typography>
             )}
             {contractor?.email && (
-              <Typography sx={{ mt: 2 }}><b>Email:</b> {contractor.email}</Typography>
+              <Typography sx={{ mt: 2 }}>
+                <b>Email:</b> {contractor.email}
+              </Typography>
             )}
             {contractor?.bankSortCode && (
-              <Typography sx={{ mt: 2 }}><b>Bank Sort Code:</b> {contractor.bankSortCode}</Typography>
+              <Typography sx={{ mt: 2 }}>
+                <b>Bank Sort Code:</b> {contractor.bankSortCode}
+              </Typography>
             )}
             {contractor?.bankAccountNumber && (
-              <Typography sx={{ mt: 2 }}><b>Bank Account Number:</b> {contractor.bankAccountNumber}</Typography>
+              <Typography sx={{ mt: 2 }}>
+                <b>Bank Account Number:</b> {contractor.bankAccountNumber}
+              </Typography>
             )}
           </Box>
         </Modal>

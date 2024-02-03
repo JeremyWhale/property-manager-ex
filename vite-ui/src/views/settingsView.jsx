@@ -20,9 +20,10 @@ import {
 import apiLocation from "../components/apiLocation";
 import axios from "axios";
 import StaticAlert from "../components/staticAlert";
+import { useAppContext } from "../App.context";
 
 export default function SettingsView({ setLoggedIn }) {
-  const [name, setName] = useState();
+  const { currentUser, setCurrentUser } = useAppContext();
 
   // Supplier
   const [supplierModalOpen, setSupplierModalOpen] = useState(false);
@@ -110,13 +111,6 @@ export default function SettingsView({ setLoggedIn }) {
   }
 
   useEffect(() => {
-    const response = window.localStorage.getItem("user");
-    if (response != undefined) {
-      setName(JSON.parse(response));
-    } else {
-      setName("Unknown user");
-    }
-
     async function getAgentList() {
       try {
         const response = await axios.get(`${apiLocation}/agents`);
@@ -282,9 +276,10 @@ export default function SettingsView({ setLoggedIn }) {
   }, [selectedSupplier]);
 
   function handleLogout() {
-    setLoggedIn(false);
-    window.localStorage.removeItem("user");
-    window.open("/login", "_self");
+    setCurrentUser(undefined);
+    // setLoggedIn(false);
+    // window.localStorage.removeItem("user");
+    // window.open("/login", "_self");
   }
 
   function handleSupplierAdd() {
@@ -523,7 +518,7 @@ export default function SettingsView({ setLoggedIn }) {
 
   return (
     <>
-      <IcPageHeader heading={`Settings for ${name}`}>
+      <IcPageHeader heading={`Settings for ${currentUser}`}>
         <IcButton
           slot="actions"
           variant="tertiary"

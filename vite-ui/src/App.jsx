@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import "./styles.css";
 import SideNav from "./components/sideNav";
 import DashboardView from "./views/dashboardView";
 import PropertyView from "./views/propertyView";
@@ -16,25 +16,23 @@ import TenantAddView from "./views/tenantAddView";
 import ReportView from "./views/reportView";
 import TenantEditView from "./views/tenantEditView";
 import PropertyEditView from "./views/propertyEditView";
+import { useAppContext } from "./App.context";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { currentUser } = useAppContext();
 
   return (
     <div className="App">
-      {loggedIn ? (
+      {currentUser === undefined ? (
         <LoginView />
       ) : (
-        <Box sx={{ display: "flex" }}>
-          <SideNav />
-          <Box sx={{ flexGrow: 1, p: 3 }}>
-            <BrowserRouter>
+        <BrowserRouter>
+          <Box sx={{ display: "flex" }}>
+            <SideNav />
+            <Box sx={{ flexGrow: 1, p: 3 }}>
               <Routes>
                 <Route path="/" Component={DashboardView} />
-                <Route
-                  path="/login"
-                  Component={<LoginView setLoggedIn={setLoggedIn} />}
-                />
+                <Route path="/login" Component={LoginView} />
                 <Route path="/properties" Component={PropertyView} />
                 <Route path="/properties/add" Component={PropertyAddView} />
                 <Route path="/properties/edit" Component={PropertyEditView} />
@@ -47,9 +45,9 @@ function App() {
                 <Route path="/settings" Component={SettingsView} />
                 <Route path="/reports" Component={ReportView} />
               </Routes>
-            </BrowserRouter>
+            </Box>
           </Box>
-        </Box>
+        </BrowserRouter>
       )}
     </div>
   );
