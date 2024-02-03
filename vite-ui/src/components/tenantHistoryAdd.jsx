@@ -41,7 +41,7 @@ export default function TenantHistoryAdd(props){
     
                 // Convert the response data into your desired format
                 const data = response.data.map((tenant) => ({
-                    fullName: tenant.name,
+                    fullName: tenant.full_name,
                     id: tenant.id
                 }));
     
