@@ -1223,7 +1223,7 @@ export default function PropertyAddView() {
                 <Grid item xs={6}>
                   <TextField
                     id="outlined-basic"
-                    label="Mortgage term"
+                    label="Mortgage term (years)"
                     variant="outlined"
                     value={mortgageTerm}
                     onChange={(e) => setMortgageTerm(e.target.value)}

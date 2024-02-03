@@ -15,6 +15,7 @@ import {
   Edit,
   HelpOutlined,
   Logout,
+  Storage,
   UploadOutlined,
 } from "@mui/icons-material";
 import apiLocation from "../components/apiLocation";
@@ -526,6 +527,14 @@ export default function SettingsView({ setLoggedIn }) {
           target="_blank"
         >
           <HelpOutlined slot="left-icon" /> User Guide
+        </IcButton>
+        <IcButton
+          slot="actions"
+          variant="tertiary"
+          href="https://1drv.ms/f/s!AlsETmNsZjQugRSX82-qqkUwN1-X?e=K4oLoM"
+          target="_blank"
+        >
+          <Storage slot="left-icon" /> Cloud Storage
         </IcButton>
         <IcButton
           slot="actions"

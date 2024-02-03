@@ -709,7 +709,7 @@ export default function PropertyEditView() {
               console.error("Error:", error);
             });
 
-          if (purchaseMethod === "mortgage") {
+          if (purchaseMethod === "Mortgage") {
             const mortgageData = {
               account_number: mortgageAccountNumber,
               property: response.data.id,
@@ -1403,7 +1403,7 @@ export default function PropertyEditView() {
                 <Grid item xs={6}>
                   <TextField
                     id="outlined-basic"
-                    label="Mortgage term"
+                    label="Mortgage term (years)"
                     variant="outlined"
                     value={mortgageTerm}
                     onChange={(e) => setMortgageTerm(e.target.value)}
