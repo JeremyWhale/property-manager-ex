@@ -7,4 +7,4 @@ RUN npm install -g serve
 COPY . .
 EXPOSE 3000
 RUN chmod 777 /
-CMD ["serve", "-s", "build"]
+CMD ["serve", "-s", "dist"]
