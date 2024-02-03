@@ -83,7 +83,7 @@ export default function AgentHistoryAdd(props){
                 >
                     {tenantOptions.map((tenant, index) => (
                         <MenuItem key={index} value={tenant.id}>
-                            {tenant.name}
+                            {tenant.fullName}
                         </MenuItem>
                     ))}
                 </TextField>
