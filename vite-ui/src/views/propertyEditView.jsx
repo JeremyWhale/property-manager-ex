@@ -160,7 +160,7 @@ export default function PropertyEditView() {
       .then((response) => {
         setIsDelete(true);
         setUploadSuccess(true);
-        setActiveStep(3);
+        setActiveStep(3298);
       });
   }
 
