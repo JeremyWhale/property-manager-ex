@@ -276,10 +276,8 @@ export default function SettingsView({ setLoggedIn }) {
   }, [selectedSupplier]);
 
   function handleLogout() {
-    setCurrentUser(undefined);
-    // setLoggedIn(false);
-    // window.localStorage.removeItem("user");
-    // window.open("/login", "_self");
+    setCurrentUser(null);
+    localStorage.removeItem("currentUser");
   }
 
   function handleSupplierAdd() {
