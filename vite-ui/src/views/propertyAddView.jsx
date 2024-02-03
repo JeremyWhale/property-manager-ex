@@ -537,7 +537,7 @@ export default function PropertyAddView() {
               console.error("Error:", error);
             });
 
-          if (purchaseMethod === "Mortgage") {
+          if (purchaseType === 'Mortgage') {
             const mortgageData = {
               account_number: mortgageAccountNumber,
               property: response.data.id,

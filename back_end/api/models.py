@@ -199,7 +199,7 @@ class Tenancy(models.Model):
     contract_term = models.PositiveIntegerField() # in months
     initial_rent_amount = models.FloatField()
     current_rent_amount = models.FloatField()
-    payment_method = models.CharField(max_length=8) # options of cash or dd
+    payment_method = models.CharField(max_length=16) # options of cash or dd
     amount_paid = models.FloatField()
     rent_review_date = models.DateField()
     tenancy_renewal_date = models.DateField()

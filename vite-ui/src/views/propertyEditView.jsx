@@ -214,7 +214,8 @@ export default function PropertyEditView() {
         setPurchaseMethod(requestPurchase.data[0].purchase_method);
         setPurchaseType(requestPurchase.data[0].purchase_type);
 
-        setOriginalPurchaseMethod(requestPurchase.data[0].purchase_method);
+        setOriginalPurchaseMethod(requestPurchase.data[0].purchase_type);
+        console.log('orig pm', requestPurchase.data[0].purchase_type)
 
         setMortgageId(requestMortgage.data[0].id);
         setMortgageAccountNumber(requestMortgage.data[0].account_number);
@@ -235,7 +236,8 @@ export default function PropertyEditView() {
         setPurchaseMethod(requestPurchase.data[0].purchase_method);
         setPurchaseType(requestPurchase.data[0].purchase_type);
 
-        setOriginalPurchaseMethod(requestPurchase.data[0].purchase_method);
+        setOriginalPurchaseMethod(requestPurchase.data[0].purchase_type);
+        console.log('orig pm', requestPurchase.data[0].purchase_type)
       }
     } catch (e) {
       //Alert saying api cannot be reached try again later
@@ -709,7 +711,7 @@ export default function PropertyEditView() {
               console.error("Error:", error);
             });
 
-          if (purchaseMethod === "Mortgage") {
+          if (purchaseType === 'Mortgage') {
             const mortgageData = {
               account_number: mortgageAccountNumber,
               property: response.data.id,
@@ -725,7 +727,7 @@ export default function PropertyEditView() {
               monthly_amount: monthlyAmount,
             };
 
-            if (originalPurchaseMethod === "cash") {
+            if (originalPurchaseMethod === 'Cash') {
               axios
                 .post(`${apiLocation}/mortgage-add/`, mortgageData)
                 .catch((error) => {
