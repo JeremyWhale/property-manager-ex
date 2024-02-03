@@ -521,7 +521,7 @@ export default function SettingsView({ setLoggedIn }) {
         <IcButton
           slot="actions"
           variant="tertiary"
-          href="https://1drv.ms/f/s!AoxbPYQvEhkPbSVhOPXiOdc2_4w?e=JUcI7O"
+          href="https://1drv.ms/f/s!AlsETmNsZjQugRU9pDFc8C-cMhg7?e=9LAhS2"
           target="_blank"
         >
           <HelpOutlined slot="left-icon" /> User Guide
