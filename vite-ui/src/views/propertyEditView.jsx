@@ -1584,11 +1584,11 @@ export default function PropertyEditView() {
                 onChange={(e) => setSelectedAgent(e.target.value)}
                 fullWidth
               >
-                {selectedAgent !== undefined && (
+                {/* {selectedAgent !== undefined && (
                   <MenuItem key={undefined} value={undefined}>
                     Deselect existing agent
                   </MenuItem>
-                )}
+                )} */}
                 {agentOptions.map((tenant, index) => (
                   <MenuItem key={index} value={tenant.id}>
                     {tenant.name}
@@ -1609,7 +1609,7 @@ export default function PropertyEditView() {
                 />
               </LocalizationProvider>
             </Grid>
-            {selectedAgent === undefined && (
+            {/* {selectedAgent === undefined && (
               <>
                 <Grid item xs={6}>
                   <TextField
@@ -1656,7 +1656,7 @@ export default function PropertyEditView() {
                   />
                 </Grid>
               </>
-            )}
+            )} */}
           </Grid>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>

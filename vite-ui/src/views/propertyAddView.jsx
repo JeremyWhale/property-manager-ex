@@ -405,58 +405,7 @@ export default function PropertyAddView() {
         .post(`${apiLocation}/agent-add/`, agentData)
         .then((response) => {
           setSelectedAgent(response.data.id);
-
-          if (
-            astLink !== "" &&
-            tenancyReviewDate !== "" &&
-            epcLink !== "" &&
-            epcReviewDate !== "" &&
-            escLink !== "" &&
-            escReviewDate !== "" &&
-            gscLink !== "" &&
-            gscReviewDate !== "" &&
-            inventoryLink !== "" &&
-            otherDocumentsLink !== ""
-          ) {
-            const propertyData = {
-              address_line_1: addressLine1,
-              address_line_2: addressLine2,
-              city: town,
-              county: county,
-              country: country,
-              post_code: postCode,
-              current_tenant: selectedTenant,
-              current_value: currentValue,
-              epc_renewal_date: epcReviewDate,
-              gas_certificate_renewal_date: gscReviewDate,
-              electrical_inspection_date: escReviewDate,
-              council_license_date: councilLicenseRenewalDate || "2000-01-01",
-              gas_supplier_details: selectedGasSupplier,
-              gas_account_number: gasAccountNumber,
-              electric_supplier_details: selectedElectricSupplier,
-              electric_account_number: electricAccountNumber,
-              water_supplier_details: selectedWaterSupplier,
-              water_account_number: waterAccountNumber,
-              entry_code: entryCode,
-              agent: response.data.id,
-              agent_start_date: agentStartDate,
-            };
-
-            console.log(propertyData);
-
-            axios
-              .post(`${apiLocation}/property-add/`, propertyData)
-              .then((response) => {
-                setPropertyId(response.data.id);
-              })
-              .catch((error) => {
-                console.error("Error:", error);
-              });
-          }
         })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
     }
 
     if (
@@ -1402,11 +1351,11 @@ export default function PropertyAddView() {
                 onChange={(e) => setSelectedAgent(e.target.value)}
                 fullWidth
               >
-                {selectedAgent !== undefined && (
+                {/* {selectedAgent !== undefined && (
                   <MenuItem key={undefined} value={undefined}>
                     Deselect existing agent
                   </MenuItem>
-                )}
+                )} */}
                 {agentOptions.map((tenant, index) => (
                   <MenuItem key={index} value={tenant.id}>
                     {tenant.name}
@@ -1427,7 +1376,7 @@ export default function PropertyAddView() {
                 />
               </LocalizationProvider>
             </Grid>
-            {selectedAgent === undefined && (
+            {/* {selectedAgent === undefined && (
               <>
                 <Grid item xs={6}>
                   <TextField
@@ -1474,7 +1423,7 @@ export default function PropertyAddView() {
                   />
                 </Grid>
               </>
-            )}
+            )} */}
           </Grid>
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>

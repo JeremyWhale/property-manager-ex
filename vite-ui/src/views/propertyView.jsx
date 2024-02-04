@@ -270,7 +270,6 @@ export default function PropertyView() {
         const request = await axios.get(
           `${apiLocation}/property-details/${selectedProperty}`
         );
-        console.log("returned data", request.data);
         const data = {
           id: request.data.id,
           addressLine1: request.data.address_line_1,
