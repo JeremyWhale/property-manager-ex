@@ -129,7 +129,7 @@ export default function IssueAddView() {
       !beenAllocated && setDateFixed("2000-01-01");
     }
     {
-      !beenAllocated && setSelectedContractorName(1);
+      !beenAllocated && setSelectedContractorName(contractorList[0].id);
     }
     {
       !beenFixed && beenAllocated && setDateFixed("2000-01-02");
@@ -147,8 +147,8 @@ export default function IssueAddView() {
       setDateFixedError(true);
     } else {
       if (!beenAllocated) {
-        setActiveStep(3);
         handleComplete();
+        setActiveStep(3);
       } else {
         const newActiveStep =
           isLastStep() && !allStepsCompleted()

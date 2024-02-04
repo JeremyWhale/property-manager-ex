@@ -175,7 +175,7 @@ export default function IssueEditView() {
       !beenAllocated && setDateFixed("2000-01-01");
     }
     {
-      !beenAllocated && setSelectedContractorName(1);
+      !beenAllocated && setSelectedContractorName(contractorList[0].id);
     }
     {
       !beenFixed && beenAllocated && setDateFixed("2000-01-02");
