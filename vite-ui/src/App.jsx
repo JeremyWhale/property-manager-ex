@@ -4,7 +4,7 @@ import SideNav from "./components/sideNav";
 import DashboardView from "./views/dashboardView";
 import PropertyView from "./views/propertyView";
 import { Box } from "@mui/material";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, HashRouter as BrowserRouter } from "react-router-dom";
 import IssueView from "./views/issueView";
 import SettingsView from "./views/settingsView";
 import LoginView from "./views/loginView";
