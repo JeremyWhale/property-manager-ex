@@ -53,8 +53,7 @@ export default function PropertyAddView() {
 
   const [currentValue, setCurrentValue] = useState("");
   const [entryCode, setEntryCode] = useState("");
-  const [councilLicenseRenewalDate, setCouncilLicenseRenewalsDue] =
-    useState("");
+  const [councilLicenseRenewalDate, setCouncilLicenseRenewalsDue] = useState("");
 
   const [gasSupplierOptions, setGasSupplierOptions] = useState([]);
   const [selectedGasSupplier, setSelectedGasSupplier] = useState("");
@@ -571,6 +570,67 @@ export default function PropertyAddView() {
   }
 
   const handleReset = () => {
+    //Tenancy details
+    setMoveInDate("")
+    setRentReviewDate("")
+    setTerm("")
+    setInitialRent("")
+    setCurrentRent("")
+    setAmountPaid("")
+    setSelectedPaymentMethod("Cash")
+    setDepositAmount("")
+    setWithDps(false)
+    setSelectedScheme("")
+    setDepositPolicyNumber("")
+
+    //Purchase details
+    setPurchaseDate("");
+    setPurchasePrice("");
+    setPurchaseType("");
+    setPurchaseMethod("");
+
+    //Purchase details - mortgage
+    setLenderName("");
+    setMortgageAccountNumber("");
+    setLenderAddress("");
+    setLenderPhoneNumber("");
+    setLenderEmail("");
+    setAmountBorrowed("");
+    setInterestRate("");
+    setMortgageTerm("");
+    setMortgageType("");
+    setMonthlyAmount("");
+    setMortgageRenewalDate("");
+
+    //Insure
+    setInsuranceCompany("");
+    setInsurancePolicyNumber("");
+    setInsuranceRenewalDate("");
+    setCurrentPremium("");
+    setPreviousPremium("");
+
+    //Agent
+    setSelectedAgent();
+    setAgentStartDate("");
+
+  // //Agent - new
+  // const [agentName, setAgentName] = useState("");
+  // const [agentAddress, setAgentAddress] = useState("");
+  // const [agentPhone, setAgentPhone] = useState("");
+  // const [agentEmail, setAgentEmail] = useState("");
+
+    //documents
+    setAstLink("");
+    setTenancyReviewDate("");
+    setEpcLink("");
+    setEpcReviewDate("");
+    setEscLink("");
+    setEscReviewDate("");
+    setGscLink("");
+    setGscReviewDate("");
+    setInventoryLink("");
+    setOtherDocumentsLink("");
+
     setActiveStep(0);
     setCompleted({});
   };
