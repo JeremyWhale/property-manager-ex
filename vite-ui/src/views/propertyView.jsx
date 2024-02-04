@@ -232,6 +232,8 @@ export default function PropertyView() {
   const [tenantHistoryAddMode, setTenantHistoryAddMode] = useState(false);
   const [agentHistoryAddMode, setAgentHistoryAddMode] = useState(false);
 
+  const [selectedIssueId, setSelectedIssueId] = useState()
+
   useEffect(() => {
     function checkForUrlId() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -367,6 +369,7 @@ export default function PropertyView() {
         .then((response) => {
           const data = response.data;
           const mappedRows = data.map((issue) => ({
+            id: issue.id,
             dateReported: issue.date_reported,
             property: issue.property,
             problem: issue.problem,
@@ -581,8 +584,9 @@ export default function PropertyView() {
   }, [selectedContractorName]);
 
   // Function to open the modal when the contractor name is clicked
-  const handleOpenModal = (contractorName) => {
+  const handleOpenModal = (contractorName, issueId) => {
     setSelectedContractorName(contractorName);
+    setSelectedIssueId(issueId)
   };
 
   // Function to close the modal
@@ -635,7 +639,7 @@ export default function PropertyView() {
               <Engineering slot="left-icon" /> Contactor Details
             </IcButton>
           )}
-          <IcButton slot="actions" variant="tertiary">
+          <IcButton slot="actions" variant="tertiary" onClick={() => navigate(`/issues/edit?issue=${selectedIssueId}`)}>
             <Edit slot="left-icon" /> Edit Issue
           </IcButton>
         </>
@@ -1096,7 +1100,7 @@ export default function PropertyView() {
                         sx={{ cursor: "pointer" }}
                         onClick={() => {
                           dateResolvedContent !== "Unallocated"
-                            ? handleOpenModal(row.contractor)
+                            ? handleOpenModal(row.contractor, row.id)
                             : setSelectedContractorName("None");
                         }} // Open modal when contractor name is clicked
                       >
