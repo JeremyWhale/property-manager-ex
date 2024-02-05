@@ -22,9 +22,12 @@ import apiLocation from "../components/apiLocation";
 import axios from "axios";
 import StaticAlert from "../components/staticAlert";
 import { useAppContext } from "../App.context";
+import generateAuthToken from "../components/auth";
 
 export default function SettingsView({ setLoggedIn }) {
-  const { currentUser, setCurrentUser } = useAppContext();
+  const { currentUser, setCurrentUser } = useAppContext()
+
+  const token = generateAuthToken()
 
   // Supplier
   const [supplierModalOpen, setSupplierModalOpen] = useState(false);
@@ -131,7 +134,7 @@ export default function SettingsView({ setLoggedIn }) {
 
     async function getDepositSchemes() {
       try {
-        const response = await axios.get(`${apiLocation}/deposit-scheme-list/`);
+        const response = await axios.get(`${apiLocation}/deposit-scheme-list/${token}`);
 
         // Convert the response data into your desired format
         const data = response.data.map((tenant) => ({

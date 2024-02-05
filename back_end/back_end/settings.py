@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-=atft10cqs$yl!m-%l$8qv2*9olrhz&gjrl5z42lt8dqoqs8ek
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = ['http://www.ajo-property-manager.co.uk:8000', 'http://127.0.0.1:8000']
 
 # Application definition
 
@@ -59,6 +59,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'back_end.urls'
 
 CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ALLOWED_ORIGINS = ['http://www.ajo-property-manager.co.uk', 'http://localhost:5173']
 
 TEMPLATES = [
     {

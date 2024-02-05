@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.http import Http404, JsonResponse
+from django.http import Http404, JsonResponse, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 from .models import Contractor, Issues, Property, Tenancy, Tenant, Purchase_details, Agent, Mortgage, Insurance, Urls, Gas_Supplier, Electric_Supplier, Water_Supplier, Deposit_scheme, Gas_Reading, Electric_Reading, Tenant_history, AgentHistory
@@ -9,9 +9,30 @@ from .serializers import ContractorSerializer, DashboardSerializer, FullProperty
 from datetime import date, timedelta
 from rest_framework import status
 from rest_framework.views import APIView
+from datetime import datetime
+import base64
+
+global_name = ''
+global_host_name = ''
+
+def authDecoded(token):
+    date = datetime.now().strftime('%Y-%m-%d')
+
+    string = global_name + ':forhttp://' + global_host_name + ':authon' + date
+
+    internal_encoded_bytes = base64.b64encode(string.encode('utf-8'))
+    internal_auth_token = internal_encoded_bytes.decode('utf-8')
+
+    if token == internal_auth_token:
+        return True
+    else:
+        return False
 
 @csrf_exempt
 def login_view(request):
+    global global_name
+    global global_host_name
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -20,14 +41,33 @@ def login_view(request):
         
         if user is not None:
             first_name = user.first_name
+
+            global_name = first_name
+            global_host_name = request.get_host()
+
+            #Auth format:  [first_name (do not provide)] + [:for] + [api location] + [:authon] + [date (do not provide)]
+            date = datetime.now().strftime('%Y-%m-%d')
+            auth_part_token = ':for' + request.get_host() + ':authon'
+
+            encoded_bytes = base64.b64encode(auth_part_token.encode('utf-8'))
+            auth_token = encoded_bytes.decode('utf-8')
+
             login(request, user)
-            return JsonResponse({'status': 'success', 'name': first_name})
+            return JsonResponse({'status': 'success', 'name': first_name, 'auth': auth_token})
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials.'})
         
 class DepositSchemeList(generics.ListAPIView):
-    queryset = Deposit_scheme.objects.all()
-    serializer_class = DepositSchemeSerializer
+    def get(self, request, token):
+        allow = authDecoded(token)
+
+        queryset = Deposit_scheme.objects.all()
+        serializer = DepositSchemeSerializer(queryset, many=True)
+
+        if allow == True:
+            return JsonResponse(serializer.data, safe=False)
+        else:
+            return HttpResponseForbidden()
 
 class DepositSchemeByName(generics.RetrieveAPIView):
     queryset = Deposit_scheme.objects.all()
