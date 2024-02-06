@@ -96,7 +96,7 @@ DATABASES = {
          'ENGINE': 'django.db.backends.postgresql_psycopg2',
          'NAME':'property-db',
          'USER':'postgres',
-         'PASSWORD':'x',
+         'PASSWORD':'PropertyApp',
          'HOST':'property-db.crikyc02wgmk.eu-west-2.rds.amazonaws.com',
          'PORT':'5432'
      }
