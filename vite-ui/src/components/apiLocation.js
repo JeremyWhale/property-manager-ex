@@ -1,3 +1,3 @@
-const apiLocation = 'http://www.ajo-property-manager.co.uk:8000'
+const apiLocation = 'http://0.0.0.0:8000'
 
 export default apiLocation;
