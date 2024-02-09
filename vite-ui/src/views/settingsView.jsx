@@ -27,8 +27,6 @@ import generateAuthToken from "../components/auth";
 export default function SettingsView({ setLoggedIn }) {
   const { currentUser, setCurrentUser } = useAppContext()
 
-  const token = generateAuthToken()
-
   // Supplier
   const [supplierModalOpen, setSupplierModalOpen] = useState(false);
   const [supplierEditModalOpen, setSupplierEditModalOpen] = useState(false);
@@ -134,7 +132,7 @@ export default function SettingsView({ setLoggedIn }) {
 
     async function getDepositSchemes() {
       try {
-        const response = await axios.get(`${apiLocation}/deposit-scheme-list/${token}`);
+        const response = await axios.get(`${apiLocation}/deposit-scheme-list/`);
 
         // Convert the response data into your desired format
         const data = response.data.map((tenant) => ({

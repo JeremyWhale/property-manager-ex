@@ -12,24 +12,8 @@ from rest_framework.views import APIView
 from datetime import datetime
 import base64
 
-global_host_name = ''
-
-def authDecoded(token):
-    date = datetime.now().strftime('%Y-%m-%d')
-
-    string = 'for:http://' + global_host_name + ':authon' + date
-
-    internal_encoded_bytes = base64.b64encode(string.encode('utf-8'))
-    internal_auth_token = internal_encoded_bytes.decode('utf-8')
-
-    if token == internal_auth_token:
-        return True
-    else:
-        return False
-
 @csrf_exempt
 def login_view(request):
-    global global_host_name
 
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -40,56 +24,23 @@ def login_view(request):
         if user is not None:
             first_name = user.first_name
 
-            global_host_name = request.get_host()
-
-            #Auth format:  [first_name (do not provide)] + [:for] + [api location] + [:authon] + [date (do not provide)]
-            date = datetime.now().strftime('%Y-%m-%d')
-            auth_part_token = ':for' + request.get_host() + ':authon'
-
-            encoded_bytes = base64.b64encode(auth_part_token.encode('utf-8'))
-            auth_token = encoded_bytes.decode('utf-8')
-
             login(request, user)
             return JsonResponse({'status': 'success', 'name': first_name})
         else:
             return JsonResponse({'status': 'error', 'message': 'Invalid credentials.'})
         
 class DepositSchemeList(generics.ListAPIView):
-    def get(self, request, token):
-        allow = authDecoded(token)
-
-        queryset = Deposit_scheme.objects.all()
-        serializer = DepositSchemeSerializer(queryset, many=True)
-
-        if allow == True:
-            return JsonResponse(serializer.data, safe=False)
-        else:
-            return HttpResponseForbidden()
+    queryset = Deposit_scheme.objects.all()
+    serializer_class = DepositSchemeSerializer
 
 class DepositSchemeByName(generics.RetrieveAPIView):
-    def get(self, request, token):
-        allow = authDecoded(token)
-
-        queryset = Deposit_scheme.objects.all()
-        serializer = DepositSchemeSerializer(queryset, many=True)
-        lookup_field = 'scheme_name'
-
-        if allow == True:
-            return JsonResponse(serializer.data, safe=False)
-        else:
-            return HttpResponseForbidden()
+    queryset = Deposit_scheme.objects.all()
+    serializer_class = DepositSchemeSerializer(queryset, many=True)
+    lookup_field = 'scheme_name'
 
 class IssuesList(generics.ListAPIView):
-    def get(self, request, token):
-        allow = authDecoded(token)
-
-        queryset = Issues.objects.all()
-        serializer = IssuesSerializer(queryset, many=True)
-
-        if allow == True:
-            return JsonResponse(serializer.data, safe=False)
-        else:
-            return HttpResponseForbidden()
+    queryset = Issues.objects.all()
+    serializer_class = IssuesSerializer
 
 class PropertyAddressListView(generics.ListAPIView):
     def get(self, request, token):
