@@ -17,9 +17,16 @@ import ReportView from "./views/reportView";
 import TenantEditView from "./views/tenantEditView";
 import PropertyEditView from "./views/propertyEditView";
 import { useAppContext } from "./App.context";
+import axios from "axios";
+import generateAuthToken from "./components/auth";
 
 function App() {
   const { currentUser } = useAppContext();
+
+  axios.interceptors.request.use((config) => {
+    config.params = { token: generateAuthToken() };
+    return config;
+  });
 
   return (
     <div className="App">
