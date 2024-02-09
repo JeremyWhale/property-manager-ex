@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-=atft10cqs$yl!m-%l$8qv2*9olrhz&gjrl5z42lt8dqoqs8ek
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 # ALLOWED_HOSTS = ['http://www.ajo-property-manager.co.uk:8000', 'http://127.0.0.1:8000']
 
 # Application definition
