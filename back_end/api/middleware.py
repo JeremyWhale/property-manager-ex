@@ -29,7 +29,7 @@ def AuthMiddleware(get_response):
 
         # Check if 'token' key exists in the query parameters
         if not token:
-            return HttpResponseForbidden("Token is missing")
+            return HttpResponseForbidden("403: AUTHENTICATION FAILED")
 
         date = datetime.now().strftime('%Y-%m-%d')
 
@@ -39,7 +39,7 @@ def AuthMiddleware(get_response):
         internal_auth_token = internal_encoded_bytes.decode('utf-8')
 
         if token != internal_auth_token:
-            return HttpResponseForbidden("Invalid token")
+            return HttpResponseForbidden("403: AUTHENTICATION FAILED")
 
         # Call the next middleware or view
         return get_response(request)
