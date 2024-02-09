@@ -43,16 +43,8 @@ class IssuesList(generics.ListAPIView):
     serializer_class = IssuesSerializer
 
 class PropertyAddressListView(generics.ListAPIView):
-    def get(self, request, token):
-        allow = authDecoded(token)
-
-        queryset = Property.objects.all()
-        serializer = PropertyAddressSerializer(queryset, many=True)
-
-        if allow == True:
-            return JsonResponse(serializer.data, safe=False)
-        else:
-            return HttpResponseForbidden()
+    queryset = Property.objects.all()
+    serializer_class = PropertyAddressSerializer
 
 class PropertyByAddressView(generics.RetrieveAPIView):
     queryset = Property.objects.all()
