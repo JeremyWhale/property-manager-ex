@@ -22,7 +22,7 @@ def AuthMiddleware(get_response):
         if request.path.startswith('/api/admin'):
             return get_response(request)
         
-        host = request.get_host()
+        host = "/api"
 
         # Extract the token from the query parameters using request.GET
         token = request.GET.get('token')
