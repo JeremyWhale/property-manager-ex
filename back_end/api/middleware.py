@@ -33,7 +33,7 @@ def AuthMiddleware(get_response):
 
         date = datetime.now().strftime('%Y-%m-%d')
 
-        string = 'for:http://' + host + ':authon' + date
+        string = 'for:' + host + ':authon' + date
 
         internal_encoded_bytes = base64.b64encode(string.encode('utf-8'))
         internal_auth_token = internal_encoded_bytes.decode('utf-8')
