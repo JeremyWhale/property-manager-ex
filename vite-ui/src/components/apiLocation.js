@@ -1,3 +1,3 @@
-const apiLocation = 'proeprty-manager-alb-625439156.eu-west-2.elb.amazonaws.com/api'
+const apiLocation = '/api'
 
 export default apiLocation;
