@@ -19,7 +19,7 @@ import base64
 def AuthMiddleware(get_response):
     def middleware(request):
 
-        if request.path.startswith('/admin'):
+        if request.path.startswith('/api/admin'):
             return get_response(request)
         
         host = request.get_host()
