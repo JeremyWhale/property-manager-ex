@@ -22,7 +22,10 @@ export default function LoginView() {
   function handleLogin() {
     setLoading(true);
     axios
-      .post(`${apiLocation}/login`, `username=${username}&password=${password}`)
+      .post(
+        `${apiLocation}/login/`,
+        `username=${username}&password=${password}`
+      )
       .then((response) => {
         const data = response.data;
         if (data.status === "success") {
