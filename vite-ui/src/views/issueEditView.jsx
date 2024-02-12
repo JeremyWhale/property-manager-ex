@@ -36,7 +36,7 @@ export default function IssueEditView() {
   const [beenAllocated, setBeenAllocated] = useState(false);
   const [propertyList, setPropertyList] = useState([]);
 
-  const [id, setId] = useState();
+  const id = issueToEdit;
 
   const [property, setProperty] = useState("");
   const [propertyError, setPropertyError] = useState(false);
@@ -98,8 +98,6 @@ export default function IssueEditView() {
         setDateFixed(response.data.date_fixed);
         setSelectedContractorName(response.data.contractor_responsible);
       }
-
-      setId(issue);
     }
 
     async function getPropertyList() {
