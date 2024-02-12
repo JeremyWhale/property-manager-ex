@@ -12,7 +12,8 @@ import { useAppContext } from "../App.context";
 export default function TenantView() {
   const navigate = useNavigate();
 
-  const { setTenantToEdit, setPropertySelected } = useAppContext();
+  const { setTenantToEdit, setPropertySelected, propertyTenant } =
+    useAppContext();
 
   const [tenantList, setTenantList] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState("");
@@ -22,11 +23,8 @@ export default function TenantView() {
 
   useEffect(() => {
     function checkForUrlId() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const preSelectedTenant = urlParams.get("tenant");
-
-      if (preSelectedTenant !== null) {
-        setSelectedTenant(preSelectedTenant);
+      if (propertyTenant !== "") {
+        setSelectedTenant(propertyTenant);
       }
     }
 
@@ -108,14 +106,14 @@ export default function TenantView() {
   }, [tenantDetails]);
 
   const handleEditSelect = () => {
-    setTenantToEdit(selectedTenant)
-    navigate(`/tenants/edit`)
-  }
+    setTenantToEdit(selectedTenant);
+    navigate(`/tenants/edit`);
+  };
 
   const handlePropertyClick = () => {
-    setPropertySelected(address)
-    navigate(`/properties`)
-  }
+    setPropertySelected(address);
+    navigate(`/properties`);
+  };
 
   return (
     <>
@@ -177,10 +175,7 @@ export default function TenantView() {
             ) : (
               <Typography>
                 <b>Property: </b>
-                <span
-                  className="linkText"
-                  onClick={handlePropertyClick}
-                >
+                <span className="linkText" onClick={handlePropertyClick}>
                   {address}
                 </span>
               </Typography>
