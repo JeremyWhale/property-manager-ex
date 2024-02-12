@@ -35,7 +35,7 @@ class DepositSchemeList(generics.ListAPIView):
 
 class DepositSchemeByName(generics.RetrieveAPIView):
     queryset = Deposit_scheme.objects.all()
-    serializer_class = DepositSchemeSerializer(queryset, many=True)
+    serializer_class = DepositSchemeSerializer
     lookup_field = 'scheme_name'
 
 class IssuesList(generics.ListAPIView):

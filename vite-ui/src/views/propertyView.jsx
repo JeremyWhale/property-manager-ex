@@ -50,6 +50,7 @@ import AgentHistory from "../components/AgentHIstoryModal";
 import AgentHistoryAdd from "../components/AgentHIstoryAdd";
 import formatDisplayDate from "../components/formatdisplayDate";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../App.context";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -192,6 +193,9 @@ EnhancedTableToolbar.propTypes = {
 
 export default function PropertyView() {
   const navigate = useNavigate();
+
+  const { propertySelected, setPropertyToEdit, setPropertyTenant, setIssueToEdit } = useAppContext() 
+
   const [propertyList, setPropertyList] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState("");
   const [propertyDetails, setPropertyDetails] = useState();
@@ -236,11 +240,9 @@ export default function PropertyView() {
 
   useEffect(() => {
     function checkForUrlId() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const preSelectedProperty = urlParams.get("property");
-
-      if (preSelectedProperty !== null) {
-        setSelectedProperty(preSelectedProperty);
+      console.log(propertySelected)
+      if (propertySelected !== '') {
+        setSelectedProperty(propertySelected);
       }
     }
 
@@ -626,6 +628,17 @@ export default function PropertyView() {
     setSelectedContractorName("");
   }, [selectedProperty, selectedInfoView]);
 
+  const handleEditSelect = () => {
+    setPropertyToEdit(selectedProperty)
+    setPropertyTenant(propertyDetails.currentTenant)
+    navigate(`/properties/edit`)
+  }
+
+  const handleIssueEditSelect = () => {
+    setIssueToEdit(selectedIssueId)
+    navigate('/issues/edit')
+  }
+
   function secondaryButtons() {
     if (selectedContractorName.length !== 0) {
       return (
@@ -639,7 +652,7 @@ export default function PropertyView() {
               <Engineering slot="left-icon" /> Contactor Details
             </IcButton>
           )}
-          <IcButton slot="actions" variant="tertiary" onClick={() => navigate(`/issues/edit?issue=${selectedIssueId}`)}>
+          <IcButton slot="actions" variant="tertiary" onClick={handleIssueEditSelect}>
             <Edit slot="left-icon" /> Edit Issue
           </IcButton>
         </>
@@ -1373,11 +1386,7 @@ export default function PropertyView() {
           <IcButton
             slot="actions"
             variant="tertiary"
-            onClick={() =>
-              navigate(
-                `/properties/edit?property=${propertyDetails.addressLine1}&tenant=${propertyDetails.currentTenant}`
-              )
-            }
+            onClick={handleEditSelect}
           >
             <Edit slot="left-icon" /> Edit Property
           </IcButton>

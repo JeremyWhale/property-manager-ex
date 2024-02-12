@@ -7,9 +7,12 @@ import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
 import formatDisplayDate from "../components/formatdisplayDate";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../App.context";
 
 export default function TenantView() {
   const navigate = useNavigate();
+
+  const { setTenantToEdit, setPropertySelected } = useAppContext();
 
   const [tenantList, setTenantList] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState("");
@@ -104,6 +107,16 @@ export default function TenantView() {
     getTenancyDetails();
   }, [tenantDetails]);
 
+  const handleEditSelect = () => {
+    setTenantToEdit(selectedTenant)
+    navigate(`/tenants/edit`)
+  }
+
+  const handlePropertyClick = () => {
+    setPropertySelected(address)
+    navigate(`/properties`)
+  }
+
   return (
     <>
       <IcPageHeader heading="Manage Tenants" reverseOrder>
@@ -120,7 +133,7 @@ export default function TenantView() {
           <IcButton
             slot="actions"
             variant="tertiary"
-            onClick={() => navigate(`/tenants/edit?tenant=${selectedTenant}`)}
+            onClick={handleEditSelect}
           >
             <Edit slot="left-icon" /> Edit Tenant
           </IcButton>
@@ -166,7 +179,7 @@ export default function TenantView() {
                 <b>Property: </b>
                 <span
                   className="linkText"
-                  onClick={() => navigate(`/properties?property=${address}`)}
+                  onClick={handlePropertyClick}
                 >
                   {address}
                 </span>

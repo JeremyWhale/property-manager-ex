@@ -19,6 +19,7 @@ import { visuallyHidden } from '@mui/utils';
 import { Add, Edit, Engineering } from "@mui/icons-material";
 import axios from "axios";
 import apiLocation from "./apiLocation";
+import formatDisplayDate from "./formatdisplayDate";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -206,7 +207,7 @@ export default function ElectricHistory(props) {
                       key={index}
                       sx={{ cursor: 'pointer' }}
                     >
-                      <TableCell align="left">{row.readingDate}</TableCell>
+                      <TableCell align="left">{formatDisplayDate(row.readingDate)}</TableCell>
                       <TableCell align="left">{row.tenant}</TableCell>
                       {/* <TableCell align="left">{row.supplier}</TableCell> */}
                       <TableCell align="left">{row.reading}</TableCell>

@@ -11,11 +11,14 @@ import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
 import { Delete } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../App.context";
 
 const steps = ["Tenant Details", "Emergency Contact Details"];
 
 export default function TenantEditView() {
   const navigate = useNavigate();
+
+  const { tenantToEdit } = useAppContext()
 
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
@@ -56,11 +59,8 @@ export default function TenantEditView() {
 
   useEffect(() => {
     async function getTenant() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const tenant = urlParams.get("tenant");
-
       const response = await axios.get(
-        `${apiLocation}/tenant-details/${tenant}`
+        `${apiLocation}/tenant-details/${tenantToEdit}`
       );
 
       setId(response.data.id);

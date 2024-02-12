@@ -7,9 +7,25 @@ export const AppProvider = ({ children }) => {
     localStorage.getItem("currentUser")
   );
 
+  const [propertyToEdit, setPropertyToEdit] = useState('')
+  const [propertyTenant, setPropertyTenant] = useState('')
+  const [tenantToEdit, setTenantToEdit] = useState('')
+  const [issueToEdit, setIssueToEdit] = useState('')
+  const [propertySelected, setPropertySelected] = useState('')
+
   const value = {
     currentUser,
     setCurrentUser,
+    propertyToEdit,
+    setPropertyToEdit,
+    propertyTenant,
+    setPropertyTenant,
+    tenantToEdit,
+    setTenantToEdit,
+    issueToEdit,
+    setIssueToEdit,
+    propertySelected,
+    setPropertySelected,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

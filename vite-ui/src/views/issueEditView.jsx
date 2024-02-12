@@ -21,11 +21,14 @@ import StaticAlert from "../components/staticAlert";
 import { Delete } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../App.context";
 
 const steps = ["Issue Details", "Contractor Details"];
 
 export default function IssueEditView() {
   const navigate = useNavigate();
+
+  const { issueToEdit } = useAppContext()
 
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
@@ -74,10 +77,8 @@ export default function IssueEditView() {
 
   useEffect(() => {
     async function getIssue() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const issue = urlParams.get("issue");
-
-      const response = await axios.get(`${apiLocation}/issue/${issue}`);
+      console.log('issue', issueToEdit)
+      const response = await axios.get(`${apiLocation}/issue/${issueToEdit}`);
 
       setProperty(response.data.property);
       setProblem(response.data.problem);

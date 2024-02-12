@@ -20,6 +20,7 @@ import apiLocation from "../components/apiLocation";
 import { Modal, Typography } from "@mui/material";
 import formatDisplayDate from "../components/formatdisplayDate";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../App.context";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -127,6 +128,9 @@ EnhancedTableHead.propTypes = {
 
 export default function IssueView() {
   const navigate = useNavigate();
+  
+  const { setIssueToEdit } = useAppContext()
+
   const [order, setOrder] = useState("desc");
   const [orderBy, setOrderBy] = useState("dateReported");
   const [selected, setSelected] = useState([]);
@@ -225,6 +229,11 @@ export default function IssueView() {
     [order, orderBy, page, rowsPerPage, rows]
   );
 
+  const handleIssueEditSelect = () => {
+    setIssueToEdit(selectedIssueId)
+    navigate('/issues/edit')
+  }
+
   return (
     <>
       <IcPageHeader heading="Property Issues">
@@ -242,7 +251,7 @@ export default function IssueView() {
             <IcButton
               slot="actions"
               variant="tertiary"
-              onClick={() => navigate(`/issues/edit?issue=${selectedIssueId}`)}
+              onClick={handleIssueEditSelect}
             >
               <Edit slot="left-icon" /> Edit Issue
             </IcButton>

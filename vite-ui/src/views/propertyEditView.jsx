@@ -26,6 +26,7 @@ import StaticAlert from "../components/staticAlert";
 import { Delete, SettingsPower } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "../App.context";
 
 const steps = [
   "Property Details",
@@ -38,6 +39,8 @@ const steps = [
 
 export default function PropertyEditView() {
   const navigate = useNavigate();
+
+  const { propertyToEdit, propertyTenant } = useAppContext()
 
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
@@ -306,15 +309,11 @@ export default function PropertyEditView() {
 
   useEffect(() => {
     async function getPropertyInfo() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const property = urlParams.get("property");
-      const tenant = urlParams.get("tenant");
-
-      getPropertyDetails(property);
-      getPurchaseDetails(property);
-      getInsuranceDetails(property);
-      getUrls(property);
-      getTenancyDetails(tenant);
+      getPropertyDetails(propertyToEdit);
+      getPurchaseDetails(propertyToEdit);
+      getInsuranceDetails(propertyToEdit);
+      getUrls(propertyToEdit);
+      getTenancyDetails(propertyTenant);
     }
 
     async function getTenantList() {
