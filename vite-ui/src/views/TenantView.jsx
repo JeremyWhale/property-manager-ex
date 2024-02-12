@@ -12,7 +12,8 @@ import { useAppContext } from "../App.context";
 export default function TenantView() {
   const navigate = useNavigate();
 
-  const { setTenantToEdit, setPropertySelected } = useAppContext();
+  const { setTenantToEdit, setPropertySelected, propertyTenant } =
+    useAppContext();
 
   const [tenantList, setTenantList] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState("");
