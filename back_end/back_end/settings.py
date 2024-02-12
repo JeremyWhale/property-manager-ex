@@ -31,6 +31,8 @@ ALLOWED_HOSTS = ["*", "https://ajo-property-manager.co.uk"]
 
 CSRF_TRUSTED_ORIGINS = ["*", "https://ajo-property-manager.co.uk"]
 
+CORD_ORIGIN_WHITELIST = ["*", "https://ajo-property-manager.co.uk"]
+
 # Application definition
 
 INSTALLED_APPS = [
