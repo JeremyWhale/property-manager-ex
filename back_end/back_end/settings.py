@@ -29,6 +29,8 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 # ALLOWED_HOSTS = ['http://www.ajo-property-manager.co.uk:8000', 'http://127.0.0.1:8000']
 
+CSRF_TRUSTED_ORIGINS = ["*"]
+
 # Application definition
 
 INSTALLED_APPS = [
