@@ -194,7 +194,12 @@ EnhancedTableToolbar.propTypes = {
 export default function PropertyView() {
   const navigate = useNavigate();
 
-  const { propertySelected, setPropertyToEdit, setPropertyTenant, setIssueToEdit } = useAppContext() 
+  const {
+    propertySelected,
+    setPropertyToEdit,
+    setPropertyTenant,
+    setIssueToEdit,
+  } = useAppContext();
 
   const [propertyList, setPropertyList] = useState([]);
   const [selectedProperty, setSelectedProperty] = useState("");
@@ -236,12 +241,12 @@ export default function PropertyView() {
   const [tenantHistoryAddMode, setTenantHistoryAddMode] = useState(false);
   const [agentHistoryAddMode, setAgentHistoryAddMode] = useState(false);
 
-  const [selectedIssueId, setSelectedIssueId] = useState()
+  const [selectedIssueId, setSelectedIssueId] = useState();
 
   useEffect(() => {
     function checkForUrlId() {
-      console.log(propertySelected)
-      if (propertySelected !== '') {
+      console.log(propertySelected);
+      if (propertySelected !== "") {
         setSelectedProperty(propertySelected);
       }
     }
@@ -588,7 +593,7 @@ export default function PropertyView() {
   // Function to open the modal when the contractor name is clicked
   const handleOpenModal = (contractorName, issueId) => {
     setSelectedContractorName(contractorName);
-    setSelectedIssueId(issueId)
+    setSelectedIssueId(issueId);
   };
 
   // Function to close the modal
@@ -629,15 +634,20 @@ export default function PropertyView() {
   }, [selectedProperty, selectedInfoView]);
 
   const handleEditSelect = () => {
-    setPropertyToEdit(selectedProperty)
-    setPropertyTenant(propertyDetails.currentTenant)
-    navigate(`/properties/edit`)
-  }
+    setPropertyToEdit(selectedProperty);
+    setPropertyTenant(propertyDetails.currentTenant);
+    navigate(`/properties/edit`);
+  };
 
   const handleIssueEditSelect = () => {
-    setIssueToEdit(selectedIssueId)
-    navigate('/issues/edit')
-  }
+    setIssueToEdit(selectedIssueId);
+    navigate("/issues/edit");
+  };
+
+  const handleTenantClick = () => {
+    setPropertyTenant(propertyDetails.currentTenant);
+    navigate("/tenants");
+  };
 
   function secondaryButtons() {
     if (selectedContractorName.length !== 0) {
@@ -652,7 +662,11 @@ export default function PropertyView() {
               <Engineering slot="left-icon" /> Contactor Details
             </IcButton>
           )}
-          <IcButton slot="actions" variant="tertiary" onClick={handleIssueEditSelect}>
+          <IcButton
+            slot="actions"
+            variant="tertiary"
+            onClick={handleIssueEditSelect}
+          >
             <Edit slot="left-icon" /> Edit Issue
           </IcButton>
         </>
@@ -834,12 +848,7 @@ export default function PropertyView() {
           <Grid item xs={4}>
             <Typography>
               <b>Tenant: </b>
-              <span
-                className="linkText"
-                onClick={() =>
-                  navigate(`/tenants?tenant=${propertyDetails.currentTenant}`)
-                }
-              >
+              <span className="linkText" onClick={handleTenantClick}>
                 {propertyDetails.currentTenant}
               </span>
             </Typography>
