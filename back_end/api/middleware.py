@@ -19,10 +19,10 @@ import base64
 def AuthMiddleware(get_response):
     def middleware(request):
 
-        if request.path.startswith('/admin'):
+        if request.path.startswith('/api/admin'):
             return get_response(request)
         
-        host = request.get_host()
+        host = "/api"
 
         # Extract the token from the query parameters using request.GET
         token = request.GET.get('token')
@@ -33,10 +33,13 @@ def AuthMiddleware(get_response):
 
         date = datetime.now().strftime('%Y-%m-%d')
 
-        string = 'for:http://' + host + ':authon' + date
+        string = 'for:' + host + ':authon' + date
 
         internal_encoded_bytes = base64.b64encode(string.encode('utf-8'))
         internal_auth_token = internal_encoded_bytes.decode('utf-8')
+
+        print('token is:', token)
+        print('token should be:', internal_auth_token)
 
         if token != internal_auth_token:
             return HttpResponseForbidden("403: AUTHENTICATION FAILED")

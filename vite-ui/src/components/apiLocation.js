@@ -1,3 +1,3 @@
-const apiLocation = 'http://localhost:8000'
+const apiLocation = '/api'
 
 export default apiLocation;
