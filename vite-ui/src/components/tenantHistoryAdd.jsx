@@ -96,6 +96,8 @@ export default function TenantHistoryAdd(props){
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker label="Move in date" color={moveInDate === '' && ('error')} onChange={(date) => setMoveInDate(formatDate(date))} fullWidth/>
                 </LocalizationProvider>
+            </Grid>
+            <Grid item xs={12}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker label="Move out date" color={moveOutDate === '' && ('error')} onChange={(date) => setMoveOutDate(formatDate(date))} fullWidth/>
                 </LocalizationProvider>
