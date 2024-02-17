@@ -1,27 +1,18 @@
 from datetime import datetime
 import base64
 from django.http import HttpResponseForbidden
-from urllib import parse
-
-from django.http import HttpResponseForbidden
-from urllib import parse
-from datetime import datetime
-import base64
-
-from django.http import HttpResponseForbidden
-from datetime import datetime
-import base64
-
-from django.http import HttpResponseForbidden
-from datetime import datetime
-import base64
+from django.views.decorators.csrf import csrf_exempt
 
 def AuthMiddleware(get_response):
     def middleware(request):
-
+        # Allow requests to '/api/admin' without authentication
         if request.path.startswith('/api/admin'):
             return get_response(request)
         
+        # Exempt CSRF protection for PUT, POST, and DELETE requests
+        if request.method in ['PUT', 'POST', 'DELETE']:
+            return csrf_exempt(get_response)(request)
+
         host = "/api"
 
         # Extract the token from the query parameters using request.GET
@@ -48,4 +39,3 @@ def AuthMiddleware(get_response):
         return get_response(request)
 
     return middleware
-

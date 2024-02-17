@@ -29,9 +29,9 @@ DEBUG = True
 ALLOWED_HOSTS = ["*", "https://ajo-property-manager.co.uk"]
 # ALLOWED_HOSTS = ['http://www.ajo-property-manager.co.uk:8000', 'http://127.0.0.1:8000']
 
-CSRF_TRUSTED_ORIGINS = ["*", "https://ajo-property-manager.co.uk"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:8000", "https://ajo-property-manager.co.uk"]
 
-CORD_ORIGIN_WHITELIST = ["*", "https://ajo-property-manager.co.uk"]
+CORS_ORIGIN_WHITELIST = ["http://localhost:8000", "https://ajo-property-manager.co.uk"]
 
 # Application definition
 
