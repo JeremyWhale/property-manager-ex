@@ -1,15 +1,14 @@
 from django.db import models
 
-# Tenant model
 class Tenant(models.Model):
     full_name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=13)
-    email = models.EmailField()
-    bank_sort_code = models.CharField(max_length=8)
-    bank_account_number = models.CharField(max_length=8)
-    emergency_contact_name = models.CharField(max_length=50)
-    emergency_contact_phone_number = models.CharField(max_length=13)
-    emergency_contact_email = models.EmailField()
+    phone_number = models.CharField(max_length=13, blank=True)
+    email = models.EmailField(blank=True)
+    bank_sort_code = models.CharField(max_length=8, blank=True)
+    bank_account_number = models.CharField(max_length=8, blank=True)
+    emergency_contact_name = models.CharField(max_length=50, blank=True)
+    emergency_contact_phone_number = models.CharField(max_length=13, blank=True)
+    emergency_contact_email = models.EmailField(blank=True)
 
     def __str__(self):
         return self.full_name

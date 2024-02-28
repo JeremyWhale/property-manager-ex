@@ -69,18 +69,6 @@ export default function TenantAddView() {
   const handleNext = () => {
     if (name === "") {
       setNameError(true);
-    }
-    if (phoneNumber === "") {
-      setPhoneNumberError(true);
-    }
-    if (email === "") {
-      setEmailError(true);
-    }
-    if (sortCode === "") {
-      setSortCodeError(true);
-    }
-    if (accountNumber === "") {
-      setAccountNumberError(true);
     } else {
       const newActiveStep =
         isLastStep() && !allStepsCompleted()
@@ -101,39 +89,29 @@ export default function TenantAddView() {
   };
 
   const handleComplete = () => {
-    if (emergencyContactName === "") {
-      setEmergencyContactNameError(true);
-    }
-    if (emergencyContactPhone === "") {
-      setEmergencyContactPhoneError(true);
-    }
-    if (emergencyContactEmail === "") {
-      setEmergencyContactEmailError(true);
-    } else {
-      const data = {
-        full_name: name,
-        phone_number: phoneNumber,
-        email: email,
-        bank_sort_code: sortCode,
-        bank_account_number: accountNumber,
-        emergency_contact_name: emergencyContactName,
-        emergency_contact_phone_number: emergencyContactPhone,
-        emergency_contact_email: emergencyContactEmail,
-      };
-      axios
-        .post(`${apiLocation}/tenant-add/`, data)
-        .then((response) => {
-          setUploadSuccess(true);
-        })
-        .catch((error) => {
-          setUploadSuccess(false);
-          console.error("Error:", error);
-        });
-      const newCompleted = completed;
-      newCompleted[activeStep] = true;
-      setCompleted(newCompleted);
-      setActiveStep(3);
-    }
+    const data = {
+      full_name: name,
+      phone_number: phoneNumber,
+      email: email,
+      bank_sort_code: sortCode,
+      bank_account_number: accountNumber,
+      emergency_contact_name: emergencyContactName,
+      emergency_contact_phone_number: emergencyContactPhone,
+      emergency_contact_email: emergencyContactEmail,
+    };
+    axios
+      .post(`${apiLocation}/tenant-add/`, data)
+      .then((response) => {
+        setUploadSuccess(true);
+      })
+      .catch((error) => {
+        setUploadSuccess(false);
+        console.error("Error:", error);
+      });
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    setActiveStep(3);
   };
 
   const handleReset = () => {
