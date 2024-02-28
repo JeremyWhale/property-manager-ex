@@ -97,18 +97,7 @@ export default function TenantEditView() {
     if (name === "") {
       setNameError(true);
     }
-    if (phoneNumber === "") {
-      setPhoneNumberError(true);
-    }
-    if (email === "") {
-      setEmailError(true);
-    }
-    if (sortCode === "") {
-      setSortCodeError(true);
-    }
-    if (accountNumber === "") {
-      setAccountNumberError(true);
-    } else {
+    else {
       const newActiveStep =
         isLastStep() && !allStepsCompleted()
           ? // It's the last step, but not all steps have been completed,
@@ -128,15 +117,6 @@ export default function TenantEditView() {
   };
 
   const handleComplete = () => {
-    if (emergencyContactName === "") {
-      setEmergencyContactNameError(true);
-    }
-    if (emergencyContactPhone === "") {
-      setEmergencyContactPhoneError(true);
-    }
-    if (emergencyContactEmail === "") {
-      setEmergencyContactEmailError(true);
-    } else {
       const data = {
         id: id,
         full_name: name,
@@ -161,7 +141,6 @@ export default function TenantEditView() {
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
       setActiveStep(3);
-    }
   };
 
   async function handleDelete() {

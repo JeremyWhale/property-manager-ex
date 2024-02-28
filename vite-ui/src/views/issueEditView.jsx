@@ -246,21 +246,7 @@ export default function IssueEditView() {
       if (name === "") {
         setNameError(true);
       }
-      if (address == "") {
-        setAddressError(true);
-      }
-      if (phoneNumber === "") {
-        setPhoneNumberError(true);
-      }
-      if (email === "") {
-        setEmailError(true);
-      }
-      if (sortCode === "") {
-        setSortCodeError(true);
-      }
-      if (accountNumber === "") {
-        setAccountNumberError(true);
-      } else {
+      else {
         const contractorData = {
           name: name,
           address: address,

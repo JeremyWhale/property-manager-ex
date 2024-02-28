@@ -16,33 +16,33 @@ class Tenant(models.Model):
 # Agent model
 class Agent(models.Model):
     name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=13)
-    email = models.EmailField()
-    address = models.TextField()
+    phone_number = models.CharField(max_length=13, blank=True)
+    email = models.EmailField(blank=True)
+    address = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
 
 class Gas_Supplier(models.Model):
     name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=13)
-    email = models.EmailField()
+    phone_number = models.CharField(max_length=13, blank=True)
+    email = models.EmailField(blank=True)
 
     def __str__(self):
         return self.name
 
 class Electric_Supplier(models.Model):
     name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=13)
-    email = models.EmailField()
+    phone_number = models.CharField(max_length=13, blank=True)
+    email = models.EmailField(blank=True)
 
     def __str__(self):
         return self.name
 
 class Water_Supplier(models.Model):
     name = models.CharField(max_length=50)
-    phone_number = models.CharField(max_length=13)
-    email = models.EmailField()
+    phone_number = models.CharField(max_length=13, blank=True)
+    email = models.EmailField(blank=True)
 
     def __str__(self):
         return self.name
@@ -148,11 +148,11 @@ class Purchase_details(models.Model):
 # Contractors model
 class Contractor(models.Model):
     name = models.CharField(max_length=30)
-    address = models.TextField()
-    phone_number = models.CharField(max_length=13)
-    email = models.EmailField()
-    bank_sort_code = models.CharField(max_length=8)
-    bank_account_number = models.CharField(max_length=8)
+    address = models.TextField(blank=True)
+    phone_number = models.CharField(max_length=13, blank=True)
+    email = models.EmailField(blank=True)
+    bank_sort_code = models.CharField(max_length=8, blank=True)
+    bank_account_number = models.CharField(max_length=8, blank=True)
 
     def __str__(self):
         return self.name
@@ -184,8 +184,8 @@ class Tenant_history(models.Model):
 #Deposit scheme name
 class Deposit_scheme(models.Model):
     scheme_name = models.CharField(max_length=50)
-    scheme_contact_number = models.CharField(max_length=13)
-    scheme_email = models.EmailField()
+    scheme_contact_number = models.CharField(max_length=13, blank=True)
+    scheme_email = models.EmailField(blank=True)
 
     def __str__(self):
         return self.scheme_name

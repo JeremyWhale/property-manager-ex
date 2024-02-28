@@ -707,9 +707,7 @@ export default function SettingsView({ setLoggedIn }) {
                 startIcon={<UploadOutlined />}
                 disabled={
                   supplierType === "" ||
-                  supplierName === "" ||
-                  supplierEmail === "" ||
-                  supplierPhone === ""
+                  supplierName === ""
                 }
                 onClick={() => handleSupplierAdd()}
               >
@@ -789,7 +787,7 @@ export default function SettingsView({ setLoggedIn }) {
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
-                disabled={dsName === "" || dsPhone === "" || dsEmail === ""}
+                disabled={dsName === ""}
                 onClick={() => handleDsAdd()}
               >
                 Upload Deposit Scheme
@@ -880,10 +878,7 @@ export default function SettingsView({ setLoggedIn }) {
                 variant="contained"
                 startIcon={<UploadOutlined />}
                 disabled={
-                  agentName === "" ||
-                  agentPhone === "" ||
-                  agentEmail === "" ||
-                  agentAddress === ""
+                  agentName === ""
                 }
                 onClick={() => handleAgentAdd()}
               >
@@ -999,14 +994,7 @@ export default function SettingsView({ setLoggedIn }) {
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
-                disabled={
-                  cName === "" ||
-                  cAddress === "" ||
-                  cPhone === "" ||
-                  cEmail === "" ||
-                  cSortCode === "" ||
-                  cBankAccount === ""
-                }
+                disabled={cName === ""}
                 onClick={() => handleContractorAdd()}
               >
                 Upload Contractor
@@ -1144,10 +1132,7 @@ export default function SettingsView({ setLoggedIn }) {
                 startIcon={<UploadOutlined />}
                 disabled={
                   supplierType === "" ||
-                  supplierName === "" ||
-                  supplierEmail === "" ||
-                  supplierPhone === "" ||
-                  selectedSupplier === ""
+                  supplierName === ""
                 }
                 onClick={() => handleSupplierEdit()}
               >
@@ -1245,7 +1230,7 @@ export default function SettingsView({ setLoggedIn }) {
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
-                disabled={dsName === "" || dsPhone === "" || dsEmail === ""}
+                disabled={dsName === ""}
                 onClick={() => handleDsEdit()}
               >
                 Upload Edited Deposit Scheme
@@ -1356,13 +1341,7 @@ export default function SettingsView({ setLoggedIn }) {
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
-                disabled={
-                  agentName === "" ||
-                  agentPhone === "" ||
-                  agentEmail === "" ||
-                  agentAddress === "" ||
-                  selectedAgent === ""
-                }
+                disabled={agentName === ""}
                 onClick={() => handleAgentEdit()}
               >
                 Upload Edited Agent
@@ -1495,15 +1474,7 @@ export default function SettingsView({ setLoggedIn }) {
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
-                disabled={
-                  cName === "" ||
-                  cAddress === "" ||
-                  cPhone === "" ||
-                  cEmail === "" ||
-                  cSortCode === "" ||
-                  cBankAccount === "" ||
-                  selectedContractor === ""
-                }
+                disabled={cName === ""}
                 onClick={() => handleContractorEdit()}
               >
                 Upload Edited Contractor
