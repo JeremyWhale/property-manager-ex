@@ -656,7 +656,7 @@ export default function SettingsView({ setLoggedIn }) {
                 variant="outlined"
                 id="demo-simple-select"
                 value={supplierType}
-                label="Supplier Type"
+                label="Supplier Type (required)"
                 select
                 onChange={(e) => setSupplierType(e.target.value)}
                 fullWidth
@@ -671,7 +671,7 @@ export default function SettingsView({ setLoggedIn }) {
             <Grid item xs={12}>
               <TextField
                 id="outlined-basic"
-                label="Supplier Name"
+                label="Supplier Name (required)"
                 variant="outlined"
                 fullWidth
                 color={supplierName === "" && "error"}
@@ -753,7 +753,7 @@ export default function SettingsView({ setLoggedIn }) {
             <Grid item xs={12}>
               <TextField
                 id="outlined-basic"
-                label="Scheme Name"
+                label="Scheme Name (required)"
                 variant="outlined"
                 fullWidth
                 color={dsName === "" && "error"}
@@ -832,7 +832,7 @@ export default function SettingsView({ setLoggedIn }) {
             <Grid item xs={12}>
               <TextField
                 id="outlined-basic"
-                label="Agent Name"
+                label="Agent Name (required)"
                 variant="outlined"
                 fullWidth
                 color={agentName === "" && "error"}
@@ -927,7 +927,7 @@ export default function SettingsView({ setLoggedIn }) {
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
-                label="Contractor Name"
+                label="Contractor Name (required)"
                 variant="outlined"
                 fullWidth
                 color={cName === "" && "error"}
@@ -1096,7 +1096,7 @@ export default function SettingsView({ setLoggedIn }) {
             <Grid item xs={12}>
               <TextField
                 id="outlined-basic"
-                label="Supplier Name"
+                label="Supplier Name (required)"
                 variant="outlined"
                 fullWidth
                 color={supplierName === "" && "error"}
@@ -1196,7 +1196,7 @@ export default function SettingsView({ setLoggedIn }) {
             <Grid item xs={12}>
               <TextField
                 id="outlined-basic"
-                label="Scheme Name"
+                label="Scheme Name (required)"
                 variant="outlined"
                 fullWidth
                 color={dsName === "" && "error"}
@@ -1296,7 +1296,7 @@ export default function SettingsView({ setLoggedIn }) {
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
-                label="Agent Name"
+                label="Agent Name (required)"
                 variant="outlined"
                 fullWidth
                 color={agentName === "" && "error"}
@@ -1407,7 +1407,7 @@ export default function SettingsView({ setLoggedIn }) {
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
-                label="Contractor Name"
+                label="Contractor Name (required)"
                 variant="outlined"
                 fullWidth
                 color={cName === "" && "error"}

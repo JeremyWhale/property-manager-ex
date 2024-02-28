@@ -87,7 +87,7 @@ export default function TenantView() {
       ) {
         try {
           const response = await axios.get(
-            `${apiLocation}/tenancy-details/${selectedTenant}`
+            `${apiLocation}/tenancy-details/${tenantDetails.addressLine1}`
           );
 
           setMoveInDate(formatDisplayDate(response.data[0].move_in_date));

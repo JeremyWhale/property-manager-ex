@@ -144,7 +144,7 @@ export default function TenantAddView() {
             <Grid item xs={12}>
               <TextField
                 id="outlined-basic"
-                label="Name"
+                label="Name (required)"
                 variant="outlined"
                 fullWidth
                 color={nameError && "error"}
