@@ -23,8 +23,20 @@ import generateAuthToken from "./components/auth";
 function App() {
   const { currentUser } = useAppContext();
 
+  function getCSRFToken() {
+    const cookieValue = document.cookie.match(/csrftoken=([^;]+)/);
+    console.log('cv:', cookieValue)
+    return cookieValue ? cookieValue[1] : null;
+}
+
   axios.interceptors.request.use((config) => {
     config.params = { token: generateAuthToken() };
+
+    const csrfToken = getCSRFToken();
+    if (csrfToken) {
+        config.headers['X-CSRFToken'] = csrfToken;
+    }
+    
     return config;
   });
 
