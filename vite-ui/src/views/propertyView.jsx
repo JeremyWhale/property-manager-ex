@@ -800,8 +800,7 @@ export default function PropertyView() {
           <Grid item xs={6}>
             <Typography>
               <b>Current value: </b>
-              {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-              {propertyDetails.currentValue}
+              £{propertyDetails.currentValue}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -819,8 +818,7 @@ export default function PropertyView() {
           <Grid item xs={6}>
             <Typography>
               <b>Purchase Price: </b>
-              {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-              {purchaseDetails.purchasePrice}
+              £{purchaseDetails.purchasePrice}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -840,8 +838,7 @@ export default function PropertyView() {
     if (
       selectedInfoView === "TD" &&
       propertyDetails !== undefined &&
-      tenancyDetails !== undefined &&
-      depositDetails !== undefined
+      tenancyDetails !== undefined
     ) {
       return (
         <Grid container spacing={2} sx={{ paddingTop: 2 }}>
@@ -888,31 +885,27 @@ export default function PropertyView() {
           <Grid item xs={4}>
             <Typography>
               <b>Initial Rent: </b>
-              {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-              {tenancyDetails.initialRentAmount}
+              £{tenancyDetails.initialRentAmount}
             </Typography>
           </Grid>
 
           <Grid item xs={4}>
             <Typography>
               <b>Current Rent: </b>
-              {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-              {tenancyDetails.currentRentAmount}
+              £{tenancyDetails.currentRentAmount}
             </Typography>
           </Grid>
           <Grid item xs={4}>
             <Typography>
               <b>Amount paid: </b>
-              {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-              {tenancyDetails.amountPaid}
+              £{tenancyDetails.amountPaid}
             </Typography>
           </Grid>
           {/* Row */}
           <Grid item xs={4}>
             <Typography>
               <b>Deposit Amount: </b>
-              {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-              {tenancyDetails.depositAmount}
+              £{tenancyDetails.depositAmount}
             </Typography>
           </Grid>
           {/* Row */}
@@ -1009,8 +1002,7 @@ export default function PropertyView() {
             <Grid item xs={6}>
               <Typography>
                 <b>Amount Borrowed: </b>
-                {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-                {purchaseDetails.ammountBorrowed}
+                £{purchaseDetails.ammountBorrowed}
               </Typography>
             </Grid>
             {/* Row */}
@@ -1062,8 +1054,7 @@ export default function PropertyView() {
             <Grid item xs={6}>
               <Typography>
                 <b>Monthly Amount: </b>
-                {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-                {purchaseDetails.monthlyAmount}
+                £{purchaseDetails.monthlyAmount}
               </Typography>
             </Grid>
           </Grid>
@@ -1228,15 +1219,13 @@ export default function PropertyView() {
           <Grid item xs={6}>
             <Typography>
               <b>Premium: </b>
-              {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-              {insuranceDetails.premium}
+              £{insuranceDetails.premium}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <Typography>
               <b>Previous Premium: </b>
-              {propertyDetails.country == "United Kingdom" ? "£" : "$"}
-              {insuranceDetails.prevPremium}
+              £{insuranceDetails.prevPremium}
             </Typography>
           </Grid>
           <Grid item xs={6}>
@@ -1330,6 +1319,17 @@ export default function PropertyView() {
           </Grid>
         </Grid>
       );
+    }
+    if(
+      selectedInfoView === "A" &&
+      propertyDetails.agent === null
+    ) {
+      return(
+        <StaticAlert
+          type="warning"
+          message="No agent assigned to this property"
+        />
+      )
     }
     if (
       selectedInfoView === "A" &&

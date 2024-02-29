@@ -25,7 +25,6 @@ function App() {
 
   function getCSRFToken() {
     const cookieValue = document.cookie.match(/csrftoken=([^;]+)/);
-    console.log('cv:', cookieValue)
     return cookieValue ? cookieValue[1] : null;
 }
 
@@ -36,7 +35,7 @@ function App() {
     if (csrfToken) {
         config.headers['X-CSRFToken'] = csrfToken;
     }
-    
+
     return config;
   });
 
