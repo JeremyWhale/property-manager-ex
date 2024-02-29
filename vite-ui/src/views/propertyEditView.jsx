@@ -285,7 +285,7 @@ export default function PropertyEditView() {
   async function getTenancyDetails(tenant) {
     try {
       const response = await axios.get(
-        `${apiLocation}/tenancy-details/${tenant}`
+        `${apiLocation}/tenancy-details/${addressLine1}`
       );
 
       setTenancyId(response.data[0].id);
@@ -456,106 +456,25 @@ export default function PropertyEditView() {
   };
 
   function handle0Next() {
-    if (
-      addressLine1 !== "" &&
-      addressLine2 !== "" &&
-      town !== "" &&
-      county !== "" &&
-      country !== "" &&
-      postCode !== "" &&
-      currentValue !== "" &&
-      entryCode !== "" &&
-      selectedGasSupplier !== "" &&
-      selectedElectricSupplier !== "" &&
-      selectedWaterSupplier !== "" &&
-      councilLicenseRenewalDate !== "" &&
-      gasAccountNumber !== "" &&
-      electricAccountNumber !== "" &&
-      waterAccountNumber !== ""
-    ) {
+    if (addressLine1 !== "") {
       handleNext();
     }
   }
 
   function handle1Next() {
-    if (
-      moveInDate !== "" &&
-      rentReviewDate !== "" &&
-      term !== "" &&
-      initialRent !== "" &&
-      currentRent !== "" &&
-      amountPaid !== "" &&
-      selectedPaymentMethod !== "" &&
-      depositAmount !== "" &&
-      withDps !== "" &&
-      selectedScheme !== "" &&
-      depositPolicyNumber !== ""
-    ) {
-      handleNext();
-    }
+    handleNext();
   }
 
   function handle2Next() {
-    if (purchaseType === "Cash") {
-      if (
-        purchaseDate !== "" &&
-        purchasePrice !== "" &&
-        purchaseMethod !== "" &&
-        purchaseType !== ""
-      ) {
-        handleNext();
-      }
-    } else {
-      if (
-        purchaseDate !== "" &&
-        purchasePrice !== "" &&
-        purchaseMethod !== "" &&
-        purchaseType !== "" &&
-        lenderName !== "" &&
-        mortgageAccountNumber !== "" &&
-        lenderAddress !== "" &&
-        lenderPhoneNumber !== "" &&
-        lenderEmail !== "" &&
-        amountBorrowed !== "" &&
-        interestRate !== "" &&
-        monthlyAmount !== "" &&
-        mortgageTerm !== "" &&
-        mortgageType !== "" &&
-        mortgageRenewalDate !== ""
-      ) {
-        handleNext();
-      }
-    }
+    handleNext();
   }
 
   function handle3Next() {
-    if (
-      insuranceCompany !== "" &&
-      insurancePolicyNumber !== "" &&
-      insuranceRenewalDate !== "" &&
-      currentPremium !== "" &&
-      previousPremium !== ""
-    ) {
-      handleNext();
-    }
+    handleNext();
   }
 
   function handle4Next() {
-    if (selectedAgent === undefined) {
-      if (
-        agentStartDate !== "" &&
-        agentName !== "" &&
-        agentAddress !== "" &&
-        agentPhone !== "" &&
-        agentEmail !== ""
-      ) {
-        handleNext();
-      }
-    } else {
-      if (selectedAgent !== "" && agentStartDate !== "") {
-        handleNext();
-      }
-    }
+    handleNext();
   }
 
   const handleBack = () => {
@@ -629,18 +548,6 @@ export default function PropertyEditView() {
         });
     }
 
-    if (
-      astLink !== "" &&
-      tenancyReviewDate !== "" &&
-      epcLink !== "" &&
-      epcReviewDate !== "" &&
-      escLink !== "" &&
-      escReviewDate !== "" &&
-      gscLink !== "" &&
-      gscReviewDate !== "" &&
-      inventoryLink !== "" &&
-      otherDocumentsLink !== ""
-    ) {
       const propertyData = {
         address_line_1: addressLine1,
         address_line_2: addressLine2,
@@ -782,24 +689,10 @@ export default function PropertyEditView() {
         .catch((error) => {
           console.error("Error:", error);
         });
-    }
   };
 
   function handle5Next() {
-    if (
-      astLink !== "" &&
-      tenancyReviewDate !== "" &&
-      epcLink !== "" &&
-      epcReviewDate !== "" &&
-      escLink !== "" &&
-      escReviewDate !== "" &&
-      gscLink !== "" &&
-      gscReviewDate !== "" &&
-      inventoryLink !== "" &&
-      otherDocumentsLink !== ""
-    ) {
-      handleComplete();
-    }
+    handleComplete();
   }
 
   const handleReset = () => {
@@ -1037,7 +930,7 @@ export default function PropertyEditView() {
                 variant="outlined"
                 id="demo-simple-select"
                 value={selectedTenant}
-                label="Select Tenant"
+                label="Select Tenant (required)"
                 select
                 onChange={(e) => setSelectedTenant(e.target.value)}
                 color={selectedTenant === "" && "error"}

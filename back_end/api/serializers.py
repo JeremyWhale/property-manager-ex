@@ -68,11 +68,6 @@ class FullPropertySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PropertyAddSerializer(serializers.ModelSerializer):
-    current_tenant = serializers.PrimaryKeyRelatedField(queryset=Tenant.objects.all())
-    agent = serializers.PrimaryKeyRelatedField(queryset=Agent.objects.all())
-    gas_supplier_details = serializers.PrimaryKeyRelatedField(queryset=Gas_Supplier.objects.all())
-    electric_supplier_details = serializers.PrimaryKeyRelatedField(queryset=Electric_Supplier.objects.all())
-    water_supplier_details = serializers.PrimaryKeyRelatedField(queryset=Water_Supplier.objects.all())
 
     class Meta:
         model = Property
@@ -139,7 +134,6 @@ class TenancyDetailsSerializer(serializers.ModelSerializer):
 
 class TenancyAddSerializer(serializers.ModelSerializer):
     property = serializers.PrimaryKeyRelatedField(queryset=Property.objects.all())
-    scheme_name = serializers.PrimaryKeyRelatedField(queryset=Deposit_scheme.objects.all())
 
     class Meta:
         model = Tenancy

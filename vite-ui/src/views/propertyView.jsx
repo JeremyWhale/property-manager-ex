@@ -456,7 +456,7 @@ export default function PropertyView() {
     async function getTenancyDetails() {
       try {
         const response = await axios.get(
-          `${apiLocation}/tenancy-details/${propertyDetails.currentTenant}`
+          `${apiLocation}/tenancy-details/${propertyDetails.addressLine1}`
         );
 
         // Convert the response data into your desired format

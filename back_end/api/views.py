@@ -65,8 +65,8 @@ class TenancyDetailView(generics.RetrieveAPIView):
     serializer_class = TenancyDetailsSerializer
     queryset = Tenancy.objects.all()
 
-    def get(self, request, by_tenant_name):
-        tenancies = Tenancy.objects.filter(tenant__full_name=by_tenant_name)
+    def get(self, request, address_line_1):
+        tenancies = Tenancy.objects.filter(property__address_line_1=address_line_1)
         serializer = TenancyDetailsSerializer(tenancies, many=True)
         return JsonResponse(serializer.data, safe=False)
 
@@ -515,12 +515,17 @@ class InsuranceEditView(APIView):
         
 class PropertyCreateView(APIView):
     def post(self, request, *args, **kwargs):
+        # Deserialize request data
         serializer = PropertyAddSerializer(data=request.data)
+        
+        # Check if data is valid
         if serializer.is_valid():
+            # Save the valid data
             serializer.save()
-            
-            response = Response(serializer.data, status=status.HTTP_201_CREATED)
-            return response
+            # Return a success response
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        # Return error response if data is not valid
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PropertyEditView(APIView):

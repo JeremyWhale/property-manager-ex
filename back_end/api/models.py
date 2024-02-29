@@ -50,26 +50,26 @@ class Water_Supplier(models.Model):
 # Property model
 class Property(models.Model):
     address_line_1 = models.TextField()
-    address_line_2 = models.TextField()
-    city = models.CharField(max_length=20)
-    county = models.CharField(max_length=20)
-    country = models.CharField(max_length=20)
-    post_code = models.CharField(max_length=10)
-    current_tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='properties')
-    current_value = models.FloatField()
-    epc_renewal_date = models.DateField()
-    gas_certificate_renewal_date = models.DateField()
-    electrical_inspection_date = models.DateField()
-    council_license_date = models.DateField()
-    gas_supplier_details = models.ForeignKey(Gas_Supplier, on_delete=models.CASCADE)
-    gas_account_number = models.CharField(max_length=20)
-    electric_supplier_details = models.ForeignKey(Electric_Supplier, on_delete=models.CASCADE)
-    electric_account_number = models.CharField(max_length=20)
-    water_supplier_details = models.ForeignKey(Water_Supplier, on_delete=models.CASCADE)
-    water_account_number = models.CharField(max_length=20)
-    entry_code = models.CharField(max_length=10)
-    agent = models.ForeignKey(Agent, on_delete=models.CASCADE)
-    agent_start_date = models.DateField()
+    address_line_2 = models.TextField(blank=True)
+    city = models.CharField(max_length=20, blank=True)
+    county = models.CharField(max_length=20, blank=True)
+    country = models.CharField(max_length=20, blank=True)
+    post_code = models.CharField(max_length=10, blank=True)
+    current_tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, related_name='properties', blank=True, null=True)
+    current_value = models.CharField(max_length=10, blank=True)
+    epc_renewal_date = models.CharField(max_length=10, blank=True)
+    gas_certificate_renewal_date = models.CharField(max_length=10, blank=True)
+    electrical_inspection_date = models.CharField(max_length=10, blank=True)
+    council_license_date = models.CharField(max_length=10, blank=True)
+    gas_supplier_details = models.CharField(max_length=50, blank=True, null=True)
+    gas_account_number = models.CharField(max_length=20, blank=True)
+    electric_supplier_details = models.CharField(max_length=50, blank=True, null=True)
+    electric_account_number = models.CharField(max_length=20, blank=True, null=True)
+    water_supplier_details = models.CharField(max_length=50, blank=True, null=True)
+    water_account_number = models.CharField(max_length=20, blank=True)
+    entry_code = models.CharField(max_length=10, blank=True)
+    agent = models.CharField(max_length=50, blank=True, null=True)
+    agent_start_date = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return self.address_line_1
@@ -85,12 +85,12 @@ class AgentHistory(models.Model):
 
 # Insurance model
 class Insurance(models.Model):
-    insurance_number = models.CharField(max_length=20)
+    insurance_number = models.CharField(max_length=20, blank=True)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    company = models.CharField(max_length=30)
-    premium = models.FloatField()
-    previous_premium = models.FloatField()
-    renewal_due = models.DateField()
+    company = models.CharField(max_length=30, blank=True)
+    premium = models.CharField(max_length=10, blank=True)
+    previous_premium = models.CharField(max_length=10, blank=True)
+    renewal_due = models.CharField(max_length=10, blank=True)
 
     def __str__(self):
         return self.insurance_number
@@ -117,18 +117,18 @@ class Electric_Reading(models.Model):
 
 # Mortgage model
 class Mortgage(models.Model):
-    account_number = models.CharField(max_length=20)
+    account_number = models.CharField(max_length=20, blank=True)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    amount_borrowed = models.FloatField()
-    interest_rate = models.FloatField()
-    term = models.PositiveIntegerField()
-    renewal_date = models.DateField()
-    lender_name = models.CharField(max_length=20)
-    lender_address = models.TextField()
-    lender_email = models.EmailField()
-    lender_phone_number = models.CharField(max_length=13)
-    mortgage_type = models.CharField(max_length=20) # Add choices for mortgage type
-    monthly_amount = models.FloatField()
+    amount_borrowed = models.CharField(max_length=10, blank=True)
+    interest_rate = models.CharField(max_length=10, blank=True)
+    term = models.CharField(max_length=10, blank=True)
+    renewal_date = models.CharField(max_length=10, blank=True)
+    lender_name = models.CharField(max_length=20, blank=True)
+    lender_address = models.TextField(blank=True)
+    lender_email = models.EmailField(blank=True)
+    lender_phone_number = models.CharField(max_length=13, blank=True)
+    mortgage_type = models.CharField(max_length=20, blank=True) # Add choices for mortgage type
+    monthly_amount = models.CharField(max_length=10, blank=True)
 
 
     def __str__(self):
@@ -137,10 +137,10 @@ class Mortgage(models.Model):
 # Purchase details model
 class Purchase_details(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    purchase_price = models.FloatField()
-    purchase_date = models.DateField()
-    purchase_method = models.CharField(max_length=20) # Add choices for method
-    purchase_type = models.CharField(max_length=20) # Add choices for cash/mortgage
+    purchase_price = models.CharField(max_length=10, blank=True)
+    purchase_date = models.CharField(max_length=10, blank=True)
+    purchase_method = models.CharField(max_length=20, blank=True) # Add choices for method
+    purchase_type = models.CharField(max_length=20, blank=True) # Add choices for cash/mortgage
 
     def __str__(self):
         return self.property.address_line_1
@@ -193,32 +193,32 @@ class Deposit_scheme(models.Model):
 # Tenancy model
 class Tenancy(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE)
-    move_in_date = models.DateField()
-    contract_term = models.PositiveIntegerField() # in months
-    initial_rent_amount = models.FloatField()
-    current_rent_amount = models.FloatField()
-    payment_method = models.CharField(max_length=16) # options of cash or dd
-    amount_paid = models.FloatField()
-    rent_review_date = models.DateField()
-    tenancy_renewal_date = models.DateField()
-    deposit_amount = models.FloatField()
-    deposit_lodged_with_dps = models.BooleanField(default=False)
-    scheme_name = models.ForeignKey(Deposit_scheme, on_delete=models.CASCADE)
-    scheme_policy_number = models.CharField(max_length=50)
+    tenant = models.ForeignKey(Tenant, on_delete=models.CASCADE, blank=True, null=True)
+    move_in_date = models.CharField(max_length=10, blank=True)
+    contract_term = models.CharField(max_length=10, blank=True)
+    initial_rent_amount = models.CharField(max_length=10, blank=True)
+    current_rent_amount = models.CharField(max_length=10, blank=True)
+    payment_method = models.CharField(max_length=16, blank=True) # options of cash or dd
+    amount_paid = models.CharField(max_length=10, blank=True)
+    rent_review_date = models.CharField(max_length=10, blank=True)
+    tenancy_renewal_date = models.CharField(max_length=10, blank=True)
+    deposit_amount = models.CharField(max_length=10, blank=True)
+    deposit_lodged_with_dps = models.BooleanField(default=False, blank=True)
+    scheme_name = models.CharField(max_length=50, blank=True, null=True)
+    scheme_policy_number = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
-        return f'{self.property.address_line_1} {self.tenant}'
+        return f'{self.property.address_line_1}'
 
 # URL modal
 class Urls(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    ast_url = models.TextField()
-    epc_url = models.TextField()
-    electrical_cert_url = models.TextField()
-    gas_safety_url = models.TextField()
-    inventory_url = models.TextField()
-    other_docs_url = models.TextField()
+    ast_url = models.TextField(blank=True)
+    epc_url = models.TextField(blank=True)
+    electrical_cert_url = models.TextField(blank=True)
+    gas_safety_url = models.TextField(blank=True)
+    inventory_url = models.TextField(blank=True)
+    other_docs_url = models.TextField(blank=True)
 
     def __str__(self):
         return self.property.address_line_1
