@@ -612,7 +612,7 @@ export default function PropertyAddView() {
                 fullWidth
               >
                 {gasSupplierOptions.map((tenant, index) => (
-                  <MenuItem key={index} value={tenant.id}>
+                  <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
                 ))}
@@ -655,7 +655,7 @@ export default function PropertyAddView() {
                 fullWidth
               >
                 {electricSupplierOptions.map((tenant, index) => (
-                  <MenuItem key={index} value={tenant.id}>
+                  <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
                 ))}
@@ -708,7 +708,7 @@ export default function PropertyAddView() {
                 fullWidth
               >
                 {waterSupplierOptions.map((tenant, index) => (
-                  <MenuItem key={index} value={tenant.id}>
+                  <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
                 ))}
@@ -921,7 +921,7 @@ export default function PropertyAddView() {
                 fullWidth
               >
                 {dpsSchemeOptions.map((tenant, index) => (
-                  <MenuItem key={index} value={tenant.id}>
+                  <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
                 ))}
@@ -1296,7 +1296,7 @@ export default function PropertyAddView() {
                   </MenuItem>
                 )} */}
                 {agentOptions.map((tenant, index) => (
-                  <MenuItem key={index} value={tenant.id}>
+                  <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
                 ))}

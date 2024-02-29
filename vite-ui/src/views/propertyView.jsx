@@ -1322,6 +1322,7 @@ export default function PropertyView() {
     }
     if(
       selectedInfoView === "A" &&
+      propertyDetails !== undefined &&
       propertyDetails.agent === null
     ) {
       return(
