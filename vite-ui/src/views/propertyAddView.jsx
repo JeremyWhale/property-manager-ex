@@ -282,7 +282,7 @@ export default function PropertyAddView() {
   };
 
   function handle0Next() {
-    if (addressLine1 !== "") {
+    if (addressLine1 !== "" && selectedTenant !== "") {
       handleNext();
     }
   }

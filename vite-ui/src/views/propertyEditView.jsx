@@ -456,7 +456,7 @@ export default function PropertyEditView() {
   };
 
   function handle0Next() {
-    if (addressLine1 !== "") {
+    if (addressLine1 !== "" && selectedTenant !== "") {
       handleNext();
     }
   }
