@@ -233,6 +233,7 @@ class ContractorList(generics.ListAPIView):
 
 #Add views
 class TenantCreate(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = TenantSerializer(data=request.data)
         if serializer.is_valid():
@@ -241,6 +242,7 @@ class TenantCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TenantEdit(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         # 'id' is the primary key or record ID provided in the URL
         instance = self.get_object(id)
@@ -258,6 +260,7 @@ class TenantEdit(APIView):
             raise Http404
 
 class TenantDelete(APIView):
+    @csrf_exempt
     def delete(self, request, id, *args, **kwargs):
         try:
             tenant = Tenant.objects.get(id=id)
@@ -268,6 +271,7 @@ class TenantDelete(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class IssueCreate(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = IssuesAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -276,6 +280,7 @@ class IssueCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class IssueEdit(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         # 'id' is the primary key or record ID provided in the URL
         instance = self.get_object(id)
@@ -293,6 +298,7 @@ class IssueEdit(APIView):
             raise Http404
 
 class IssueDelete(APIView):
+    @csrf_exempt
     def delete(self, request, id, *args, **kwargs):
         try:
             tenant = Issues.objects.get(id=id)
@@ -303,6 +309,7 @@ class IssueDelete(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class ContractorCreate(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = ContractorSerializer(data=request.data)
         if serializer.is_valid():
@@ -316,6 +323,7 @@ class ContractorCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ContractorEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = ContractorSerializer(instance, data=request.data)
@@ -338,6 +346,7 @@ class GasSupplierSerializer(generics.ListAPIView):
     serializer_class = GasSerializer
 
 class GasSupplierCreate(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = GasSerializer(data=request.data)
         if serializer.is_valid():
@@ -348,6 +357,7 @@ class GasSupplierCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class GasSupplierEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = GasSerializer(instance, data=request.data)
@@ -370,6 +380,7 @@ class ElectricSupplierSerializer(generics.ListAPIView):
     serializer_class = ElectricSerializer
 
 class ElectricSupplierCreate(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = ElectricSerializer(data=request.data)
         if serializer.is_valid():
@@ -380,6 +391,7 @@ class ElectricSupplierCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ElectricSupplierEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = ElectricSerializer(instance, data=request.data)
@@ -402,6 +414,7 @@ class WaterSupplierSerializer(generics.ListAPIView):
     serializer_class = WaterSerializer
 
 class WaterSupplierCreate(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = WaterSerializer(data=request.data)
         if serializer.is_valid():
@@ -412,6 +425,7 @@ class WaterSupplierCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class WaterSupplierEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = WaterSerializer(instance, data=request.data)
@@ -430,6 +444,7 @@ class WaterSupplierEditView(APIView):
             raise Http404
 
 class DepositSchemeCreate(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = DepositSchemeSerializer(data=request.data)
         if serializer.is_valid():
@@ -440,6 +455,7 @@ class DepositSchemeCreate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class DepositSchemeEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = DepositSchemeSerializer(instance, data=request.data)
@@ -458,6 +474,7 @@ class DepositSchemeEditView(APIView):
             raise Http404
     
 class AgentCreateView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = AgentSerializer(data=request.data)
         if serializer.is_valid():
@@ -468,6 +485,7 @@ class AgentCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class AgentEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = AgentSerializer(instance, data=request.data)
@@ -486,6 +504,7 @@ class AgentEditView(APIView):
             raise Http404
         
 class InsuranceCreateView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = InsuranceAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -496,6 +515,7 @@ class InsuranceCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class InsuranceEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = InsuranceAddSerializer(instance, data=request.data)
@@ -514,6 +534,7 @@ class InsuranceEditView(APIView):
             raise Http404
         
 class PropertyCreateView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         # Deserialize request data
         serializer = PropertyAddSerializer(data=request.data)
@@ -529,6 +550,7 @@ class PropertyCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class PropertyEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = PropertyAddSerializer(instance, data=request.data)
@@ -547,6 +569,7 @@ class PropertyEditView(APIView):
             raise Http404
 
 class PropertyDeleteView(APIView):
+    @csrf_exempt
     def delete(self, request, id, *args, **kwargs):
         try:
             property = Property.objects.get(id=id)
@@ -557,6 +580,7 @@ class PropertyDeleteView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class TenancyCreateView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = TenancyAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -567,6 +591,7 @@ class TenancyCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class TenancyEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = TenancyAddSerializer(instance, data=request.data)
@@ -585,6 +610,7 @@ class TenancyEditView(APIView):
             raise Http404
         
 class PurchaseDetailsCreateView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = PurchaseDetailsAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -595,6 +621,7 @@ class PurchaseDetailsCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
   
 class PurchaseDetailsEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = PurchaseDetailsAddSerializer(instance, data=request.data)
@@ -613,6 +640,7 @@ class PurchaseDetailsEditView(APIView):
             raise Http404
         
 class MortgageCreateView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = MortgageAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -623,6 +651,7 @@ class MortgageCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MortgageEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = MortgageAddSerializer(instance, data=request.data)
@@ -641,6 +670,7 @@ class MortgageEditView(APIView):
             raise Http404
           
 class UrlCreateView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = UrlAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -651,6 +681,7 @@ class UrlCreateView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class UrlEditView(APIView):
+    @csrf_exempt
     def put(self, request, id, *args, **kwargs):
         instance = self.get_object(id)
         serializer = UrlAddSerializer(instance, data=request.data)
@@ -696,6 +727,7 @@ class TenantHistoryGet(generics.ListAPIView):
         return JsonResponse(serializer.data, safe=False)
 
 class TenantHistoryAddView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = TenantHistoryAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -715,6 +747,7 @@ class AgentHistoryGet(generics.ListAPIView):
         return JsonResponse(serializer.data, safe=False)
 
 class AgentHistoryAddView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = AgentHistoryAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -725,6 +758,7 @@ class AgentHistoryAddView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class GasHistoryAddView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = GasHistoryAddSerializer(data=request.data)
         if serializer.is_valid():
@@ -735,6 +769,7 @@ class GasHistoryAddView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ElectricHistoryAddView(APIView):
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = ElectricHistoryAddSerializer(data=request.data)
         if serializer.is_valid():
