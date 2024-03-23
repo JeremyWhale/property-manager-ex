@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IcPageHeader } from "@ukic/react";
+import { IcButton, IcPageHeader } from "@ukic/react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -25,6 +25,7 @@ import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { Storage, TaskAlt } from "@mui/icons-material";
 
 const steps = [
   "Property Details",
@@ -449,6 +450,30 @@ export default function PropertyAddView() {
   }
 
   const handleReset = () => {
+    setUploadSuccess(false)
+    setPropertyId()
+    setAddressLine1('')
+    setAddressLine2('')
+    setTown('')
+    setCounty('')
+    setCountry('')
+    setPostCode('')
+
+    setCurrentValue('')
+    setEntryCode('')
+    setCouncilLicenseRenewalsDue('')
+
+    setSelectedGasSupplier('')
+    setGasAccountNumber('')
+
+    setSelectedElectricSupplier('')
+    setElectricAccountNumber('')
+
+    setSelectedWaterSupplier('')
+    setWaterAccountNumber('')
+
+    setSelectedTenant('')
+
     //Tenancy details
     setMoveInDate("")
     setRentReviewDate("")
@@ -514,6 +539,10 @@ export default function PropertyAddView() {
     setCompleted({});
   };
 
+  useEffect(() => {
+    handleReset()
+  }, [])
+
   function handleStepShow() {
     // Property details
     if (activeStep === 0) {
@@ -544,7 +573,6 @@ export default function PropertyAddView() {
                 label="Amount"
                 value={currentValue}
                 onChange={(e) => setCurrentValue(e.target.value)}
-                color={currentValue === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -556,7 +584,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={addressLine2}
                 onChange={(e) => setAddressLine2(e.target.value)}
-                color={addressLine2 === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -567,20 +594,18 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={entryCode}
                 onChange={(e) => setEntryCode(e.target.value)}
-                color={entryCode === "" && "error"}
                 fullWidth
               />
             </Grid>
             <Grid item xs={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label="Council License Renewal Date"
+                  label="Council Tax Renewal Date"
                   format="DD/MM/YYYY"
                   value={dayjs(councilLicenseRenewalDate)}
                   onChange={(date) =>
                     setCouncilLicenseRenewalsDue(formatDate(date))
                   }
-                  color={councilLicenseRenewalDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -594,7 +619,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={town}
                 onChange={(e) => setTown(e.target.value)}
-                color={town === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -608,7 +632,6 @@ export default function PropertyAddView() {
                 label="Select Gas Supplier"
                 select
                 onChange={(e) => setSelectedGasSupplier(e.target.value)}
-                color={selectedGasSupplier === "" && "error"}
                 fullWidth
               >
                 {gasSupplierOptions.map((tenant, index) => (
@@ -625,7 +648,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={gasAccountNumber}
                 onChange={(e) => setGasAccountNumber(e.target.value)}
-                color={gasAccountNumber === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -637,7 +659,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={county}
                 onChange={(e) => setCounty(e.target.value)}
-                color={county === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -651,7 +672,6 @@ export default function PropertyAddView() {
                 label="Select Electric Supplier"
                 select
                 onChange={(e) => setSelectedElectricSupplier(e.target.value)}
-                color={selectedElectricSupplier === "" && "error"}
                 fullWidth
               >
                 {electricSupplierOptions.map((tenant, index) => (
@@ -668,7 +688,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={electricAccountNumber}
                 onChange={(e) => setElectricAccountNumber(e.target.value)}
-                color={electricAccountNumber === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -683,7 +702,6 @@ export default function PropertyAddView() {
                 label="Country"
                 select
                 onChange={(e) => setCountry(e.target.value)}
-                color={country === "" && "error"}
                 fullWidth
               >
                 <MenuItem key={0} value={"United Kingdom"}>
@@ -704,7 +722,6 @@ export default function PropertyAddView() {
                 label="Select Water Supplier"
                 select
                 onChange={(e) => setSelectedWaterSupplier(e.target.value)}
-                color={selectedWaterSupplier === "" && "error"}
                 fullWidth
               >
                 {waterSupplierOptions.map((tenant, index) => (
@@ -721,7 +738,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={waterAccountNumber}
                 onChange={(e) => setWaterAccountNumber(e.target.value)}
-                color={waterAccountNumber === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -733,7 +749,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={postCode}
                 onChange={(e) => setPostCode(e.target.value)}
-                color={postCode === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -785,7 +800,6 @@ export default function PropertyAddView() {
                   label="Move in date"
                   value={dayjs(moveInDate)}
                   onChange={(date) => setMoveInDate(formatDate(date))}
-                  color={moveInDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -797,7 +811,6 @@ export default function PropertyAddView() {
                   format="DD/MM/YYYY"
                   value={dayjs(rentReviewDate)}
                   onChange={(date) => setRentReviewDate(formatDate(date))}
-                  color={rentReviewDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -809,7 +822,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={term}
                 onChange={(e) => setTerm(e.target.value)}
-                color={term === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -825,7 +837,6 @@ export default function PropertyAddView() {
                 label="Amount"
                 value={initialRent}
                 onChange={(e) => setInitialRent(e.target.value)}
-                color={initialRent === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -841,7 +852,6 @@ export default function PropertyAddView() {
                 label="Amount"
                 value={currentRent}
                 onChange={(e) => setCurrentRent(e.target.value)}
-                color={currentRent === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -857,7 +867,6 @@ export default function PropertyAddView() {
                 label="Amount"
                 value={amountPaid}
                 onChange={(e) => setAmountPaid(e.target.value)}
-                color={amountPaid === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -871,14 +880,22 @@ export default function PropertyAddView() {
                 label="Select Payment Method"
                 select
                 onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-                color={selectedPaymentMethod === "" && "error"}
                 fullWidth
               >
                 <MenuItem key={0} value={"Cash"}>
+                  Bank Transfer
+                </MenuItem>
+                <MenuItem key={0} value={"Cash"}>
                   Cash
+                </MenuItem>
+                <MenuItem key={0} value={"Cash"}>
+                  Credit Card
                 </MenuItem>
                 <MenuItem key={1} value={"Direct Debit"}>
                   Direct Debit
+                </MenuItem>
+                <MenuItem key={0} value={"Cash"}>
+                  Standing Order
                 </MenuItem>
               </TextField>
             </Grid>
@@ -894,7 +911,6 @@ export default function PropertyAddView() {
                 label="Amount"
                 value={depositAmount}
                 onChange={(e) => setDepositAmount(e.target.value)}
-                color={depositAmount === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -917,7 +933,6 @@ export default function PropertyAddView() {
                 label="Select Deposit Scheme"
                 select
                 onChange={(e) => setSelectedScheme(e.target.value)}
-                color={selectedScheme === "" && "error"}
                 fullWidth
               >
                 {dpsSchemeOptions.map((tenant, index) => (
@@ -934,7 +949,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={depositPolicyNumber}
                 onChange={(e) => setDepositPolicyNumber(e.target.value)}
-                color={depositPolicyNumber === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -962,7 +976,6 @@ export default function PropertyAddView() {
                   format="DD/MM/YYYY"
                   value={dayjs(purchaseDate)}
                   onChange={(date) => setPurchaseDate(formatDate(date))}
-                  color={purchaseDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -979,7 +992,6 @@ export default function PropertyAddView() {
                 label="Amount"
                 value={purchasePrice}
                 onChange={(e) => setPurchasePrice(e.target.value)}
-                color={purchasePrice === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -993,7 +1005,6 @@ export default function PropertyAddView() {
                 label="Purchase Method"
                 select
                 onChange={(e) => setPurchaseMethod(e.target.value)}
-                color={purchaseMethod === "" && "error"}
                 fullWidth
               >
                 <MenuItem key={0} value={"Agent"}>
@@ -1017,7 +1028,6 @@ export default function PropertyAddView() {
                 label="Purchase type"
                 select
                 onChange={(e) => setPurchaseType(e.target.value)}
-                color={purchaseType === "" && "error"}
                 fullWidth
               >
                 <MenuItem key={"Cash"} value={"Cash"}>
@@ -1037,7 +1047,6 @@ export default function PropertyAddView() {
                     variant="outlined"
                     value={lenderName}
                     onChange={(e) => setLenderName(e.target.value)}
-                    color={lenderName === "" && "error"}
                     fullWidth
                   />
                 </Grid>
@@ -1053,7 +1062,6 @@ export default function PropertyAddView() {
                     label="Amount"
                     value={amountBorrowed}
                     onChange={(e) => setAmountBorrowed(e.target.value)}
-                    color={amountBorrowed === "" && "error"}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -1063,7 +1071,6 @@ export default function PropertyAddView() {
                     variant="outlined"
                     value={mortgageAccountNumber}
                     onChange={(e) => setMortgageAccountNumber(e.target.value)}
-                    color={mortgageAccountNumber === "" && "error"}
                     fullWidth
                   />
                 </Grid>
@@ -1079,7 +1086,6 @@ export default function PropertyAddView() {
                     label="Amount"
                     value={interestRate}
                     onChange={(e) => setInterestRate(e.target.value)}
-                    color={interestRate === "" && "error"}
                   />
                 </Grid>
                 <Grid item xs={3}>
@@ -1094,7 +1100,6 @@ export default function PropertyAddView() {
                     label="Amount"
                     value={monthlyAmount}
                     onChange={(e) => setMonthlyAmount(e.target.value)}
-                    color={monthlyAmount === "" && "error"}
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -1104,7 +1109,6 @@ export default function PropertyAddView() {
                     variant="outlined"
                     value={lenderAddress}
                     onChange={(e) => setLenderAddress(e.target.value)}
-                    color={lenderAddress === "" && "error"}
                     fullWidth
                   />
                 </Grid>
@@ -1115,7 +1119,6 @@ export default function PropertyAddView() {
                     variant="outlined"
                     value={mortgageTerm}
                     onChange={(e) => setMortgageTerm(e.target.value)}
-                    color={mortgageTerm === "" && "error"}
                     fullWidth
                   />
                 </Grid>
@@ -1126,7 +1129,6 @@ export default function PropertyAddView() {
                     variant="outlined"
                     value={lenderPhoneNumber}
                     onChange={(e) => setLenderPhoneNumber(e.target.value)}
-                    color={lenderPhoneNumber === "" && "error"}
                     fullWidth
                   />
                 </Grid>
@@ -1140,7 +1142,6 @@ export default function PropertyAddView() {
                     label="Mortgage Type"
                     select
                     onChange={(e) => setMortgageType(e.target.value)}
-                    color={mortgageType === "" && "error"}
                     fullWidth
                   >
                     <MenuItem key={0} value={"Interest Only"}>
@@ -1158,7 +1159,6 @@ export default function PropertyAddView() {
                     variant="outlined"
                     value={lenderEmail}
                     onChange={(e) => setLenderEmail(e.target.value)}
-                    color={lenderEmail === "" && "error"}
                     fullWidth
                   />
                 </Grid>
@@ -1171,7 +1171,6 @@ export default function PropertyAddView() {
                       onChange={(date) =>
                         setMortgageRenewalDate(formatDate(date))
                       }
-                      color={mortgageRenewalDate === "" && "error"}
                       fullWidth
                     />
                   </LocalizationProvider>
@@ -1202,7 +1201,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={insuranceCompany}
                 onChange={(e) => setInsuranceCompany(e.target.value)}
-                color={insuranceCompany === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1213,7 +1211,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={insurancePolicyNumber}
                 onChange={(e) => setInsurancePolicyNumber(e.target.value)}
-                color={insurancePolicyNumber === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1224,7 +1221,6 @@ export default function PropertyAddView() {
                   value={dayjs(insuranceRenewalDate)}
                   format="DD/MM/YYYY"
                   onChange={(date) => setInsuranceRenewalDate(formatDate(date))}
-                  color={insuranceRenewalDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -1241,7 +1237,6 @@ export default function PropertyAddView() {
                 label="Amount"
                 value={currentPremium}
                 onChange={(e) => setCurrentPremium(e.target.value)}
-                color={currentPremium === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1257,7 +1252,6 @@ export default function PropertyAddView() {
                 label="Amount"
                 value={previousPremium}
                 onChange={(e) => setPreviousPremium(e.target.value)}
-                color={previousPremium === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1310,7 +1304,6 @@ export default function PropertyAddView() {
                   format="DD/MM/YYYY"
                   value={dayjs(agentStartDate)}
                   onChange={(date) => setAgentStartDate(formatDate(date))}
-                  color={agentStartDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -1387,7 +1380,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={astLink}
                 onChange={(e) => setAstLink(e.target.value)}
-                color={astLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1398,7 +1390,6 @@ export default function PropertyAddView() {
                   format="DD/MM/YYYY"
                   value={dayjs(tenancyReviewDate)}
                   onChange={(date) => setTenancyReviewDate(formatDate(date))}
-                  color={tenancyReviewDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -1410,7 +1401,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={epcLink}
                 onChange={(e) => setEpcLink(e.target.value)}
-                color={epcLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1421,7 +1411,6 @@ export default function PropertyAddView() {
                   format="DD/MM/YYYY"
                   value={dayjs(epcReviewDate)}
                   onChange={(date) => setEpcReviewDate(formatDate(date))}
-                  color={epcReviewDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -1433,7 +1422,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={escLink}
                 onChange={(e) => setEscLink(e.target.value)}
-                color={escLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1444,7 +1432,6 @@ export default function PropertyAddView() {
                   value={dayjs(escReviewDate)}
                   format="DD/MM/YYYY"
                   onChange={(date) => setEscReviewDate(formatDate(date))}
-                  color={escReviewDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -1456,7 +1443,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={gscLink}
                 onChange={(e) => setGscLink(e.target.value)}
-                color={gscLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1467,7 +1453,6 @@ export default function PropertyAddView() {
                   value={dayjs(gscReviewDate)}
                   format="DD/MM/YYYY"
                   onChange={(date) => setGscReviewDate(formatDate(date))}
-                  color={gscReviewDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -1479,7 +1464,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={inventoryLink}
                 onChange={(e) => setInventoryLink(e.target.value)}
-                color={inventoryLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1490,7 +1474,6 @@ export default function PropertyAddView() {
                 variant="outlined"
                 value={otherDocumentsLink}
                 onChange={(e) => setOtherDocumentsLink(e.target.value)}
-                color={otherDocumentsLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1522,7 +1505,7 @@ export default function PropertyAddView() {
             />
           )}
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button onClick={handleReset} color="inherit">
+            <Button onClick={() => handleReset()} color="inherit">
               Add another property
             </Button>
             <Box sx={{ flex: "1 1 auto" }} />
@@ -1537,9 +1520,27 @@ export default function PropertyAddView() {
 
   return (
     <>
-      <IcPageHeader heading={"Add Property"} />
+      <IcPageHeader heading={"Add Property"}>
+        {addressLine1 !== '' && selectedTenant !== '' && (
+        <IcButton
+          slot="actions"
+          variant="tertiary"
+          onClick={() => handle5Next()}
+        >
+          <TaskAlt slot="left-icon" /> Finish Creating
+        </IcButton>
+        )}
+        <IcButton
+          slot="actions"
+          variant="tertiary"
+          href="https://1drv.ms/f/s!AlsETmNsZjQugRSX82-qqkUwN1-X?e=K4oLoM"
+          target="_blank"
+        >
+          <Storage slot="left-icon" /> Cloud Storage
+        </IcButton>
+      </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel activeStep={activeStep}>
+        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
               <StepButton color="inherit" onClick={handleStep(index)}>

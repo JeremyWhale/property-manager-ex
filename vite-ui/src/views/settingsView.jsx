@@ -108,11 +108,6 @@ export default function SettingsView({ setLoggedIn }) {
   const [showContractorEditMessage, setShowContractorEditMessage] =
     useState(false);
 
-  function handleClose() {
-    //Close all modals and set all the uploadmessageshows and uploadsuccesses to false
-  }
-
-  useEffect(() => {
     async function getAgentList() {
       try {
         const response = await axios.get(`${apiLocation}/agents`);
@@ -199,6 +194,7 @@ export default function SettingsView({ setLoggedIn }) {
       }
     }
 
+  useEffect(() => {
     getAgentList();
     getDepositSchemes();
     getContractorList();
@@ -327,6 +323,8 @@ export default function SettingsView({ setLoggedIn }) {
     setSupplierName("");
     setSupplierPhone("");
     setSupplierEmail("");
+
+    getSuppliers();
   }
 
   function handleSupplierEdit() {
@@ -375,6 +373,8 @@ export default function SettingsView({ setLoggedIn }) {
     setSupplierName("");
     setSupplierPhone("");
     setSupplierEmail("");
+
+    getSuppliers();
   }
 
   function handleDsAdd() {
@@ -397,6 +397,8 @@ export default function SettingsView({ setLoggedIn }) {
     setDsName("");
     setDsPhone("");
     setDsEmail("");
+
+    getDepositSchemes();
   }
 
   function handleDsEdit() {
@@ -420,6 +422,8 @@ export default function SettingsView({ setLoggedIn }) {
     setDsName("");
     setDsPhone("");
     setDsEmail("");
+
+    getDepositSchemes();
   }
 
   function handleAgentAdd() {
@@ -444,6 +448,8 @@ export default function SettingsView({ setLoggedIn }) {
     setAgentPhone("");
     setAgentEmail("");
     setAgentAddress("");
+
+    getAgentList();
   }
 
   function handleAgentEdit() {
@@ -464,6 +470,13 @@ export default function SettingsView({ setLoggedIn }) {
       .catch((error) => {
         console.error("Error:", error);
       });
+
+    setAgentName("");
+    setAgentPhone("");
+    setAgentEmail("");
+    setAgentAddress("");
+
+    getAgentList();
   }
 
   function handleContractorAdd() {
@@ -485,6 +498,15 @@ export default function SettingsView({ setLoggedIn }) {
       .catch((error) => {
         console.error("Error:", error);
       });
+
+    setCName("");
+    setCaddress("");
+    setCphone("");
+    setCEmail("");
+    setCSortCode("");
+    setCBankAccount("");
+
+    getContractorList();
   }
 
   function handleContractorEdit() {
@@ -514,6 +536,8 @@ export default function SettingsView({ setLoggedIn }) {
     setCEmail("");
     setCSortCode("");
     setCBankAccount("");
+
+    getContractorList();
   }
 
   return (
@@ -685,7 +709,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Supplier Email"
                 variant="outlined"
                 fullWidth
-                color={supplierEmail === "" && "error"}
                 value={supplierEmail}
                 onChange={(e) => setSupplierEmail(e.target.value)}
               />
@@ -696,7 +719,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Supplier Phone Number"
                 variant="outlined"
                 fullWidth
-                color={supplierPhone === "" && "error"}
                 value={supplierPhone}
                 onChange={(e) => setSupplierPhone(e.target.value)}
               />
@@ -767,7 +789,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Scheme Phone Number"
                 variant="outlined"
                 fullWidth
-                color={dsPhone === "" && "error"}
                 value={dsPhone}
                 onChange={(e) => setDsPhone(e.target.value)}
               />
@@ -778,7 +799,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Scheme Email"
                 variant="outlined"
                 fullWidth
-                color={dsEmail === "" && "error"}
                 value={dsEmail}
                 onChange={(e) => setDsEmail(e.target.value)}
               />
@@ -846,7 +866,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Agent Phone Number"
                 variant="outlined"
                 fullWidth
-                color={agentPhone === "" && "error"}
                 value={agentPhone}
                 onChange={(e) => setAgentPhone(e.target.value)}
               />
@@ -857,7 +876,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Agent Email Address"
                 variant="outlined"
                 fullWidth
-                color={agentEmail === "" && "error"}
                 value={agentEmail}
                 onChange={(e) => setAgentEmail(e.target.value)}
               />
@@ -868,7 +886,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Agent Address"
                 variant="outlined"
                 fullWidth
-                color={agentAddress === "" && "error"}
                 value={agentAddress}
                 onChange={(e) => setAgentAddress(e.target.value)}
               />
@@ -941,7 +958,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Address"
                 variant="outlined"
                 fullWidth
-                color={cAddress === "" && "error"}
                 value={cAddress}
                 onChange={(e) => setCaddress(e.target.value)}
               />
@@ -952,7 +968,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Phone Number"
                 variant="outlined"
                 fullWidth
-                color={cPhone === "" && "error"}
                 value={cPhone}
                 onChange={(e) => setCphone(e.target.value)}
               />
@@ -963,7 +978,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Email Address"
                 variant="outlined"
                 fullWidth
-                color={cEmail === "" && "error"}
                 value={cEmail}
                 onChange={(e) => setCEmail(e.target.value)}
               />
@@ -974,7 +988,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Sort Code"
                 variant="outlined"
                 fullWidth
-                color={cSortCode === "" && "error"}
                 value={cSortCode}
                 onChange={(e) => setCSortCode(e.target.value)}
               />
@@ -985,7 +998,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Bank Account Number"
                 variant="outlined"
                 fullWidth
-                color={cBankAccount === "" && "error"}
                 value={cBankAccount}
                 onChange={(e) => setCBankAccount(e.target.value)}
               />
@@ -1110,7 +1122,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Supplier Email"
                 variant="outlined"
                 fullWidth
-                color={supplierEmail === "" && "error"}
                 value={supplierEmail}
                 onChange={(e) => setSupplierEmail(e.target.value)}
               />
@@ -1121,7 +1132,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Supplier Phone Number"
                 variant="outlined"
                 fullWidth
-                color={supplierPhone === "" && "error"}
                 value={supplierPhone}
                 onChange={(e) => setSupplierPhone(e.target.value)}
               />
@@ -1210,7 +1220,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Scheme Phone Number"
                 variant="outlined"
                 fullWidth
-                color={dsPhone === "" && "error"}
                 value={dsPhone}
                 onChange={(e) => setDsPhone(e.target.value)}
               />
@@ -1221,7 +1230,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Scheme Email"
                 variant="outlined"
                 fullWidth
-                color={dsEmail === "" && "error"}
                 value={dsEmail}
                 onChange={(e) => setDsEmail(e.target.value)}
               />
@@ -1310,7 +1318,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Agent Phone Number"
                 variant="outlined"
                 fullWidth
-                color={agentPhone === "" && "error"}
                 value={agentPhone}
                 onChange={(e) => setAgentPhone(e.target.value)}
               />
@@ -1321,7 +1328,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Agent Email Address"
                 variant="outlined"
                 fullWidth
-                color={agentEmail === "" && "error"}
                 value={agentEmail}
                 onChange={(e) => setAgentEmail(e.target.value)}
               />
@@ -1332,7 +1338,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Agent Address"
                 variant="outlined"
                 fullWidth
-                color={agentAddress === "" && "error"}
                 value={agentAddress}
                 onChange={(e) => setAgentAddress(e.target.value)}
               />
@@ -1421,7 +1426,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Address"
                 variant="outlined"
                 fullWidth
-                color={cAddress === "" && "error"}
                 value={cAddress}
                 onChange={(e) => setCaddress(e.target.value)}
               />
@@ -1432,7 +1436,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Phone Number"
                 variant="outlined"
                 fullWidth
-                color={cPhone === "" && "error"}
                 value={cPhone}
                 onChange={(e) => setCphone(e.target.value)}
               />
@@ -1443,7 +1446,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Email Address"
                 variant="outlined"
                 fullWidth
-                color={cEmail === "" && "error"}
                 value={cEmail}
                 onChange={(e) => setCEmail(e.target.value)}
               />
@@ -1454,7 +1456,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Sort Code"
                 variant="outlined"
                 fullWidth
-                color={cSortCode === "" && "error"}
                 value={cSortCode}
                 onChange={(e) => setCSortCode(e.target.value)}
               />
@@ -1465,7 +1466,6 @@ export default function SettingsView({ setLoggedIn }) {
                 label="Contractor Bank Account Number"
                 variant="outlined"
                 fullWidth
-                color={cBankAccount === "" && "error"}
                 value={cBankAccount}
                 onChange={(e) => setCBankAccount(e.target.value)}
               />

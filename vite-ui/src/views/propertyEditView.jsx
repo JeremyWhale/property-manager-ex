@@ -23,7 +23,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import axios from "axios";
 import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
-import { Delete, SettingsPower } from "@mui/icons-material";
+import { Delete, SettingsPower, TaskAlt, Storage } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
@@ -285,7 +285,7 @@ export default function PropertyEditView() {
   async function getTenancyDetails(tenant) {
     try {
       const response = await axios.get(
-        `${apiLocation}/tenancy-details/${addressLine1}`
+        `${apiLocation}/tenancy-details/${propertyToEdit}`
       );
 
       setTenancyId(response.data[0].id);
@@ -760,7 +760,7 @@ export default function PropertyEditView() {
             <Grid item xs={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
-                  label="Council License Renewal Date"
+                  label="Council Tax Renewal Date"
                   format="DD/MM/YYYY"
                   value={dayjs(councilLicenseRenewalDate)}
                   onChange={(date) =>
@@ -1060,11 +1060,23 @@ export default function PropertyEditView() {
                 color={selectedPaymentMethod === "" && "error"}
                 fullWidth
               >
+                <MenuItem key={0} value={"Bank Transfer"}>
+                  Bank Transfer
+                </MenuItem>
                 <MenuItem key={0} value={"Cash"}>
                   Cash
                 </MenuItem>
+                <MenuItem key={0} value={"Cheque"}>
+                  Cheque
+                </MenuItem>
+                <MenuItem key={0} value={"Credit Card"}>
+                  Credit Card
+                </MenuItem>
                 <MenuItem key={1} value={"Direct Debit"}>
                   Direct Debit
+                </MenuItem>
+                <MenuItem key={0} value={"Standing Order"}>
+                  Standing Order
                 </MenuItem>
               </TextField>
             </Grid>
@@ -1727,7 +1739,22 @@ export default function PropertyEditView() {
 
   return (
     <>
-      <IcPageHeader heading={"Edit Property"}>
+      <IcPageHeader heading={"Edit Property"} subheading={propertyToEdit}>
+        <IcButton
+          slot="actions"
+          variant="tertiary"
+          onClick={() => handle5Next()}
+        >
+          <TaskAlt slot="left-icon" /> Finish Editing
+        </IcButton>
+        <IcButton
+          slot="actions"
+          variant="tertiary"
+          href="https://1drv.ms/f/s!AlsETmNsZjQugRSX82-qqkUwN1-X?e=K4oLoM"
+          target="_blank"
+        >
+          <Storage slot="left-icon" /> Cloud Storage
+        </IcButton>
         <IcButton
           slot="actions"
           variant="destructive"
@@ -1737,7 +1764,7 @@ export default function PropertyEditView() {
         </IcButton>
       </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel activeStep={activeStep}>
+        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
               <StepButton color="inherit" onClick={handleStep(index)}>

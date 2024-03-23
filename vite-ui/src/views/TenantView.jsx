@@ -31,12 +31,14 @@ export default function TenantView() {
     async function getTenantList() {
       try {
         const response = await axios.get(`${apiLocation}/tenant-list`);
-
+        
         // Convert the response data into your desired format
-        const data = response.data.map((tenant) => ({
-          fullName: tenant.full_name,
-          property: tenant.address_line_1,
-        }));
+        const data = response.data
+          .filter(tenant => tenant.full_name !== 'No Assigned Tenant')
+          .map(tenant => ({
+            fullName: tenant.full_name,
+            property: tenant.address_line_1
+          }));
 
         setTenantList(data);
       } catch (e) {

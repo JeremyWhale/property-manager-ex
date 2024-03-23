@@ -66,12 +66,12 @@ export default function DashboardView() {
       .then((response) => {
         const data = response.data;
         const mappedRows = [];
-        data.map((property) =>
+        data.map((property) => {if(property.gas_certificate_renewal_date.length > 1){
           mappedRows.push({
             name: property.address_line_1,
-            country: property.country,
             date: property.gas_certificate_renewal_date,
           })
+        }}
         );
 
         setGasCertsDue(mappedRows); // Update the state with the mapped data
@@ -89,12 +89,12 @@ export default function DashboardView() {
       .then((response) => {
         const data = response.data;
         const mappedRows = [];
-        data.map((property) =>
+        data.map((property) => {if(property.epc_renewal_date.length > 1){
           mappedRows.push({
             name: property.address_line_1,
-            country: property.country,
             date: property.epc_renewal_date,
           })
+        }}
         );
 
         setEpcsDue(mappedRows); // Update the state with the mapped data
@@ -112,11 +112,12 @@ export default function DashboardView() {
       .then((response) => {
         const data = response.data;
         const mappedRows = [];
-        data.map((property) =>
+        data.map((property) => {if(property.rent_review_date.length > 1){
           mappedRows.push({
             name: property.property_name,
             date: property.rent_review_date,
           })
+        }}
         );
 
         setRentRenewalsDue(mappedRows); // Update the state with the mapped data
@@ -134,11 +135,12 @@ export default function DashboardView() {
       .then((response) => {
         const data = response.data;
         const mappedRows = [];
-        data.map((property) =>
+        data.map((property) => {if(property.tenancy_renewal_date.length > 1){
           mappedRows.push({
             name: property.property_name,
             date: property.tenancy_renewal_date,
           })
+        }}
         );
 
         setTenancyRenewalsDue(mappedRows); // Update the state with the mapped data
@@ -156,12 +158,12 @@ export default function DashboardView() {
       .then((response) => {
         const data = response.data;
         const mappedRows = [];
-        data.map((property) =>
+        data.map((property) => {if(property.electrical_inspection_date.length > 1){
           mappedRows.push({
             name: property.address_line_1,
-            country: property.country,
             date: property.electrical_inspection_date,
           })
+        }}
         );
 
         setElectricalInspectionsDue(mappedRows); // Update the state with the mapped data
@@ -179,11 +181,12 @@ export default function DashboardView() {
       .then((response) => {
         const data = response.data;
         const mappedRows = [];
-        data.map((property) =>
+        data.map((property) => {if(property.renewal_due.length > 1){
           mappedRows.push({
             name: property.property,
             date: property.renewal_due,
           })
+        }}
         );
 
         setInsuranceRenewalsDue(mappedRows); // Update the state with the mapped data
@@ -201,11 +204,12 @@ export default function DashboardView() {
       .then((response) => {
         const data = response.data;
         const mappedRows = [];
-        data.map((property) =>
+        data.map((property) => {if(property.renewal_date.length > 1){
           mappedRows.push({
             name: property.property,
             date: property.renewal_date,
           })
+        }}
         );
 
         setMortgageRenewalsDue(mappedRows); // Update the state with the mapped data
@@ -223,12 +227,12 @@ export default function DashboardView() {
       .then((response) => {
         const data = response.data;
         const mappedRows = [];
-        data.map((property) =>
+        data.map((property) => {if(property.renewal_date.length > 1){
           mappedRows.push({
             name: property.address_line_1,
-            country: property.country,
             date: property.council_license_date,
           })
+        }}
         );
 
         setCouncilLicenseRenewalsDue(mappedRows); // Update the state with the mapped data
@@ -298,7 +302,7 @@ export default function DashboardView() {
         </Grid>
         <Grid item xs={3}>
           <AppWidgetSummary
-            title="Council license renewals due in under 3 months"
+            title="Council tax renewals due in under 3 months"
             total={numberOfCouncilLicenseRenewalsdue}
             onClick={() => setCouncilLicenseRenewalsdueModalOpen(true)}
           />
@@ -491,7 +495,7 @@ export default function DashboardView() {
         >
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {" "}
-            Council License Renewals Due (within 3 months)
+            Council tax Renewals Due (within 3 months)
           </Typography>
           <GasCertModal data={councilLicenseRenewalsdue} />
         </Box>

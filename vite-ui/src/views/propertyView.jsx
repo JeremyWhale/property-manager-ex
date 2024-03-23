@@ -777,7 +777,7 @@ export default function PropertyView() {
           </Grid>
           <Grid item xs={6}>
             <Typography>
-              <b>Council license rewnewal date: </b>
+              <b>Council tax rewnewal date: </b>
               {formatDisplayDate(propertyDetails.councilLicenseRenewalDate)}
             </Typography>
           </Grid>
@@ -1257,6 +1257,7 @@ export default function PropertyView() {
               fullWidth
               target="_blank"
               href={urls.astUrl}
+              disabled={urls.astUrl === ''}
             >
               View AST (Review by{" "}
               {formatDisplayDate(tenancyDetails.tenancyReviewDate)}){" "}
@@ -1268,6 +1269,7 @@ export default function PropertyView() {
               fullWidth
               target="_blank"
               href={urls.epcUrl}
+              disabled={urls.epcUrl === ''}
             >
               View EPC Certificate (Review by{" "}
               {formatDisplayDate(propertyDetails.epcRenewalDate)}){" "}
@@ -1280,6 +1282,7 @@ export default function PropertyView() {
               fullWidth
               target="_blank"
               href={urls.electricalCertUrl}
+              disabled={urls.electricalCertUrl === ''}
             >
               View Electrical Certificate (Review by{" "}
               {formatDisplayDate(propertyDetails.electricalInspectionDate)}){" "}
@@ -1291,6 +1294,7 @@ export default function PropertyView() {
               fullWidth
               target="_blank"
               href={urls.gasSafetyUrl}
+              disabled={urls.gasSafetyUrl === ''}
             >
               View Gas Safety Certificate (Review by{" "}
               {formatDisplayDate(propertyDetails.gasCertificateRenewalDate)}){" "}
@@ -1303,6 +1307,7 @@ export default function PropertyView() {
               fullWidth
               target="_blank"
               href={urls.inventoryUrl}
+              disabled={urls.inventoryUrl === ''}
             >
               View Inventory{" "}
             </Button>
@@ -1313,6 +1318,7 @@ export default function PropertyView() {
               fullWidth
               target="_blank"
               href={urls.otherDocsUrl}
+              disabled={urls.otherDocsUrl === ''}
             >
               View Other Documents{" "}
             </Button>
@@ -1414,7 +1420,7 @@ export default function PropertyView() {
         >
           {propertyList.map((property, index) => (
             <MenuItem key={index} value={property.addressLine1}>
-              {property.addressLine1} ({property.country})
+              {property.addressLine1}
             </MenuItem>
           ))}
         </TextField>

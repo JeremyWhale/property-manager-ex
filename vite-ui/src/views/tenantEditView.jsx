@@ -9,7 +9,7 @@ import { Grid, TextField } from "@mui/material";
 import axios from "axios";
 import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
-import { Delete } from "@mui/icons-material";
+import { Delete, TaskAlt } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
 
@@ -165,7 +165,7 @@ export default function TenantEditView() {
                 label="Name (required)"
                 variant="outlined"
                 fullWidth
-                color={nameError && "error"}
+                color={name === '' && "error"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -176,7 +176,6 @@ export default function TenantEditView() {
                 label="Phone number"
                 variant="outlined"
                 fullWidth
-                color={phoneNumberError && "error"}
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
@@ -187,7 +186,6 @@ export default function TenantEditView() {
                 label="Email"
                 variant="outlined"
                 fullWidth
-                color={emailError && "error"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
@@ -199,7 +197,6 @@ export default function TenantEditView() {
                 variant="outlined"
                 placeholder="00-00-00"
                 fullWidth
-                color={sortCodeError && "error"}
                 value={sortCode}
                 onChange={(e) => setSortCode(e.target.value)}
               />
@@ -210,7 +207,6 @@ export default function TenantEditView() {
                 label="Account number"
                 variant="outlined"
                 fullWidth
-                color={accountNumberError && "error"}
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
               />
@@ -241,7 +237,6 @@ export default function TenantEditView() {
                 label="Emergency Contact Name"
                 variant="outlined"
                 fullWidth
-                color={emergencyContactNameError && "error"}
                 value={emergencyContactName}
                 onChange={(e) => setEmergencyContactName(e.target.value)}
               />
@@ -252,7 +247,6 @@ export default function TenantEditView() {
                 label="Emergency Contact Phone No."
                 variant="outlined"
                 fullWidth
-                color={emergencyContactPhoneError && "error"}
                 value={emergencyContactPhone}
                 onChange={(e) => setEmergencyContactPhone(e.target.value)}
               />
@@ -263,7 +257,6 @@ export default function TenantEditView() {
                 label="Emergency Contact Email"
                 variant="outlined"
                 fullWidth
-                color={emergencyContactEmailError && "error"}
                 value={emergencyContactEmail}
                 onChange={(e) => setEmergencyContactEmail(e.target.value)}
               />
@@ -315,7 +308,14 @@ export default function TenantEditView() {
 
   return (
     <>
-      <IcPageHeader heading={`Edit Tenant`}>
+      <IcPageHeader heading={`Edit Tenant`} subheading={tenantToEdit}>
+        <IcButton
+          slot="actions"
+          variant="tertiary"
+          onClick={handleComplete}
+        >
+          <TaskAlt slot="left-icon" /> Finish Editing
+        </IcButton>
         <IcButton
           slot="actions"
           variant="destructive"
@@ -325,7 +325,7 @@ export default function TenantEditView() {
         </IcButton>
       </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel activeStep={activeStep}>
+        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
               <StepButton color="inherit" onClick={handleStep(index)}>

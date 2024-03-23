@@ -18,7 +18,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import axios from "axios";
 import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
-import { Delete } from "@mui/icons-material";
+import { Delete, TaskAlt } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
@@ -561,6 +561,13 @@ export default function IssueEditView() {
   return (
     <>
       <IcPageHeader heading={"Add Issue"}>
+        <IcButton
+          slot="actions"
+          variant="tertiary"
+          onClick={handleComplete}
+        >
+          <TaskAlt slot="left-icon" /> Finish Editing
+        </IcButton>
         <IcButton
           slot="actions"
           variant="destructive"

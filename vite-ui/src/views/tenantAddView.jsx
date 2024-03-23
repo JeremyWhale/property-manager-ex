@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { IcPageHeader } from "@ukic/react";
+import { IcButton, IcPageHeader } from "@ukic/react";
 import Box from "@mui/material/Box";
 import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
@@ -10,6 +10,7 @@ import axios from "axios";
 import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
 import { useNavigate } from "react-router-dom";
+import { TaskAlt } from "@mui/icons-material";
 
 const steps = ["Tenant Details", "Emergency Contact Details"];
 
@@ -147,7 +148,7 @@ export default function TenantAddView() {
                 label="Name (required)"
                 variant="outlined"
                 fullWidth
-                color={nameError && "error"}
+                color={name === '' && "error"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -158,7 +159,6 @@ export default function TenantAddView() {
                 label="Phone number"
                 variant="outlined"
                 fullWidth
-                color={phoneNumberError && "error"}
                 value={phoneNumber}
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
@@ -181,7 +181,6 @@ export default function TenantAddView() {
                 variant="outlined"
                 placeholder="00-00-00"
                 fullWidth
-                color={sortCodeError && "error"}
                 value={sortCode}
                 onChange={(e) => setSortCode(e.target.value)}
               />
@@ -192,7 +191,6 @@ export default function TenantAddView() {
                 label="Account number"
                 variant="outlined"
                 fullWidth
-                color={accountNumberError && "error"}
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
               />
@@ -223,7 +221,6 @@ export default function TenantAddView() {
                 label="Emergency Contact Name"
                 variant="outlined"
                 fullWidth
-                color={emergencyContactNameError && "error"}
                 value={emergencyContactName}
                 onChange={(e) => setEmergencyContactName(e.target.value)}
               />
@@ -234,7 +231,6 @@ export default function TenantAddView() {
                 label="Emergency Contact Phone No."
                 variant="outlined"
                 fullWidth
-                color={emergencyContactPhoneError && "error"}
                 value={emergencyContactPhone}
                 onChange={(e) => setEmergencyContactPhone(e.target.value)}
               />
@@ -245,7 +241,6 @@ export default function TenantAddView() {
                 label="Emergency Contact Email"
                 variant="outlined"
                 fullWidth
-                color={emergencyContactEmailError && "error"}
                 value={emergencyContactEmail}
                 onChange={(e) => setEmergencyContactEmail(e.target.value)}
               />
@@ -293,9 +288,19 @@ export default function TenantAddView() {
 
   return (
     <>
-      <IcPageHeader heading={"Add Tenant"} />
+      <IcPageHeader heading={"Add Tenant"}>
+        {name !== '' && (
+          <IcButton
+            slot="actions"
+            variant="tertiary"
+            onClick={() => handle5Next()}
+          >
+            <TaskAlt slot="left-icon" /> Finish Creating
+          </IcButton>
+          )}
+      </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel activeStep={activeStep}>
+        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
           {steps.map((label, index) => (
             <Step key={label} completed={completed[index]}>
               <StepButton color="inherit" onClick={handleStep(index)}>
