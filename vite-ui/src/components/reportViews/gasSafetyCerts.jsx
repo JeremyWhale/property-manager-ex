@@ -155,20 +155,22 @@ export default function GasSafetyCertsTable(props) {
             axios.get(`${apiLocation}/urls/${issue.property_name}`)
               .then(urlResponse => urlResponse)
               .catch(urlError => {
-                console.error(`Error fetching URL for ${issue.property_name}:`, urlError);
+                console.error(`Error fetching URL for ${issue.address_line_1}:`, urlError);
                 return ''; // Provide a default value or handle the error as needed
             })
         );
 
         return Promise.all(urlRequests).then(urlResponses => {
-            const mappedRows = data.map((issue, index) => ({
-                dateDue: issue.tenancy_renewal_date,
-                property: issue.property_name,
-                urlLink: urlResponses[index].data[0].gas_safety_url, // Use the fetched URL
-            }));
-
-            setRows(mappedRows); // Update the state with the mapped data
-        })
+          const filteredData = data.filter(issue => issue.gas_certificate_renewal_date.length > 1);
+      
+          const mappedRows = filteredData.map((issue, index) => ({
+              dateDue: issue.gas_certificate_renewal_date,
+              property: issue.address_line_1,
+              urlLink: urlResponses[index].data[0].gas_safety_url, // Use the fetched URL
+          }));
+      
+          setRows(mappedRows); // Update the state with the mapped data
+      });
       })
       .catch(error => {
         console.error("There was an error fetching the issues:", error);

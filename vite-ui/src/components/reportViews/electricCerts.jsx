@@ -130,14 +130,16 @@ export default function ElectricalCertsTable(props) {
         );
 
         return Promise.all(urlRequests).then(urlResponses => {
-            const mappedRows = data.map((issue, index) => ({
-                dateDue: issue.electrical_inspection_date,
-                property: issue.address_line_1,
-                urlLink: urlResponses[index].data[0].electrical_cert_url, // Use the fetched URL
-            }));
-
-            setRows(mappedRows); // Update the state with the mapped data
-        })
+          const filteredData = data.filter(issue => issue.electrical_inspection_date.length > 1);
+      
+          const mappedRows = filteredData.map((issue, index) => ({
+              dateDue: issue.electrical_inspection_date,
+              property: issue.address_line_1,
+              urlLink: urlResponses[index].data[0].electrical_cert_url, // Use the fetched URL
+          }));
+      
+          setRows(mappedRows); // Update the state with the mapped data
+        });
       })
       .catch(error => {
         console.error("There was an error fetching the issues:", error);

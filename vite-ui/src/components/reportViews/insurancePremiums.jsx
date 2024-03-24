@@ -148,18 +148,19 @@ export default function InsurancePremiumsTable(props) {
         );
 
         return Promise.all(urlRequests).then(urlResponses => {
-            const mappedRows = data.map((issue, index) => ({
-                dateDue: issue.renewal_due,
-                property: issue.property,
-                company: issue.company,
-                number: issue.insurance_number,
-                currentPremium: issue.premium,
-                urlLink: urlResponses[index].data[0].other_docs_url, // Use the fetched URL
-            }));
-            console.log(mappedRows)
-
-            setRows(mappedRows); // Update the state with the mapped data
-        })
+          const filteredData = data.filter(issue => issue.renewal_due.length > 1);
+      
+          const mappedRows = filteredData.map((issue, index) => ({
+            dateDue: issue.renewal_due,
+            property: issue.property,
+            company: issue.company,
+            number: issue.insurance_number,
+            currentPremium: issue.premium,
+            urlLink: urlResponses[index].data[0].other_docs_url, // Use the fetched URL
+          }));
+      
+          setRows(mappedRows); // Update the state with the mapped data
+      });
       })
       .catch(error => {
         console.error("There was an error fetching the issues:", error);

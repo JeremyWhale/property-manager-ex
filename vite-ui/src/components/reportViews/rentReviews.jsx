@@ -130,14 +130,16 @@ export default function RentReviewsTable(props) {
         );
 
         return Promise.all(urlRequests).then(urlResponses => {
-            const mappedRows = data.map((issue, index) => ({
-                dateDue: issue.tenancy_renewal_date,
-                property: issue.property_name,
-                urlLink: urlResponses[index].data[0].ast_url, // Use the fetched URL
-            }));
-
-            setRows(mappedRows); // Update the state with the mapped data
-        })
+          const filteredData = data.filter(issue => issue.rent_review_date.length > 1);
+      
+          const mappedRows = filteredData.map((issue, index) => ({
+              dateDue: issue.rent_review_date,
+              property: issue.property_name,
+              urlLink: urlResponses[index].data[0].ast_url, // Use the fetched URL
+          }));
+      
+          setRows(mappedRows); // Update the state with the mapped data
+      });
       })
       .catch(error => {
         console.error("There was an error fetching the issues:", error);
