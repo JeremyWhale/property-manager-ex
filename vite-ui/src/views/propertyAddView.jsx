@@ -5,16 +5,11 @@ import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
 import StepButton from "@mui/material/StepButton";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import {
   Checkbox,
   FormControlLabel,
   Grid,
-  Input,
-  InputAdornment,
-  InputLabel,
   MenuItem,
-  OutlinedInput,
   TextField,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -562,15 +557,10 @@ export default function PropertyAddView() {
               />
             </Grid>
             <Grid item xs={6}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Current Value
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">£</InputAdornment>
-                }
-                label="Amount"
+              <TextField
+                id="outlined-basic"
+                label="Current Value (£)"
+                variant="outlined"
                 value={currentValue}
                 onChange={(e) => setCurrentValue(e.target.value)}
                 fullWidth
@@ -826,45 +816,30 @@ export default function PropertyAddView() {
               />
             </Grid>
             <Grid item xs={4}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Initial rent
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">£</InputAdornment>
-                }
-                label="Amount"
+              <TextField
+                id="outlined-basic"
+                label="Initial Rent (£)"
+                variant="outlined"
                 value={initialRent}
                 onChange={(e) => setInitialRent(e.target.value)}
                 fullWidth
               />
             </Grid>
             <Grid item xs={4}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Current rent
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">£</InputAdornment>
-                }
-                label="Amount"
+              <TextField
+                id="outlined-basic"
+                label="Current Rent (£)"
+                variant="outlined"
                 value={currentRent}
                 onChange={(e) => setCurrentRent(e.target.value)}
                 fullWidth
               />
             </Grid>
             <Grid item xs={4}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Amount paid
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">£</InputAdornment>
-                }
-                label="Amount"
+            <TextField
+                id="outlined-basic"
+                label="Amount Paid"
+                variant="outlined"
                 value={amountPaid}
                 onChange={(e) => setAmountPaid(e.target.value)}
                 fullWidth
@@ -900,15 +875,10 @@ export default function PropertyAddView() {
               </TextField>
             </Grid>
             <Grid item xs={6}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Deposit amount
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">£</InputAdornment>
-                }
-                label="Amount"
+            <TextField
+                id="outlined-basic"
+                label="Deposit Amount (£)"
+                variant="outlined"
                 value={depositAmount}
                 onChange={(e) => setDepositAmount(e.target.value)}
                 fullWidth
@@ -981,15 +951,10 @@ export default function PropertyAddView() {
               </LocalizationProvider>
             </Grid>
             <Grid item xs={3}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Purchase Price
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">£</InputAdornment>
-                }
-                label="Amount"
+              <TextField
+                id="outlined-basic"
+                label="Purchase Price (£)"
+                variant="outlined"
                 value={purchasePrice}
                 onChange={(e) => setPurchasePrice(e.target.value)}
                 fullWidth
@@ -1051,17 +1016,13 @@ export default function PropertyAddView() {
                   />
                 </Grid>
                 <Grid item xs={6}>
-                  <InputLabel htmlFor="outlined-adornment-amount">
-                    Amount borrowed
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-amount"
-                    startAdornment={
-                      <InputAdornment position="start">£</InputAdornment>
-                    }
-                    label="Amount"
+                  <TextField
+                    id="outlined-basic"
+                    label="Amount Borrowed (£)"
+                    variant="outlined"
                     value={amountBorrowed}
                     onChange={(e) => setAmountBorrowed(e.target.value)}
+                    fullWidth
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -1075,31 +1036,23 @@ export default function PropertyAddView() {
                   />
                 </Grid>
                 <Grid item xs={3}>
-                  <InputLabel htmlFor="outlined-adornment-amount">
-                    Interest rate
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-amount"
-                    endAdornment={
-                      <InputAdornment position="end">%</InputAdornment>
-                    }
-                    label="Amount"
+                  <TextField
+                    id="outlined-basic"
+                    label="Interest Rate (%)"
+                    variant="outlined"
                     value={interestRate}
                     onChange={(e) => setInterestRate(e.target.value)}
+                    fullWidth
                   />
                 </Grid>
                 <Grid item xs={3}>
-                  <InputLabel htmlFor="outlined-adornment-amount">
-                    Monthly amount
-                  </InputLabel>
-                  <OutlinedInput
-                    id="outlined-adornment-amount"
-                    startAdornment={
-                      <InputAdornment position="start">£</InputAdornment>
-                    }
-                    label="Amount"
+                  <TextField
+                    id="outlined-basic"
+                    label="Monthly Amount (£)"
+                    variant="outlined"
                     value={monthlyAmount}
                     onChange={(e) => setMonthlyAmount(e.target.value)}
+                    fullWidth
                   />
                 </Grid>
                 <Grid item xs={6}>
@@ -1226,30 +1179,20 @@ export default function PropertyAddView() {
               </LocalizationProvider>
             </Grid>
             <Grid item xs={6}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Current Premium{" "}
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">£</InputAdornment>
-                }
-                label="Amount"
+            <TextField
+                id="outlined-basic"
+                label="Current Premium (£)"
+                variant="outlined"
                 value={currentPremium}
                 onChange={(e) => setCurrentPremium(e.target.value)}
                 fullWidth
               />
             </Grid>
             <Grid item xs={6}>
-              <InputLabel htmlFor="outlined-adornment-amount">
-                Previous Premium{" "}
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-amount"
-                startAdornment={
-                  <InputAdornment position="start">£</InputAdornment>
-                }
-                label="Amount"
+            <TextField
+                id="outlined-basic"
+                label="Previous Premium (£)"
+                variant="outlined"
                 value={previousPremium}
                 onChange={(e) => setPreviousPremium(e.target.value)}
                 fullWidth
