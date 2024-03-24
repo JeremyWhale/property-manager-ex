@@ -160,19 +160,21 @@ export default function MortgageReviewsTable(props) {
         );
 
         return Promise.all(urlRequests).then(urlResponses => {
-            const mappedRows = data.map((issue, index) => ({
-                dateDue: issue.renewal_date,
-                property: issue.property,
-                lender: issue.lender_name,
-                accountNumber: issue.account_number,
-                amountBorrowed: issue.amount_borrowed,
-                interestRate: issue.interest_rate,
-                monthlyAmount: issue.monthly_amount,
-                urlLink: urlResponses[index].data[0].other_docs_url, // Use the fetched URL
-            }));
-
-            setRows(mappedRows); // Update the state with the mapped data
-        })
+          const filteredData = data.filter(issue => issue.renewal_due.length > 1);
+      
+          const mappedRows = filteredData.map((issue, index) => ({
+            dateDue: issue.renewal_date,
+            property: issue.property,
+            lender: issue.lender_name,
+            accountNumber: issue.account_number,
+            amountBorrowed: issue.amount_borrowed,
+            interestRate: issue.interest_rate,
+            monthlyAmount: issue.monthly_amount,
+            urlLink: urlResponses[index].data[0].other_docs_url, // Use the fetched URL
+          }));
+      
+          setRows(mappedRows); // Update the state with the mapped data
+      });
       })
       .catch(error => {
         console.error("There was an error fetching the issues:", error);

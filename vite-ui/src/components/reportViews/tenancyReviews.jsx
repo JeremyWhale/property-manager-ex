@@ -131,14 +131,16 @@ export default function TenancyReviewsTable(props) {
   
         // Execute all URL requests concurrently
         return Promise.all(urlRequests).then(urlResponses => {
-          const mappedRows = data.map((issue, index) => ({
-            dateDue: issue.tenancy_renewal_date,
-            property: issue.property_name,
-            urlLink: urlResponses[index].data[0].ast_url, // Use the fetched URL
+          const filteredData = data.filter(issue => issue.tenancy_renewal_date.length > 1);
+      
+          const mappedRows = filteredData.map((issue, index) => ({
+              dateDue: issue.tenancy_renewal_date,
+              property: issue.property_name,
+              urlLink: urlResponses[index].data[0].ast_url, // Use the fetched URL
           }));
-          
+      
           setRows(mappedRows); // Update the state with the mapped data
-        });
+      });
       })
       .catch(error => {
         console.error("There was an error fetching the issues:", error);
