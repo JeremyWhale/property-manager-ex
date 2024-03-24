@@ -21,6 +21,7 @@ import StaticAlert from "../components/staticAlert";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { Storage, TaskAlt } from "@mui/icons-material";
+import { FormRender } from "../components/FormRender";
 
 const steps = [
   "Property Details",
@@ -49,7 +50,8 @@ export default function PropertyAddView() {
 
   const [currentValue, setCurrentValue] = useState("");
   const [entryCode, setEntryCode] = useState("");
-  const [councilLicenseRenewalDate, setCouncilLicenseRenewalsDue] = useState("");
+  const [councilLicenseRenewalDate, setCouncilLicenseRenewalsDue] =
+    useState("");
 
   const [gasSupplierOptions, setGasSupplierOptions] = useState([]);
   const [selectedGasSupplier, setSelectedGasSupplier] = useState("");
@@ -308,136 +310,136 @@ export default function PropertyAddView() {
   };
 
   const handleComplete = () => {
-      const propertyData = {
-        address_line_1: addressLine1,
-        address_line_2: addressLine2,
-        city: town,
-        county: county,
-        country: country,
-        post_code: postCode,
-        current_tenant: selectedTenant,
-        current_value: currentValue,
-        epc_renewal_date: epcReviewDate,
-        gas_certificate_renewal_date: gscReviewDate,
-        electrical_inspection_date: escReviewDate,
-        council_license_date: councilLicenseRenewalDate,
-        gas_supplier_details: selectedGasSupplier,
-        gas_account_number: gasAccountNumber,
-        electric_supplier_details: selectedElectricSupplier,
-        electric_account_number: electricAccountNumber,
-        water_supplier_details: selectedWaterSupplier,
-        water_account_number: waterAccountNumber,
-        entry_code: entryCode,
-        agent: selectedAgent,
-        agent_start_date: agentStartDate,
-      };
+    const propertyData = {
+      address_line_1: addressLine1,
+      address_line_2: addressLine2,
+      city: town,
+      county: county,
+      country: country,
+      post_code: postCode,
+      current_tenant: selectedTenant,
+      current_value: currentValue,
+      epc_renewal_date: epcReviewDate,
+      gas_certificate_renewal_date: gscReviewDate,
+      electrical_inspection_date: escReviewDate,
+      council_license_date: councilLicenseRenewalDate,
+      gas_supplier_details: selectedGasSupplier,
+      gas_account_number: gasAccountNumber,
+      electric_supplier_details: selectedElectricSupplier,
+      electric_account_number: electricAccountNumber,
+      water_supplier_details: selectedWaterSupplier,
+      water_account_number: waterAccountNumber,
+      entry_code: entryCode,
+      agent: selectedAgent,
+      agent_start_date: agentStartDate,
+    };
 
-      axios
-        .post(`${apiLocation}/property-add/`, propertyData)
-        .then((response) => {
-          setPropertyId(response.data.id);
+    axios
+      .post(`${apiLocation}/property-add/`, propertyData)
+      .then((response) => {
+        setPropertyId(response.data.id);
 
-          const tenancyData = {
+        const tenancyData = {
+          property: response.data.id,
+          tenant: selectedTenant,
+          move_in_date: moveInDate,
+          contract_term: term,
+          initial_rent_amount: initialRent,
+          current_rent_amount: currentRent,
+          payment_method: selectedPaymentMethod,
+          amount_paid: amountPaid,
+          rent_review_date: rentReviewDate,
+          tenancy_renewal_date: tenancyReviewDate,
+          deposit_amount: depositAmount,
+          deposit_lodged_with_dps: withDps,
+          scheme_name: selectedScheme,
+          scheme_policy_number: depositPolicyNumber,
+        };
+
+        axios
+          .post(`${apiLocation}/tenancy-add/`, tenancyData)
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+
+        const purchaseData = {
+          property: response.data.id,
+          purchase_price: purchasePrice,
+          purchase_date: purchaseDate,
+          purchase_method: purchaseMethod,
+          purchase_type: purchaseType,
+        };
+
+        axios
+          .post(`${apiLocation}/purchase-details-add/`, purchaseData)
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+
+        if (purchaseType === "Mortgage") {
+          const mortgageData = {
+            account_number: mortgageAccountNumber,
             property: response.data.id,
-            tenant: selectedTenant,
-            move_in_date: moveInDate,
-            contract_term: term,
-            initial_rent_amount: initialRent,
-            current_rent_amount: currentRent,
-            payment_method: selectedPaymentMethod,
-            amount_paid: amountPaid,
-            rent_review_date: rentReviewDate,
-            tenancy_renewal_date: tenancyReviewDate,
-            deposit_amount: depositAmount,
-            deposit_lodged_with_dps: withDps,
-            scheme_name: selectedScheme,
-            scheme_policy_number: depositPolicyNumber,
+            amount_borrowed: amountBorrowed,
+            interest_rate: interestRate,
+            term: mortgageTerm,
+            renewal_date: mortgageRenewalDate,
+            lender_name: lenderName,
+            lender_address: lenderAddress,
+            lender_email: lenderEmail,
+            lender_phone_number: lenderPhoneNumber,
+            mortgage_type: mortgageType,
+            monthly_amount: monthlyAmount,
           };
 
           axios
-            .post(`${apiLocation}/tenancy-add/`, tenancyData)
+            .post(`${apiLocation}/mortgage-add/`, mortgageData)
             .catch((error) => {
               console.error("Error:", error);
             });
+        }
 
-          const purchaseData = {
-            property: response.data.id,
-            purchase_price: purchasePrice,
-            purchase_date: purchaseDate,
-            purchase_method: purchaseMethod,
-            purchase_type: purchaseType,
-          };
+        const insuranceData = {
+          insurance_number: insurancePolicyNumber,
+          property: response.data.id,
+          company: insuranceCompany,
+          premium: currentPremium,
+          previous_premium: previousPremium,
+          renewal_due: insuranceRenewalDate,
+        };
 
-          axios
-            .post(`${apiLocation}/purchase-details-add/`, purchaseData)
-            .catch((error) => {
-              console.error("Error:", error);
-            });
+        axios
+          .post(`${apiLocation}/insurance-add/`, insuranceData)
+          .catch((error) => {
+            console.error("Error:", error);
+          });
 
-          if (purchaseType === 'Mortgage') {
-            const mortgageData = {
-              account_number: mortgageAccountNumber,
-              property: response.data.id,
-              amount_borrowed: amountBorrowed,
-              interest_rate: interestRate,
-              term: mortgageTerm,
-              renewal_date: mortgageRenewalDate,
-              lender_name: lenderName,
-              lender_address: lenderAddress,
-              lender_email: lenderEmail,
-              lender_phone_number: lenderPhoneNumber,
-              mortgage_type: mortgageType,
-              monthly_amount: monthlyAmount,
-            };
+        const urlsData = {
+          property: response.data.id,
+          ast_url: astLink,
+          epc_url: epcLink,
+          electrical_cert_url: escLink,
+          gas_safety_url: gscLink,
+          inventory_url: inventoryLink,
+          other_docs_url: otherDocumentsLink,
+        };
 
-            axios
-              .post(`${apiLocation}/mortgage-add/`, mortgageData)
-              .catch((error) => {
-                console.error("Error:", error);
-              });
-          }
-
-          const insuranceData = {
-            insurance_number: insurancePolicyNumber,
-            property: response.data.id,
-            company: insuranceCompany,
-            premium: currentPremium,
-            previous_premium: previousPremium,
-            renewal_due: insuranceRenewalDate,
-          };
-
-          axios
-            .post(`${apiLocation}/insurance-add/`, insuranceData)
-            .catch((error) => {
-              console.error("Error:", error);
-            });
-
-          const urlsData = {
-            property: response.data.id,
-            ast_url: astLink,
-            epc_url: epcLink,
-            electrical_cert_url: escLink,
-            gas_safety_url: gscLink,
-            inventory_url: inventoryLink,
-            other_docs_url: otherDocumentsLink,
-          };
-
-          axios
-            .post(`${apiLocation}/url-add/`, urlsData)
-            .then((response) => {
-              setUploadSuccess(true);
-              const newCompleted = completed;
-              newCompleted[activeStep] = true;
-              setCompleted(newCompleted);
-              setActiveStep(10);
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-            });
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+        axios
+          .post(`${apiLocation}/url-add/`, urlsData)
+          .then((response) => {
+            setUploadSuccess(true);
+            const newCompleted = completed;
+            newCompleted[activeStep] = true;
+            setCompleted(newCompleted);
+            setActiveStep(10);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   function handle5Next() {
@@ -445,42 +447,42 @@ export default function PropertyAddView() {
   }
 
   const handleReset = () => {
-    setUploadSuccess(false)
-    setPropertyId()
-    setAddressLine1('')
-    setAddressLine2('')
-    setTown('')
-    setCounty('')
-    setCountry('')
-    setPostCode('')
+    setUploadSuccess(false);
+    setPropertyId();
+    setAddressLine1("");
+    setAddressLine2("");
+    setTown("");
+    setCounty("");
+    setCountry("");
+    setPostCode("");
 
-    setCurrentValue('')
-    setEntryCode('')
-    setCouncilLicenseRenewalsDue('')
+    setCurrentValue("");
+    setEntryCode("");
+    setCouncilLicenseRenewalsDue("");
 
-    setSelectedGasSupplier('')
-    setGasAccountNumber('')
+    setSelectedGasSupplier("");
+    setGasAccountNumber("");
 
-    setSelectedElectricSupplier('')
-    setElectricAccountNumber('')
+    setSelectedElectricSupplier("");
+    setElectricAccountNumber("");
 
-    setSelectedWaterSupplier('')
-    setWaterAccountNumber('')
+    setSelectedWaterSupplier("");
+    setWaterAccountNumber("");
 
-    setSelectedTenant('')
+    setSelectedTenant("");
 
     //Tenancy details
-    setMoveInDate("")
-    setRentReviewDate("")
-    setTerm("")
-    setInitialRent("")
-    setCurrentRent("")
-    setAmountPaid("")
-    setSelectedPaymentMethod("Cash")
-    setDepositAmount("")
-    setWithDps(false)
-    setSelectedScheme("")
-    setDepositPolicyNumber("")
+    setMoveInDate("");
+    setRentReviewDate("");
+    setTerm("");
+    setInitialRent("");
+    setCurrentRent("");
+    setAmountPaid("");
+    setSelectedPaymentMethod("Cash");
+    setDepositAmount("");
+    setWithDps(false);
+    setSelectedScheme("");
+    setDepositPolicyNumber("");
 
     //Purchase details
     setPurchaseDate("");
@@ -512,11 +514,11 @@ export default function PropertyAddView() {
     setSelectedAgent();
     setAgentStartDate("");
 
-  // //Agent - new
-  // const [agentName, setAgentName] = useState("");
-  // const [agentAddress, setAgentAddress] = useState("");
-  // const [agentPhone, setAgentPhone] = useState("");
-  // const [agentEmail, setAgentEmail] = useState("");
+    // //Agent - new
+    // const [agentName, setAgentName] = useState("");
+    // const [agentAddress, setAgentAddress] = useState("");
+    // const [agentPhone, setAgentPhone] = useState("");
+    // const [agentEmail, setAgentEmail] = useState("");
 
     //documents
     setAstLink("");
@@ -535,8 +537,8 @@ export default function PropertyAddView() {
   };
 
   useEffect(() => {
-    handleReset()
-  }, [])
+    handleReset();
+  }, []);
 
   function handleStepShow() {
     // Property details
@@ -763,17 +765,6 @@ export default function PropertyAddView() {
               </TextField>
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/properties")}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle0Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -836,7 +827,7 @@ export default function PropertyAddView() {
               />
             </Grid>
             <Grid item xs={4}>
-            <TextField
+              <TextField
                 id="outlined-basic"
                 label="Amount Paid"
                 variant="outlined"
@@ -875,7 +866,7 @@ export default function PropertyAddView() {
               </TextField>
             </Grid>
             <Grid item xs={6}>
-            <TextField
+              <TextField
                 id="outlined-basic"
                 label="Deposit Amount (£)"
                 variant="outlined"
@@ -923,13 +914,6 @@ export default function PropertyAddView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle1Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1131,13 +1115,6 @@ export default function PropertyAddView() {
               </>
             )}
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle2Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1179,7 +1156,7 @@ export default function PropertyAddView() {
               </LocalizationProvider>
             </Grid>
             <Grid item xs={6}>
-            <TextField
+              <TextField
                 id="outlined-basic"
                 label="Current Premium (£)"
                 variant="outlined"
@@ -1189,7 +1166,7 @@ export default function PropertyAddView() {
               />
             </Grid>
             <Grid item xs={6}>
-            <TextField
+              <TextField
                 id="outlined-basic"
                 label="Previous Premium (£)"
                 variant="outlined"
@@ -1199,13 +1176,6 @@ export default function PropertyAddView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle3Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1300,13 +1270,6 @@ export default function PropertyAddView() {
               </>
             )} */}
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle4Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1421,13 +1384,6 @@ export default function PropertyAddView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle5Next()}>Finish</Button>
-          </Box>
         </>
       );
     }
@@ -1464,14 +1420,14 @@ export default function PropertyAddView() {
   return (
     <>
       <IcPageHeader heading={"Add Property"}>
-        {addressLine1 !== '' && selectedTenant !== '' && (
-        <IcButton
-          slot="actions"
-          variant="tertiary"
-          onClick={() => handle5Next()}
-        >
-          <TaskAlt slot="left-icon" /> Finish Creating
-        </IcButton>
+        {addressLine1 !== "" && selectedTenant !== "" && (
+          <IcButton
+            slot="actions"
+            variant="tertiary"
+            onClick={() => handle5Next()}
+          >
+            <TaskAlt slot="left-icon" /> Finish Creating
+          </IcButton>
         )}
         <IcButton
           slot="actions"
@@ -1483,16 +1439,17 @@ export default function PropertyAddView() {
         </IcButton>
       </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step key={label} completed={completed[index]}>
-              <StepButton color="inherit" onClick={handleStep(index)}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        {handleStepShow()}
+        <FormRender
+          activeStep={activeStep}
+          steps={steps}
+          handleStepShow={handleStepShow}
+          completed={completed}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handleStep={handleStep}
+          handleSubmit={handle5Next}
+          navLocation={"/properties"}
+        />
       </Box>
     </>
   );

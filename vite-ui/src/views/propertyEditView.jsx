@@ -27,6 +27,7 @@ import { Delete, SettingsPower, TaskAlt, Storage } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
+import { FormRender } from "../components/FormRender";
 
 const steps = [
   "Property Details",
@@ -40,7 +41,7 @@ const steps = [
 export default function PropertyEditView() {
   const navigate = useNavigate();
 
-  const { propertyToEdit, propertyTenant } = useAppContext()
+  const { propertyToEdit, propertyTenant } = useAppContext();
 
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
@@ -218,7 +219,7 @@ export default function PropertyEditView() {
         setPurchaseType(requestPurchase.data[0].purchase_type);
 
         setOriginalPurchaseMethod(requestPurchase.data[0].purchase_type);
-        console.log('orig pm', requestPurchase.data[0].purchase_type)
+        console.log("orig pm", requestPurchase.data[0].purchase_type);
 
         setMortgageId(requestMortgage.data[0].id);
         setMortgageAccountNumber(requestMortgage.data[0].account_number);
@@ -240,7 +241,7 @@ export default function PropertyEditView() {
         setPurchaseType(requestPurchase.data[0].purchase_type);
 
         setOriginalPurchaseMethod(requestPurchase.data[0].purchase_type);
-        console.log('orig pm', requestPurchase.data[0].purchase_type)
+        console.log("orig pm", requestPurchase.data[0].purchase_type);
       }
     } catch (e) {
       //Alert saying api cannot be reached try again later
@@ -548,147 +549,147 @@ export default function PropertyEditView() {
         });
     }
 
-      const propertyData = {
-        address_line_1: addressLine1,
-        address_line_2: addressLine2,
-        city: town,
-        county: county,
-        country: country,
-        post_code: postCode,
-        current_tenant: selectedTenant,
-        current_value: currentValue,
-        epc_renewal_date: epcReviewDate,
-        gas_certificate_renewal_date: gscReviewDate,
-        electrical_inspection_date: escReviewDate,
-        council_license_date: councilLicenseRenewalDate,
-        gas_supplier_details: selectedGasSupplier,
-        gas_account_number: gasAccountNumber,
-        electric_supplier_details: selectedElectricSupplier,
-        electric_account_number: electricAccountNumber,
-        water_supplier_details: selectedWaterSupplier,
-        water_account_number: waterAccountNumber,
-        entry_code: entryCode,
-        agent: selectedAgent,
-        agent_start_date: agentStartDate,
-      };
+    const propertyData = {
+      address_line_1: addressLine1,
+      address_line_2: addressLine2,
+      city: town,
+      county: county,
+      country: country,
+      post_code: postCode,
+      current_tenant: selectedTenant,
+      current_value: currentValue,
+      epc_renewal_date: epcReviewDate,
+      gas_certificate_renewal_date: gscReviewDate,
+      electrical_inspection_date: escReviewDate,
+      council_license_date: councilLicenseRenewalDate,
+      gas_supplier_details: selectedGasSupplier,
+      gas_account_number: gasAccountNumber,
+      electric_supplier_details: selectedElectricSupplier,
+      electric_account_number: electricAccountNumber,
+      water_supplier_details: selectedWaterSupplier,
+      water_account_number: waterAccountNumber,
+      entry_code: entryCode,
+      agent: selectedAgent,
+      agent_start_date: agentStartDate,
+    };
 
-      axios
-        .put(`${apiLocation}/property-edit/${propertyId}`, propertyData)
-        .then((response) => {
-          setPropertyId(response.data.id);
+    axios
+      .put(`${apiLocation}/property-edit/${propertyId}`, propertyData)
+      .then((response) => {
+        setPropertyId(response.data.id);
 
-          const tenancyData = {
+        const tenancyData = {
+          property: response.data.id,
+          tenant: selectedTenant,
+          move_in_date: moveInDate,
+          contract_term: term,
+          initial_rent_amount: initialRent,
+          current_rent_amount: currentRent,
+          payment_method: selectedPaymentMethod,
+          amount_paid: amountPaid,
+          rent_review_date: rentReviewDate,
+          tenancy_renewal_date: tenancyReviewDate,
+          deposit_amount: depositAmount,
+          deposit_lodged_with_dps: withDps,
+          scheme_name: selectedScheme,
+          scheme_policy_number: depositPolicyNumber,
+        };
+
+        axios
+          .put(`${apiLocation}/tenancy-edit/${tenancyId}`, tenancyData)
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+
+        const purchaseData = {
+          property: response.data.id,
+          purchase_price: purchasePrice,
+          purchase_date: purchaseDate,
+          purchase_method: purchaseMethod,
+          purchase_type: purchaseType,
+        };
+
+        axios
+          .put(
+            `${apiLocation}/purchase-details-edit/${purchaseId}`,
+            purchaseData
+          )
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+
+        if (purchaseType === "Mortgage") {
+          const mortgageData = {
+            account_number: mortgageAccountNumber,
             property: response.data.id,
-            tenant: selectedTenant,
-            move_in_date: moveInDate,
-            contract_term: term,
-            initial_rent_amount: initialRent,
-            current_rent_amount: currentRent,
-            payment_method: selectedPaymentMethod,
-            amount_paid: amountPaid,
-            rent_review_date: rentReviewDate,
-            tenancy_renewal_date: tenancyReviewDate,
-            deposit_amount: depositAmount,
-            deposit_lodged_with_dps: withDps,
-            scheme_name: selectedScheme,
-            scheme_policy_number: depositPolicyNumber,
+            amount_borrowed: amountBorrowed,
+            interest_rate: interestRate,
+            term: mortgageTerm,
+            renewal_date: mortgageRenewalDate,
+            lender_name: lenderName,
+            lender_address: lenderAddress,
+            lender_email: lenderEmail,
+            lender_phone_number: lenderPhoneNumber,
+            mortgage_type: mortgageType,
+            monthly_amount: monthlyAmount,
           };
 
-          axios
-            .put(`${apiLocation}/tenancy-edit/${tenancyId}`, tenancyData)
-            .catch((error) => {
-              console.error("Error:", error);
-            });
-
-          const purchaseData = {
-            property: response.data.id,
-            purchase_price: purchasePrice,
-            purchase_date: purchaseDate,
-            purchase_method: purchaseMethod,
-            purchase_type: purchaseType,
-          };
-
-          axios
-            .put(
-              `${apiLocation}/purchase-details-edit/${purchaseId}`,
-              purchaseData
-            )
-            .catch((error) => {
-              console.error("Error:", error);
-            });
-
-          if (purchaseType === 'Mortgage') {
-            const mortgageData = {
-              account_number: mortgageAccountNumber,
-              property: response.data.id,
-              amount_borrowed: amountBorrowed,
-              interest_rate: interestRate,
-              term: mortgageTerm,
-              renewal_date: mortgageRenewalDate,
-              lender_name: lenderName,
-              lender_address: lenderAddress,
-              lender_email: lenderEmail,
-              lender_phone_number: lenderPhoneNumber,
-              mortgage_type: mortgageType,
-              monthly_amount: monthlyAmount,
-            };
-
-            if (originalPurchaseMethod === 'Cash') {
-              axios
-                .post(`${apiLocation}/mortgage-add/`, mortgageData)
-                .catch((error) => {
-                  console.error("Error:", error);
-                });
-            } else {
-              axios
-                .put(`${apiLocation}/mortgage-edit/${mortgageId}`, mortgageData)
-                .catch((error) => {
-                  console.error("Error:", error);
-                });
-            }
+          if (originalPurchaseMethod === "Cash") {
+            axios
+              .post(`${apiLocation}/mortgage-add/`, mortgageData)
+              .catch((error) => {
+                console.error("Error:", error);
+              });
+          } else {
+            axios
+              .put(`${apiLocation}/mortgage-edit/${mortgageId}`, mortgageData)
+              .catch((error) => {
+                console.error("Error:", error);
+              });
           }
+        }
 
-          const insuranceData = {
-            insurance_number: insurancePolicyNumber,
-            property: response.data.id,
-            company: insuranceCompany,
-            premium: currentPremium,
-            previous_premium: previousPremium,
-            renewal_due: insuranceRenewalDate,
-          };
+        const insuranceData = {
+          insurance_number: insurancePolicyNumber,
+          property: response.data.id,
+          company: insuranceCompany,
+          premium: currentPremium,
+          previous_premium: previousPremium,
+          renewal_due: insuranceRenewalDate,
+        };
 
-          axios
-            .put(`${apiLocation}/insurance-edit/${insuranceId}`, insuranceData)
-            .catch((error) => {
-              console.error("Error:", error);
-            });
+        axios
+          .put(`${apiLocation}/insurance-edit/${insuranceId}`, insuranceData)
+          .catch((error) => {
+            console.error("Error:", error);
+          });
 
-          const urlsData = {
-            property: response.data.id,
-            ast_url: astLink,
-            epc_url: epcLink,
-            electrical_cert_url: escLink,
-            gas_safety_url: gscLink,
-            inventory_url: inventoryLink,
-            other_docs_url: otherDocumentsLink,
-          };
+        const urlsData = {
+          property: response.data.id,
+          ast_url: astLink,
+          epc_url: epcLink,
+          electrical_cert_url: escLink,
+          gas_safety_url: gscLink,
+          inventory_url: inventoryLink,
+          other_docs_url: otherDocumentsLink,
+        };
 
-          axios
-            .put(`${apiLocation}/url-edit/${urlId}`, urlsData)
-            .then((response) => {
-              setUploadSuccess(true);
-              const newCompleted = completed;
-              newCompleted[activeStep] = true;
-              setCompleted(newCompleted);
-              setActiveStep(10);
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-            });
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+        axios
+          .put(`${apiLocation}/url-edit/${urlId}`, urlsData)
+          .then((response) => {
+            setUploadSuccess(true);
+            const newCompleted = completed;
+            newCompleted[activeStep] = true;
+            setCompleted(newCompleted);
+            setActiveStep(10);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   function handle5Next() {
@@ -1701,16 +1702,17 @@ export default function PropertyEditView() {
         </IcButton>
       </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step key={label} completed={completed[index]}>
-              <StepButton color="inherit" onClick={handleStep(index)}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        {handleStepShow()}
+        <FormRender
+          activeStep={activeStep}
+          steps={steps}
+          handleStepShow={handleStepShow}
+          completed={completed}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handleStep={handleStep}
+          handleSubmit={handle5Next}
+          navLocation={"/properties"}
+        />
       </Box>
     </>
   );
