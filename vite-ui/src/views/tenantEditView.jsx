@@ -12,13 +12,14 @@ import StaticAlert from "../components/staticAlert";
 import { Delete, TaskAlt } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
+import { FormRender } from "../components/FormRender";
 
 const steps = ["Tenant Details", "Emergency Contact Details"];
 
 export default function TenantEditView() {
   const navigate = useNavigate();
 
-  const { tenantToEdit } = useAppContext()
+  const { tenantToEdit } = useAppContext();
 
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
@@ -96,8 +97,7 @@ export default function TenantEditView() {
   const handleNext = () => {
     if (name === "") {
       setNameError(true);
-    }
-    else {
+    } else {
       const newActiveStep =
         isLastStep() && !allStepsCompleted()
           ? // It's the last step, but not all steps have been completed,
@@ -117,30 +117,30 @@ export default function TenantEditView() {
   };
 
   const handleComplete = () => {
-      const data = {
-        id: id,
-        full_name: name,
-        phone_number: phoneNumber,
-        email: email,
-        bank_sort_code: sortCode,
-        bank_account_number: accountNumber,
-        emergency_contact_name: emergencyContactName,
-        emergency_contact_phone_number: emergencyContactPhone,
-        emergency_contact_email: emergencyContactEmail,
-      };
-      axios
-        .put(`${apiLocation}/tenant-edit/${id}`, data)
-        .then((response) => {
-          setUploadSuccess(true);
-        })
-        .catch((error) => {
-          setUploadSuccess(false);
-          console.error("Error:", error);
-        });
-      const newCompleted = completed;
-      newCompleted[activeStep] = true;
-      setCompleted(newCompleted);
-      setActiveStep(3);
+    const data = {
+      id: id,
+      full_name: name,
+      phone_number: phoneNumber,
+      email: email,
+      bank_sort_code: sortCode,
+      bank_account_number: accountNumber,
+      emergency_contact_name: emergencyContactName,
+      emergency_contact_phone_number: emergencyContactPhone,
+      emergency_contact_email: emergencyContactEmail,
+    };
+    axios
+      .put(`${apiLocation}/tenant-edit/${id}`, data)
+      .then((response) => {
+        setUploadSuccess(true);
+      })
+      .catch((error) => {
+        setUploadSuccess(false);
+        console.error("Error:", error);
+      });
+    const newCompleted = completed;
+    newCompleted[activeStep] = true;
+    setCompleted(newCompleted);
+    setActiveStep(3);
   };
 
   async function handleDelete() {
@@ -165,7 +165,7 @@ export default function TenantEditView() {
                 label="Name (required)"
                 variant="outlined"
                 fullWidth
-                color={name === '' && "error"}
+                color={name === "" && "error"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -212,17 +212,6 @@ export default function TenantEditView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/tenants")}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -262,13 +251,6 @@ export default function TenantEditView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleComplete}>Finish</Button>
-          </Box>
         </>
       );
     }
@@ -309,11 +291,7 @@ export default function TenantEditView() {
   return (
     <>
       <IcPageHeader heading={`Edit Tenant`} subheading={tenantToEdit}>
-        <IcButton
-          slot="actions"
-          variant="tertiary"
-          onClick={handleComplete}
-        >
+        <IcButton slot="actions" variant="tertiary" onClick={handleComplete}>
           <TaskAlt slot="left-icon" /> Finish Editing
         </IcButton>
         <IcButton
@@ -325,16 +303,17 @@ export default function TenantEditView() {
         </IcButton>
       </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step key={label} completed={completed[index]}>
-              <StepButton color="inherit" onClick={handleStep(index)}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        {handleStepShow()}
+        <FormRender
+          activeStep={activeStep}
+          steps={steps}
+          handleStepShow={handleStepShow}
+          completed={completed}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handleStep={handleStep}
+          handleSubmit={handleComplete}
+          navLocation={"/tenants"}
+        />
       </Box>
     </>
   );

@@ -27,6 +27,7 @@ import StaticAlert from "../components/staticAlert";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { Storage, TaskAlt } from "@mui/icons-material";
+import { FormRender } from "../components/FormRender";
 
 const steps = [
   "Property Details",
@@ -1496,39 +1497,17 @@ export default function PropertyAddView() {
         </IcButton>
       </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Grid container rowSpacing={2}>
-          <Grid item xs={1} display="flex" justifyContent={"center"}>
-            <Button
-              onClick={() => {
-                if (activeStep === 0) navigate("/properties");
-                else handleBack();
-              }}
-            >
-              Back
-            </Button>
-          </Grid>
-          <Grid item xs={10}>
-            <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-              {steps.map((label, index) => (
-                <Step key={label} completed={completed[index]}>
-                  <StepButton color="inherit" onClick={handleStep(index)}>
-                    {label}
-                  </StepButton>
-                </Step>
-              ))}
-            </Stepper>
-          </Grid>
-          <Grid item xs>
-            {activeStep !== steps.length - 1 ? (
-              <Button onClick={handleNext}>Next</Button>
-            ) : (
-              <Button onClick={handle5Next}>Finish</Button>
-            )}
-          </Grid>
-          <Grid item xs={12}>
-            {handleStepShow()}
-          </Grid>
-        </Grid>
+        <FormRender
+          activeStep={activeStep}
+          steps={steps}
+          handleStepShow={handleStepShow}
+          completed={completed}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handleStep={handleStep}
+          handleSubmit={handle5Next}
+          navLocation={"/properties"}
+        />
       </Box>
     </>
   );

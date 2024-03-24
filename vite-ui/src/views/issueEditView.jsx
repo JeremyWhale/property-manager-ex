@@ -22,13 +22,14 @@ import { Delete, TaskAlt } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
+import { FormRender } from "../components/FormRender";
 
 const steps = ["Issue Details", "Contractor Details"];
 
 export default function IssueEditView() {
   const navigate = useNavigate();
 
-  const { issueToEdit } = useAppContext()
+  const { issueToEdit } = useAppContext();
 
   const [activeStep, setActiveStep] = useState(0);
   const [completed, setCompleted] = useState({});
@@ -77,7 +78,7 @@ export default function IssueEditView() {
 
   useEffect(() => {
     async function getIssue() {
-      console.log('issue', issueToEdit)
+      console.log("issue", issueToEdit);
       const response = await axios.get(`${apiLocation}/issue/${issueToEdit}`);
 
       setProperty(response.data.property);
@@ -245,8 +246,7 @@ export default function IssueEditView() {
       //Post request for contractor
       if (name === "") {
         setNameError(true);
-      }
-      else {
+      } else {
         const contractorData = {
           name: name,
           address: address,
@@ -396,17 +396,6 @@ export default function IssueEditView() {
               </Grid>
             )}
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/issues")}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -512,18 +501,6 @@ export default function IssueEditView() {
               </>
             )}
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleComplete}>Finish</Button>
-          </Box>
         </>
       );
     }
@@ -561,11 +538,7 @@ export default function IssueEditView() {
   return (
     <>
       <IcPageHeader heading={"Add Issue"}>
-        <IcButton
-          slot="actions"
-          variant="tertiary"
-          onClick={handleComplete}
-        >
+        <IcButton slot="actions" variant="tertiary" onClick={handleComplete}>
           <TaskAlt slot="left-icon" /> Finish Editing
         </IcButton>
         <IcButton
@@ -577,16 +550,17 @@ export default function IssueEditView() {
         </IcButton>
       </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step key={label} completed={completed[index]}>
-              <StepButton color="inherit" onClick={handleStep(index)}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        {handleStepShow()}
+        <FormRender
+          activeStep={activeStep}
+          steps={steps}
+          handleStepShow={handleStepShow}
+          completed={completed}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handleStep={handleStep}
+          handleSubmit={handleComplete}
+          navLocation={"/issues"}
+        />
       </Box>
     </>
   );

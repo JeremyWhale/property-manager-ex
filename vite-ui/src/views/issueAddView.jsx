@@ -20,6 +20,7 @@ import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import { FormRender } from "../components/FormRender";
 
 const steps = ["Issue Details", "Contractor Details"];
 
@@ -199,8 +200,7 @@ export default function IssueAddView() {
       //Post request for contractor
       if (name === "") {
         setNameError(true);
-      }
-      else {
+      } else {
         const contractorData = {
           name: name,
           address: address,
@@ -367,17 +367,6 @@ export default function IssueAddView() {
               </Grid>
             )}
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/issues")}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -483,18 +472,6 @@ export default function IssueAddView() {
               </>
             )}
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleComplete}>Finish</Button>
-          </Box>
         </>
       );
     }
@@ -532,16 +509,17 @@ export default function IssueAddView() {
     <>
       <IcPageHeader heading={"Add Issue"} />
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step key={label} completed={completed[index]}>
-              <StepButton color="inherit" onClick={handleStep(index)}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        {handleStepShow()}
+        <FormRender
+          activeStep={activeStep}
+          steps={steps}
+          handleStepShow={handleStepShow}
+          completed={completed}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handleStep={handleStep}
+          handleSubmit={handleComplete}
+          navLocation={"/issues"}
+        />
       </Box>
     </>
   );

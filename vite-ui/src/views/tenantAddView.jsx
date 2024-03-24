@@ -11,6 +11,7 @@ import apiLocation from "../components/apiLocation";
 import StaticAlert from "../components/staticAlert";
 import { useNavigate } from "react-router-dom";
 import { TaskAlt } from "@mui/icons-material";
+import { FormRender } from "../components/FormRender";
 
 const steps = ["Tenant Details", "Emergency Contact Details"];
 
@@ -148,7 +149,7 @@ export default function TenantAddView() {
                 label="Name (required)"
                 variant="outlined"
                 fullWidth
-                color={name === '' && "error"}
+                color={name === "" && "error"}
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -196,17 +197,6 @@ export default function TenantAddView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/tenants")}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleNext}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -246,13 +236,6 @@ export default function TenantAddView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleComplete}>Finish</Button>
-          </Box>
         </>
       );
     }
@@ -289,7 +272,7 @@ export default function TenantAddView() {
   return (
     <>
       <IcPageHeader heading={"Add Tenant"}>
-        {name !== '' && (
+        {name !== "" && (
           <IcButton
             slot="actions"
             variant="tertiary"
@@ -297,19 +280,20 @@ export default function TenantAddView() {
           >
             <TaskAlt slot="left-icon" /> Finish Creating
           </IcButton>
-          )}
+        )}
       </IcPageHeader>
       <Box sx={{ width: "100%", paddingTop: 2 }}>
-        <Stepper alternativeLabel nonLinear activeStep={activeStep}>
-          {steps.map((label, index) => (
-            <Step key={label} completed={completed[index]}>
-              <StepButton color="inherit" onClick={handleStep(index)}>
-                {label}
-              </StepButton>
-            </Step>
-          ))}
-        </Stepper>
-        {handleStepShow()}
+        <FormRender
+          activeStep={activeStep}
+          steps={steps}
+          handleStepShow={handleStepShow}
+          completed={completed}
+          handleNext={handleNext}
+          handleBack={handleBack}
+          handleStep={handleStep}
+          handleSubmit={handleComplete}
+          navLocation={"/tenants"}
+        />
       </Box>
     </>
   );
