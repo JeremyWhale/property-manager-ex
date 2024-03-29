@@ -483,6 +483,8 @@ export default function PropertyAddView() {
 
     setStatus("")
 
+    setType("")
+
     //Tenancy details
     setMoveInDate("");
     setRentReviewDate("");
