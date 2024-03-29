@@ -747,7 +747,7 @@ export default function PropertyView() {
           </Grid>
           <Grid item xs={6}>
             <Typography>
-              <b>EPC rewnewal date: </b>
+              <b>EPC renewal date: </b>
               {formatDisplayDate(propertyDetails.epcRenewalDate)}
             </Typography>
           </Grid>
@@ -757,7 +757,7 @@ export default function PropertyView() {
           </Grid>
           <Grid item xs={6}>
             <Typography>
-              <b>Gas certificate rewnewal date: </b>
+              <b>Gas certificate renewal date: </b>
               {formatDisplayDate(propertyDetails.gasCertificateRenewalDate)}
             </Typography>
           </Grid>
@@ -777,7 +777,7 @@ export default function PropertyView() {
           </Grid>
           <Grid item xs={6}>
             <Typography>
-              <b>Council tax rewnewal date: </b>
+              <b>Council tax renewal date: </b>
               {formatDisplayDate(propertyDetails.councilLicenseRenewalDate)}
             </Typography>
           </Grid>
@@ -959,7 +959,7 @@ export default function PropertyView() {
             </Grid>
             <Grid item xs={4}>
               <Typography>
-                <b>Purchase Mathod: </b>
+                <b>Purchase Method: </b>
                 {purchaseDetails.purchaseMethod}
               </Typography>
             </Grid>
@@ -983,7 +983,7 @@ export default function PropertyView() {
             </Grid>
             <Grid item xs={4}>
               <Typography>
-                <b>Purchase Mathod: </b>
+                <b>Purchase Method: </b>
                 {purchaseDetails.purchaseMethod}
               </Typography>
             </Grid>

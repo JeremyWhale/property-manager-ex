@@ -939,17 +939,6 @@ export default function PropertyEditView() {
               </TextField>
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              onClick={() => navigate("/properties")}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle0Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1108,13 +1097,6 @@ export default function PropertyEditView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle1Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1327,13 +1309,6 @@ export default function PropertyEditView() {
               </>
             )}
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle2Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1398,13 +1373,6 @@ export default function PropertyEditView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle3Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1500,13 +1468,6 @@ export default function PropertyEditView() {
               </>
             )} */}
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle4Next()}>Next</Button>
-          </Box>
         </>
       );
     }
@@ -1631,13 +1592,6 @@ export default function PropertyEditView() {
               />
             </Grid>
           </Grid>
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button color="inherit" onClick={handleBack} sx={{ mr: 1 }}>
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={() => handle5Next()}>Finish</Button>
-          </Box>
         </>
       );
     }
