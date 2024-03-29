@@ -894,19 +894,22 @@ export default function PropertyAddView() {
                 onChange={(e) => setSelectedPaymentMethod(e.target.value)}
                 fullWidth
               >
-                <MenuItem key={0} value={"Cash"}>
+                <MenuItem key={0} value={"Bank Transfer"}>
                   Bank Transfer
                 </MenuItem>
                 <MenuItem key={0} value={"Cash"}>
                   Cash
                 </MenuItem>
-                <MenuItem key={0} value={"Cash"}>
+                <MenuItem key={0} value={"Cheque"}>
+                  Cheque
+                </MenuItem>
+                <MenuItem key={0} value={"Credit Card"}>
                   Credit Card
                 </MenuItem>
                 <MenuItem key={1} value={"Direct Debit"}>
                   Direct Debit
                 </MenuItem>
-                <MenuItem key={0} value={"Cash"}>
+                <MenuItem key={0} value={"Standing Order"}>
                   Standing Order
                 </MenuItem>
               </TextField>
