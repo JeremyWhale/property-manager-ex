@@ -70,6 +70,7 @@ class Property(models.Model):
     entry_code = models.CharField(max_length=10, blank=True)
     agent = models.CharField(max_length=50, blank=True, null=True)
     agent_start_date = models.CharField(max_length=10, blank=True)
+    notes = models.TextField(blank=True)
 
     def __str__(self):
         return self.address_line_1

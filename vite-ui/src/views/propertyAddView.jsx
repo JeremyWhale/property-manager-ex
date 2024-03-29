@@ -30,6 +30,7 @@ const steps = [
   "Insurance Details",
   "Agent Details",
   "Documents",
+  "Notes",
 ];
 
 export default function PropertyAddView() {
@@ -67,6 +68,8 @@ export default function PropertyAddView() {
 
   const [tenantList, setTenantList] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState("");
+
+  const [notes, setNotes] = useState("")
 
   //Tenancy details
   const [moveInDate, setMoveInDate] = useState("");
@@ -1376,7 +1379,7 @@ export default function PropertyAddView() {
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
-                label="Other document folder link"
+                label="Other documents folder link"
                 variant="outlined"
                 value={otherDocumentsLink}
                 onChange={(e) => setOtherDocumentsLink(e.target.value)}
@@ -1386,6 +1389,25 @@ export default function PropertyAddView() {
           </Grid>
         </>
       );
+    }
+
+    //Notes
+    if (activeStep === 6) {
+      return (
+        <Grid container sx={{ paddingTop: 2 }}>
+          <Grid item xs={12}>
+            <TextField
+              id="outlined-basic"
+              label="Notes"
+              variant="outlined"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              fullWidth
+              multiline
+            />
+          </Grid>
+        </Grid>
+      )
     }
 
     // Completed step

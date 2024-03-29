@@ -36,6 +36,7 @@ const steps = [
   "Insurance Details",
   "Agent Details",
   "Documents",
+  "Notes",
 ];
 
 export default function PropertyEditView() {
@@ -80,6 +81,8 @@ export default function PropertyEditView() {
   const [waterSupplierOptions, setWaterSupplierOptions] = useState([]);
   const [selectedWaterSupplier, setSelectedWaterSupplier] = useState("");
   const [waterAccountNumber, setWaterAccountNumber] = useState("");
+
+  const [notes, setNotes] = useState("")
 
   const [tenantList, setTenantList] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState("");
@@ -195,6 +198,7 @@ export default function PropertyEditView() {
           setEntryCode(response.data.entry_code);
           setSelectedAgent(response.data.agent_id);
           setAgentStartDate(response.data.agent_start_date);
+          setNotes(response.data.notes)
         });
     } catch (e) {
       //Alert saying api cannot be reached try again later
@@ -533,6 +537,7 @@ export default function PropertyEditView() {
               entry_code: entryCode,
               agent: response.data.id,
               agent_start_date: agentStartDate,
+              notes: notes,
             };
 
             console.log(propertyData);
@@ -571,6 +576,7 @@ export default function PropertyEditView() {
       entry_code: entryCode,
       agent: selectedAgent,
       agent_start_date: agentStartDate,
+      notes: notes
     };
 
     axios
@@ -1594,6 +1600,25 @@ export default function PropertyEditView() {
           </Grid>
         </>
       );
+    }
+
+     //Notes
+     if (activeStep === 6) {
+      return (
+        <Grid container sx={{ paddingTop: 2 }}>
+          <Grid item xs={12}>
+            <TextField
+              id="outlined-basic"
+              label="Notes"
+              variant="outlined"
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              fullWidth
+              multiline
+            />
+          </Grid>
+        </Grid>
+      )
     }
 
     // Completed step

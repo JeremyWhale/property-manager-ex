@@ -302,6 +302,7 @@ export default function PropertyView() {
           entryCode: request.data.entry_code,
           agent: request.data.agent,
           startDate: request.data.agent_start_date,
+          notes: request.data.notes,
         };
         console.log(data);
         setPropertyDetails(data);
@@ -1377,6 +1378,18 @@ export default function PropertyView() {
           </Grid>
         </Grid>
       );
+    }
+    if (selectedInfoView === "NO" && propertyDetails !== undefined){
+      return(
+        <Grid container sx={{ paddingTop: 2 }}>
+          <Grid item xs={12}>
+            <Typography>
+              <b>Notes: </b>
+              {propertyDetails.notes}
+            </Typography>
+          </Grid>
+        </Grid>
+      )
     } else {
       return (
         <StaticAlert
@@ -1467,6 +1480,13 @@ export default function PropertyView() {
           label="Documents"
           onClick={() => setSelectedInfoView("D")}
           selected={selectedInfoView === "D"}
+          sx={{ color: "#282c34" }}
+        />
+        <StyledIcNavigationItem
+          slot="tabs"
+          label="Notes"
+          onClick={() => setSelectedInfoView("NO")}
+          selected={selectedInfoView === "NO"}
           sx={{ color: "#282c34" }}
         />
       </IcPageHeader>
