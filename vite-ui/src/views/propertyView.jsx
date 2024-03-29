@@ -304,9 +304,8 @@ export default function PropertyView() {
           startDate: request.data.agent_start_date,
           notes: request.data.notes,
           status: request.data.status,
-          type: response.data.type,
+          type: request.data.type,
         };
-        console.log(data);
         setPropertyDetails(data);
       } catch (e) {
         //Alert saying api cannot be reached try again later
