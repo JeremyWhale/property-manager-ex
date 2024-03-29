@@ -634,7 +634,6 @@ export default function PropertyEditView() {
             console.error("Error:", error);
           });
 
-        if (purchaseType === "Mortgage") {
           const mortgageData = {
             account_number: mortgageAccountNumber,
             property: response.data.id,
@@ -649,21 +648,11 @@ export default function PropertyEditView() {
             mortgage_type: mortgageType,
             monthly_amount: monthlyAmount,
           };
-
-          if (originalPurchaseMethod === "Cash") {
-            axios
-              .post(`${apiLocation}/mortgage-add/`, mortgageData)
-              .catch((error) => {
-                console.error("Error:", error);
-              });
-          } else {
             axios
               .put(`${apiLocation}/mortgage-edit/${mortgageId}`, mortgageData)
               .catch((error) => {
                 console.error("Error:", error);
               });
-          }
-        }
 
         const insuranceData = {
           insurance_number: insurancePolicyNumber,

@@ -383,7 +383,6 @@ export default function PropertyAddView() {
             console.error("Error:", error);
           });
 
-        if (purchaseType === "Mortgage") {
           const mortgageData = {
             account_number: mortgageAccountNumber,
             property: response.data.id,
@@ -404,7 +403,6 @@ export default function PropertyAddView() {
             .catch((error) => {
               console.error("Error:", error);
             });
-        }
 
         const insuranceData = {
           insurance_number: insurancePolicyNumber,

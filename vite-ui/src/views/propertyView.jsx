@@ -955,7 +955,7 @@ export default function PropertyView() {
       );
     }
     if (selectedInfoView === "PUD" && purchaseDetails !== undefined) {
-      if (purchaseDetails.purchaseType === "Cash") {
+      if (purchaseDetails.purchaseType !== "Mortgage") {
         return (
           <Grid container spacing={2} sx={{ paddingTop: 2 }}>
             {/* Row */}
