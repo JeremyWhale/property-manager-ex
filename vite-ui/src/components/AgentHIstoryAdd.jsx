@@ -81,7 +81,9 @@ export default function AgentHistoryAdd(props){
                     fullWidth
                     color={selectedAgent === '' && ('error')}
                 >
-                    {tenantOptions.map((tenant, index) => (
+                    {tenantOptions
+                    .sort((a, b) => a.fullName.localeCompare(b.fullName))
+                    .map((tenant, index) => (
                         <MenuItem key={index} value={tenant.id}>
                             {tenant.fullName}
                         </MenuItem>

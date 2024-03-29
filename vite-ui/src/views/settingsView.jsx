@@ -1086,19 +1086,25 @@ export default function SettingsView({ setLoggedIn }) {
                 sx={{ marginTop: 2 }}
               >
                 {supplierType === "gas" &&
-                  gasSupplierOptions.map((data) => (
+                  gasSupplierOptions
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((data) => (
                     <MenuItem key={data.id} value={data.name}>
                       {data.name}
                     </MenuItem>
                   ))}
                 {supplierType === "electric" &&
-                  electricSupplierOptions.map((data) => (
+                  electricSupplierOptions
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((data) => (
                     <MenuItem key={data.id} value={data.name}>
                       {data.name}
                     </MenuItem>
                   ))}
                 {supplierType === "water" &&
-                  waterSupplierOptions.map((data) => (
+                  waterSupplierOptions
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((data) => (
                     <MenuItem key={data.id} value={data.name}>
                       {data.name}
                     </MenuItem>
@@ -1196,7 +1202,9 @@ export default function SettingsView({ setLoggedIn }) {
                 value={selectedDs}
                 onChange={(e) => setSelectedDs(e.target.value)}
               >
-                {dsOptions.map((data) => (
+                {dsOptions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((data) => (
                   <MenuItem key={data.id} value={data.name}>
                     {data.name}
                   </MenuItem>
@@ -1294,7 +1302,9 @@ export default function SettingsView({ setLoggedIn }) {
                 value={selectedAgent}
                 onChange={(e) => setSelectedAgent(e.target.value)}
               >
-                {agentOptions.map((data) => (
+                {agentOptions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((data) => (
                   <MenuItem key={data.id} value={data.name}>
                     {data.name}
                   </MenuItem>
@@ -1402,7 +1412,9 @@ export default function SettingsView({ setLoggedIn }) {
                 value={selectedContractor}
                 onChange={(e) => setSelectedContractor(e.target.value)}
               >
-                {contractorOptions.map((data) => (
+                {contractorOptions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((data) => (
                   <MenuItem key={data.id} value={data.name}>
                     {data.name}
                   </MenuItem>

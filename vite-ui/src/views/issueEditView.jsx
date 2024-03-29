@@ -328,7 +328,9 @@ export default function IssueEditView() {
                 color={propertyError && "error"}
                 fullWidth
               >
-                {propertyList.map((property, index) => (
+                {propertyList
+                .sort((a, b) => a.addressLine1.localeCompare(b.addressLine1))
+                .map((property, index) => (
                   <MenuItem key={property.id} value={property.id}>
                     {property.addressLine1} ({property.country})
                   </MenuItem>
@@ -422,7 +424,9 @@ export default function IssueEditView() {
                     New Contractor
                   </MenuItem>
                 )}
-                {contractorList.map((property, index) => (
+                {contractorList
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((property, index) => (
                   <MenuItem key={index} value={property.id}>
                     {property.name}
                   </MenuItem>

@@ -151,7 +151,9 @@ export default function TenantView() {
           onChange={(e) => setSelectedTenant(e.target.value)}
           fullWidth
         >
-          {tenantList.map((tenant, index) => (
+          {tenantList
+          .sort((a, b) => a.fullName.localeCompare(b.fullName))
+          .map((tenant, index) => (
             <MenuItem key={index} value={tenant.fullName}>
               {tenant.fullName} ({tenant.property})
             </MenuItem>

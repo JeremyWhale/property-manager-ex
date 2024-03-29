@@ -85,7 +85,9 @@ export default function TenantHistoryAdd(props){
                     fullWidth
                     color={selectedTenant === '' && ('error')}
                 >
-                    {tenantOptions.map((tenant, index) => (
+                    {tenantOptions
+                    .sort((a, b) => a.fullName.localeCompare(b.fullName))
+                    .map((tenant, index) => (
                         <MenuItem key={index} value={tenant.id}>
                             {tenant.fullName}
                         </MenuItem>

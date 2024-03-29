@@ -818,7 +818,9 @@ export default function PropertyEditView() {
                 color={selectedGasSupplier === "" && "error"}
                 fullWidth
               >
-                {gasSupplierOptions.map((tenant, index) => (
+                {gasSupplierOptions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((tenant, index) => (
                   <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
@@ -861,7 +863,9 @@ export default function PropertyEditView() {
                 color={selectedElectricSupplier === "" && "error"}
                 fullWidth
               >
-                {electricSupplierOptions.map((tenant, index) => (
+                {electricSupplierOptions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((tenant, index) => (
                   <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
@@ -914,7 +918,9 @@ export default function PropertyEditView() {
                 color={selectedWaterSupplier === "" && "error"}
                 fullWidth
               >
-                {waterSupplierOptions.map((tenant, index) => (
+                {waterSupplierOptions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((tenant, index) => (
                   <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
@@ -973,7 +979,9 @@ export default function PropertyEditView() {
                 color={selectedTenant === "" && "error"}
                 fullWidth
               >
-                {tenantList.map((tenant, index) => (
+                {tenantList
+                .sort((a, b) => a.fullName.localeCompare(b.fullName))
+                .map((tenant, index) => (
                   <MenuItem key={index} value={tenant.id}>
                     {tenant.fullName}
                   </MenuItem>
@@ -1120,7 +1128,9 @@ export default function PropertyEditView() {
                 color={selectedScheme === "" && "error"}
                 fullWidth
               >
-                {dpsSchemeOptions.map((tenant, index) => (
+                {dpsSchemeOptions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((tenant, index) => (
                   <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>
@@ -1441,7 +1451,9 @@ export default function PropertyEditView() {
                     Deselect existing agent
                   </MenuItem>
                 )} */}
-                {agentOptions.map((tenant, index) => (
+                {agentOptions
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((tenant, index) => (
                   <MenuItem key={index} value={tenant.name}>
                     {tenant.name}
                   </MenuItem>

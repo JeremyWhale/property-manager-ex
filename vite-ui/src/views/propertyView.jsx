@@ -1441,7 +1441,9 @@ export default function PropertyView() {
           onChange={(e) => setSelectedProperty(e.target.value)}
           fullWidth
         >
-          {propertyList.map((property, index) => (
+          {propertyList
+          .sort((a, b) => a.addressLine1.localeCompare(b.addressLine1))
+          .map((property, index) => (
             <MenuItem key={index} value={property.addressLine1}>
               {property.addressLine1}
             </MenuItem>
