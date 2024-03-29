@@ -339,6 +339,9 @@ export default function PropertyAddView() {
       entry_code: entryCode,
       agent: selectedAgent,
       agent_start_date: agentStartDate,
+      notes: notes,
+      status: status,
+      type: type,
     };
 
     axios
