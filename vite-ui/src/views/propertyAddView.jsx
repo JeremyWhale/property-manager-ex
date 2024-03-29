@@ -73,6 +73,8 @@ export default function PropertyAddView() {
 
   const [status, setStatus] = useState("")
 
+  const [type, setType] = useState("")
+
   //Tenancy details
   const [moveInDate, setMoveInDate] = useState("");
   const [rentReviewDate, setRentReviewDate] = useState("");
@@ -567,13 +569,23 @@ export default function PropertyAddView() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <TextField
                 id="outlined-basic"
                 label="Current Value (£)"
                 variant="outlined"
                 value={currentValue}
                 onChange={(e) => setCurrentValue(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                id="outlined-basic"
+                label="Property Type"
+                variant="outlined"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
                 fullWidth
               />
             </Grid>

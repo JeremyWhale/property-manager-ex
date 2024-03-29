@@ -121,7 +121,7 @@ export default function TenantView() {
 
   return (
     <>
-      <IcPageHeader heading="Manage Tenants" reverseOrder>
+      <IcPageHeader heading="Tenants" reverseOrder>
         <IcButton
           slot="actions"
           variant="primary"

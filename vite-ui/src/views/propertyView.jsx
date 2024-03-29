@@ -304,6 +304,7 @@ export default function PropertyView() {
           startDate: request.data.agent_start_date,
           notes: request.data.notes,
           status: request.data.status,
+          type: response.data.type,
         };
         console.log(data);
         setPropertyDetails(data);
@@ -737,10 +738,16 @@ export default function PropertyView() {
               <b>Address:</b>
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}>
             <Typography>
               <b>Entry code: </b>
               {propertyDetails.entryCode}
+            </Typography>
+          </Grid>
+          <Grid item xs={3}>
+            <Typography>
+              <b>Type: </b>
+              {propertyDetails.type}
             </Typography>
           </Grid>
           {/* Row */}
@@ -1403,7 +1410,7 @@ export default function PropertyView() {
 
   return (
     <>
-      <IcPageHeader heading="Manage Properties" reverseOrder>
+      <IcPageHeader heading="Properties" reverseOrder>
         {propertyDetails !== undefined && propertyDetails.status === "sold" && (
           <IcChip slot="heading-adornment" label="SOLD" size="large" />
         )}

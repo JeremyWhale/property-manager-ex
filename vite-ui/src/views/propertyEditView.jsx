@@ -86,6 +86,8 @@ export default function PropertyEditView() {
 
   const [status, setStatus] = useState("")
 
+  const [type, setType] = useState("")
+
   const [tenantList, setTenantList] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState("");
 
@@ -202,6 +204,7 @@ export default function PropertyEditView() {
           setAgentStartDate(response.data.agent_start_date);
           setNotes(response.data.notes)
           setStatus(response.data.status)
+          setType(response.data.type)
         });
     } catch (e) {
       //Alert saying api cannot be reached try again later
@@ -542,6 +545,7 @@ export default function PropertyEditView() {
               agent_start_date: agentStartDate,
               notes: notes,
               status: status,
+              type: type,
             };
 
             console.log(propertyData);
@@ -582,6 +586,7 @@ export default function PropertyEditView() {
       agent_start_date: agentStartDate,
       notes: notes,
       status: status,
+      type: type,
     };
 
     axios
@@ -730,13 +735,23 @@ export default function PropertyEditView() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={3}>
             <TextField
                 id="outlined-basic"
                 label="Current Value (£)"
                 variant="outlined"
                 value={currentValue}
                 onChange={(e) => setCurrentValue(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                id="outlined-basic"
+                label="Property Type"
+                variant="outlined"
+                value={type}
+                onChange={(e) => setType(e.target.value)}
                 fullWidth
               />
             </Grid>
