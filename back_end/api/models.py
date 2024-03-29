@@ -3,7 +3,9 @@ from django.db import models
 class Tenant(models.Model):
     full_name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=13, blank=True)
+    phone_number_2 = models.CharField(max_length=13, blank=True)
     email = models.EmailField(blank=True)
+    email_2 = models.EmailField(blank=True)
     bank_sort_code = models.CharField(max_length=8, blank=True)
     bank_account_number = models.CharField(max_length=8, blank=True)
     emergency_contact_name = models.CharField(max_length=50, blank=True)

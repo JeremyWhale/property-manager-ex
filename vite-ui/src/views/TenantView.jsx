@@ -31,7 +31,7 @@ export default function TenantView() {
     async function getTenantList() {
       try {
         const response = await axios.get(`${apiLocation}/tenant-list`);
-        
+
         // Convert the response data into your desired format
         const data = response.data
           .filter(tenant => tenant.full_name !== 'No Assigned Tenant')
@@ -62,7 +62,9 @@ export default function TenantView() {
         const data = {
           // Full name already exists
           phoneNumber: response.data.phone_number,
+          phoneNumber2: response.data.phone_number_2,
           email: response.data.email,
+          email2: response.data.email_2,
           sortCode: response.data.bank_sort_code,
           accountNumber: response.data.bank_account_number,
           EContactName: response.data.emergency_contact_name,
@@ -192,17 +194,29 @@ export default function TenantView() {
           </Grid>
           <Grid item xs={8}>
             <Typography>
-              <b>Move in date: </b>
-              {moveInDate}
+              <b>Second Phone Number: </b>
+              {tenantDetails.phoneNumber2}
             </Typography>
           </Grid>
-          {/* Row 3 */}
           <Grid item xs={4}>
             <Typography>
               <b>Email: </b>
               {tenantDetails.email}
             </Typography>
           </Grid>
+          <Grid item xs={8}>
+            <Typography>
+              <b>Second Email: </b>
+              {tenantDetails.email2}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>
+              <b>Move In Date: </b>
+              {moveInDate}
+            </Typography>
+          </Grid>
+          {/* Row 3 */}
           <Grid item xs={8}>
             <Typography>
               <b>Emergency Contact Name: </b>

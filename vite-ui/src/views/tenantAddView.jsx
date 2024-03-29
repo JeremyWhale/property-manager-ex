@@ -28,6 +28,9 @@ export default function TenantAddView() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState(false);
 
+  const [phoneNumber2, setPhoneNumber2] = useState("")
+  const [email2, setEmail2] = useState("")
+
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
 
@@ -94,7 +97,9 @@ export default function TenantAddView() {
     const data = {
       full_name: name,
       phone_number: phoneNumber,
+      phone_number_2: phoneNumber2,
       email: email,
+      email_2: email2,
       bank_sort_code: sortCode,
       bank_account_number: accountNumber,
       emergency_contact_name: emergencyContactName,
@@ -135,6 +140,9 @@ export default function TenantAddView() {
     setEmergencyContactEmailError(false);
     setActiveStep(0);
     setCompleted({});
+
+    setEmail2("")
+    setPhoneNumber2("")
   };
 
   function handleStepShow() {
@@ -154,7 +162,7 @@ export default function TenantAddView() {
                 onChange={(e) => setName(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
                 label="Phone number"
@@ -164,15 +172,34 @@ export default function TenantAddView() {
                 onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-basic"
+                label="Second phone number"
+                variant="outlined"
+                fullWidth
+                value={phoneNumber2}
+                onChange={(e) => setPhoneNumber2(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
                 label="Email"
                 variant="outlined"
                 fullWidth
-                color={emailError && "error"}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-basic"
+                label="Second email"
+                variant="outlined"
+                fullWidth
+                value={email2}
+                onChange={(e) => setEmail2(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>

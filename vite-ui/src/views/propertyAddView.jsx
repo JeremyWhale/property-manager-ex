@@ -474,6 +474,8 @@ export default function PropertyAddView() {
 
     setSelectedTenant("");
 
+    setNotes("")
+
     //Tenancy details
     setMoveInDate("");
     setRentReviewDate("");
