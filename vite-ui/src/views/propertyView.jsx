@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
-import { IcPageHeader, IcButton, IcNavigationItem } from "@ukic/react";
+import { IcPageHeader, IcButton, IcNavigationItem, IcChip } from "@ukic/react";
 import apiLocation from "../components/apiLocation";
 import axios from "axios";
 import {
@@ -303,6 +303,7 @@ export default function PropertyView() {
           agent: request.data.agent,
           startDate: request.data.agent_start_date,
           notes: request.data.notes,
+          status: request.data.status,
         };
         console.log(data);
         setPropertyDetails(data);
@@ -1403,6 +1404,9 @@ export default function PropertyView() {
   return (
     <>
       <IcPageHeader heading="Manage Properties" reverseOrder>
+        {propertyDetails !== undefined && propertyDetails.status === "sold" && (
+          <IcChip slot="heading-adornment" label="SOLD" size="large" />
+        )}
         <IcButton
           slot="actions"
           variant="primary"

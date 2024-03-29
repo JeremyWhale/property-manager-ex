@@ -84,6 +84,8 @@ export default function PropertyEditView() {
 
   const [notes, setNotes] = useState("")
 
+  const [status, setStatus] = useState("")
+
   const [tenantList, setTenantList] = useState([]);
   const [selectedTenant, setSelectedTenant] = useState("");
 
@@ -199,6 +201,7 @@ export default function PropertyEditView() {
           setSelectedAgent(response.data.agent_id);
           setAgentStartDate(response.data.agent_start_date);
           setNotes(response.data.notes)
+          setStatus(response.data.status)
         });
     } catch (e) {
       //Alert saying api cannot be reached try again later
@@ -538,6 +541,7 @@ export default function PropertyEditView() {
               agent: response.data.id,
               agent_start_date: agentStartDate,
               notes: notes,
+              status: status,
             };
 
             console.log(propertyData);
@@ -576,7 +580,8 @@ export default function PropertyEditView() {
       entry_code: entryCode,
       agent: selectedAgent,
       agent_start_date: agentStartDate,
-      notes: notes
+      notes: notes,
+      status: status,
     };
 
     axios
@@ -913,7 +918,7 @@ export default function PropertyEditView() {
               />
             </Grid>
             {/* Row */}
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <TextField
                 id="outlined-basic"
                 label="Post code"
@@ -923,6 +928,22 @@ export default function PropertyEditView() {
                 color={postCode === "" && "error"}
                 fullWidth
               />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                slot="input"
+                labelId="demo-simple-select-label"
+                variant="outlined"
+                id="demo-simple-select"
+                value={status}
+                label="Select Status"
+                select
+                onChange={(e) => setStatus(e.target.value)}
+                fullWidth
+              >
+                  <MenuItem key='none' value=''>No status</MenuItem>
+                  <MenuItem key='sold' value='sold'>Sold</MenuItem>
+              </TextField>
             </Grid>
             <Grid item xs={6}>
               <TextField

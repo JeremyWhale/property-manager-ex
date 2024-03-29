@@ -71,6 +71,8 @@ export default function PropertyAddView() {
 
   const [notes, setNotes] = useState("")
 
+  const [status, setStatus] = useState("")
+
   //Tenancy details
   const [moveInDate, setMoveInDate] = useState("");
   const [rentReviewDate, setRentReviewDate] = useState("");
@@ -476,6 +478,8 @@ export default function PropertyAddView() {
 
     setNotes("")
 
+    setStatus("")
+
     //Tenancy details
     setMoveInDate("");
     setRentReviewDate("");
@@ -739,7 +743,7 @@ export default function PropertyAddView() {
               />
             </Grid>
             {/* Row */}
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <TextField
                 id="outlined-basic"
                 label="Post code"
@@ -748,6 +752,22 @@ export default function PropertyAddView() {
                 onChange={(e) => setPostCode(e.target.value)}
                 fullWidth
               />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                slot="input"
+                labelId="demo-simple-select-label"
+                variant="outlined"
+                id="demo-simple-select"
+                value={status}
+                label="Select Status"
+                select
+                onChange={(e) => setStatus(e.target.value)}
+                fullWidth
+              >
+                  <MenuItem key='none' value=''>No status</MenuItem>
+                  <MenuItem key='sold' value='sold'>Sold</MenuItem>
+              </TextField>
             </Grid>
             <Grid item xs={6}>
               <TextField
