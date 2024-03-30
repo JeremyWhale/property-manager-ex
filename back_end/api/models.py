@@ -128,7 +128,7 @@ class Mortgage(models.Model):
     interest_rate = models.CharField(max_length=10, blank=True)
     term = models.CharField(max_length=10, blank=True)
     renewal_date = models.CharField(max_length=10, blank=True)
-    lender_name = models.CharField(max_length=20, blank=True)
+    lender_name = models.CharField(max_length=50, blank=True)
     lender_address = models.TextField(blank=True)
     lender_email = models.EmailField(blank=True)
     lender_phone_number = models.CharField(max_length=13, blank=True)
