@@ -940,13 +940,13 @@ export default function PropertyView() {
               <Grid item xs={4}>
                 <Typography>
                   <b>Scheme Email: </b>
-                  {depositDetails.email}
+                  {depositDetails !== undefined ? depositDetails.email : ''}
                 </Typography>
               </Grid>
               <Grid item xs={4}>
                 <Typography>
                   <b>Scheme Phone Number: </b>
-                  {depositDetails.phoneNumber}
+                  {depositDetails !== undefined ? depositDetails.phoneNumber : ''}
                 </Typography>
               </Grid>
             </>
