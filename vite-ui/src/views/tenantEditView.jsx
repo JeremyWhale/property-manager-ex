@@ -210,16 +210,6 @@ export default function TenantEditView() {
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
-                label="Email"
-                variant="outlined"
-                fullWidth
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={6}>
-              <TextField
-                id="outlined-basic"
                 label="Second email"
                 variant="outlined"
                 fullWidth
@@ -227,7 +217,17 @@ export default function TenantEditView() {
                 onChange={(e) => setEmail2(e.target.value)}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-basic"
+                label="Account number"
+                variant="outlined"
+                fullWidth
+                value={accountNumber}
+                onChange={(e) => setAccountNumber(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
                 label="Sort code"
@@ -236,16 +236,6 @@ export default function TenantEditView() {
                 fullWidth
                 value={sortCode}
                 onChange={(e) => setSortCode(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="outlined-basic"
-                label="Account number"
-                variant="outlined"
-                fullWidth
-                value={accountNumber}
-                onChange={(e) => setAccountNumber(e.target.value)}
               />
             </Grid>
           </Grid>

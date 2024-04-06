@@ -114,6 +114,10 @@ export default function PropertyAddView() {
 
   //Insure
   const [insuranceCompany, setInsuranceCompany] = useState("");
+  const [insuranceCompanyPhone, setInsuranceCompanyPhone] = useState("");
+  const [insuranceCompanyEmail, setInsuranceCompanyEmail] = useState("");
+  const [insuranceCompanyAddress, setInsuranceCompanyAddress] = useState("");
+
   const [insurancePolicyNumber, setInsurancePolicyNumber] = useState("");
   const [insuranceRenewalDate, setInsuranceRenewalDate] = useState("");
   const [currentPremium, setCurrentPremium] = useState("");
@@ -414,6 +418,9 @@ export default function PropertyAddView() {
           premium: currentPremium,
           previous_premium: previousPremium,
           renewal_due: insuranceRenewalDate,
+          company_phone_number: insuranceCompanyPhone,
+          company_email: insuranceCompanyEmail,
+          company_address: insuranceCompanyAddress,
         };
 
         axios
@@ -519,6 +526,9 @@ export default function PropertyAddView() {
 
     //Insure
     setInsuranceCompany("");
+    setInsuranceCompanyPhone("")
+    setInsuranceCompanyEmail("")
+    setInsuranceCompanyAddress("")
     setInsurancePolicyNumber("");
     setInsuranceRenewalDate("");
     setCurrentPremium("");
@@ -786,8 +796,8 @@ export default function PropertyAddView() {
                 onChange={(e) => setStatus(e.target.value)}
                 fullWidth
               >
-                  <MenuItem key='none' value=''>No status</MenuItem>
-                  <MenuItem key='sold' value='sold'>Sold</MenuItem>
+                  <MenuItem key='none' value='Active'>Active</MenuItem>
+                  <MenuItem key='sold' value='Sold'>Sold</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={6}>
@@ -822,7 +832,7 @@ export default function PropertyAddView() {
       return (
         <>
           <Grid container spacing={2} sx={{ paddingTop: 2 }}>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   format="DD/MM/YYYY"
@@ -833,7 +843,7 @@ export default function PropertyAddView() {
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label="Rent review date"
@@ -844,7 +854,18 @@ export default function PropertyAddView() {
                 />
               </LocalizationProvider>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Tenancy Review Date"
+                  format="DD/MM/YYYY"
+                  value={dayjs(tenancyReviewDate)}
+                  onChange={(date) => setTenancyReviewDate(formatDate(date))}
+                  fullWidth
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item xs={3}>
               <TextField
                 id="outlined-basic"
                 label="Term (months)"
@@ -854,7 +875,7 @@ export default function PropertyAddView() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
                 label="Initial Rent (£)"
@@ -864,23 +885,13 @@ export default function PropertyAddView() {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
                 label="Current Rent (£)"
                 variant="outlined"
                 value={currentRent}
                 onChange={(e) => setCurrentRent(e.target.value)}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={4}>
-              <TextField
-                id="outlined-basic"
-                label="Amount Paid"
-                variant="outlined"
-                value={amountPaid}
-                onChange={(e) => setAmountPaid(e.target.value)}
                 fullWidth
               />
             </Grid>
@@ -1208,6 +1219,38 @@ export default function PropertyAddView() {
                 />
               </LocalizationProvider>
             </Grid>
+            {/* Row 2 */}
+            <Grid item xs={3}>
+              <TextField
+                id="outlined-basic"
+                label="Phone Number"
+                variant="outlined"
+                value={insuranceCompanyPhone}
+                onChange={(e) => setInsuranceCompanyPhone(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                id="outlined-basic"
+                label="Email"
+                variant="outlined"
+                value={insuranceCompanyEmail}
+                onChange={(e) => setInsuranceCompanyEmail(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-basic"
+                label="Address"
+                variant="outlined"
+                value={insuranceCompanyAddress}
+                onChange={(e) => setInsuranceCompanyAddress(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            {/* Row 3 */}
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
@@ -1345,15 +1388,7 @@ export default function PropertyAddView() {
               />
             </Grid>
             <Grid item xs={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  label="Tenancy Review Date"
-                  format="DD/MM/YYYY"
-                  value={dayjs(tenancyReviewDate)}
-                  onChange={(date) => setTenancyReviewDate(formatDate(date))}
-                  fullWidth
-                />
-              </LocalizationProvider>
+              <></>
             </Grid>
             <Grid item xs={6}>
               <TextField

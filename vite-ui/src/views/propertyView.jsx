@@ -365,6 +365,9 @@ export default function PropertyView() {
           premium: request.data[0].premium,
           prevPremium: request.data[0].previous_premium,
           renewalDate: request.data[0].renewal_due,
+          phone: request.data[0].company_phone_number,
+          email: request.data[0].company_email,
+          address: request.data[0].company_address,
         };
         setInsuranceDetails(data);
       } catch (e) {
@@ -861,7 +864,7 @@ export default function PropertyView() {
           <Grid item xs={4}>
             <Typography>
               <b>Contract Term: </b>
-              {tenancyDetails.contractTerm} months
+              {tenancyDetails.contractTerm.toUperCase() === 'PERIODIC' ? tenancyDetails.contractTerm : `${tenancyDetails.contractTerm} months`}
             </Typography>
           </Grid>
           <Grid item xs={4}>
@@ -890,23 +893,17 @@ export default function PropertyView() {
             </Typography>
           </Grid>
           {/* Row */}
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Typography>
               <b>Initial Rent: </b>
               £{tenancyDetails.initialRentAmount}
             </Typography>
           </Grid>
 
-          <Grid item xs={4}>
+          <Grid item xs={6}>
             <Typography>
               <b>Current Rent: </b>
               £{tenancyDetails.currentRentAmount}
-            </Typography>
-          </Grid>
-          <Grid item xs={4}>
-            <Typography>
-              <b>Amount paid: </b>
-              £{tenancyDetails.amountPaid}
             </Typography>
           </Grid>
           {/* Row */}
@@ -1224,6 +1221,24 @@ export default function PropertyView() {
               {insuranceDetails.company}
             </Typography>
           </Grid>
+          <Grid item xs={4}>
+            <Typography>
+              <b>Phone no.: </b>
+              {insuranceDetails.phone}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>
+              <b>Email: </b>
+              {insuranceDetails.email}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>
+              <b>Address: </b>
+              {insuranceDetails.address}
+            </Typography>
+          </Grid>
           <Grid item xs={6}>
             <Typography>
               <b>Premium: </b>
@@ -1410,8 +1425,8 @@ export default function PropertyView() {
   return (
     <>
       <IcPageHeader heading="Properties" reverseOrder>
-        {propertyDetails !== undefined && propertyDetails.status === "sold" && (
-          <IcChip slot="heading-adornment" label="SOLD" size="large" />
+        {propertyDetails !== undefined && propertyDetails.status.length > 0 && (
+          <IcChip slot="heading-adornment" label={propertyDetails.status.toUpperCase()} size="large" />
         )}
         <IcButton
           slot="actions"

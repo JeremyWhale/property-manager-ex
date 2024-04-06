@@ -96,6 +96,9 @@ class Insurance(models.Model):
     premium = models.CharField(max_length=10, blank=True)
     previous_premium = models.CharField(max_length=10, blank=True)
     renewal_due = models.CharField(max_length=10, blank=True)
+    company_phone_number = models.CharField(max_length=20, blank=True)
+    company_email = models.CharField(max_length=50, blank=True)
+    company_address = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.insurance_number
