@@ -864,7 +864,7 @@ export default function PropertyView() {
           <Grid item xs={4}>
             <Typography>
               <b>Contract Term: </b>
-              {tenancyDetails.contractTerm.toUperCase() === 'PERIODIC' ? tenancyDetails.contractTerm : `${tenancyDetails.contractTerm} months`}
+              {tenancyDetails.contractTerm.toUpperCase() === 'PERIODIC' ? tenancyDetails.contractTerm : `${tenancyDetails.contractTerm} months`}
             </Typography>
           </Grid>
           <Grid item xs={4}>
