@@ -42,6 +42,14 @@ class IssuesList(generics.ListAPIView):
     queryset = Issues.objects.all()
     serializer_class = IssuesSerializer
 
+class MortgageList(generics.ListAPIView):
+    queryset = Mortgage.objects.all()
+    serializer_class = MortgageSerializer
+
+class InsuranceList(generics.ListAPIView):
+    queryset = Insurance.objects.all()
+    serializer_class = InsuranceSerializer
+
 class PropertyAddressListView(generics.ListAPIView):
     queryset = Property.objects.all()
     serializer_class = PropertyAddressSerializer

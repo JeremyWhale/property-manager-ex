@@ -87,13 +87,13 @@ export default function SideNav() {
         <ChecklistRtl slot="icon" />
       </IcNavigationItem>
       {/* Contacts view link */}
-      {/* <IcNavigationItem
+      <IcNavigationItem
         slot="primary-navigation"
         onClick={() => navigate("/contacts")}
         label="Contacts"
       >
         <ContactPhoneOutlined slot="icon" />
-      </IcNavigationItem> */}
+      </IcNavigationItem>
       {/* Settings view link */}
       <IcNavigationItem
         slot="secondary-navigation"
