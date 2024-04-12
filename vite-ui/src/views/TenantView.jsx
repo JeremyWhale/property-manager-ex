@@ -65,6 +65,7 @@ export default function TenantView() {
           phoneNumber2: response.data.phone_number_2,
           email: response.data.email,
           email2: response.data.email_2,
+          bankName: response.data.bank_name,
           sortCode: response.data.bank_sort_code,
           accountNumber: response.data.bank_account_number,
           EContactName: response.data.emergency_contact_name,
@@ -228,8 +229,8 @@ export default function TenantView() {
           {/* Row 4 */}
           <Grid item xs={4}>
             <Typography>
-              <b>Sort Code: </b>
-              {tenantDetails.sortCode}
+              <b>Bank name: </b>
+              {tenantDetails.bankName}
             </Typography>
           </Grid>
           <Grid item xs={8}>
@@ -249,6 +250,12 @@ export default function TenantView() {
             <Typography>
               <b>Emergency Contact Email: </b>
               {tenantDetails.EContactEmail}
+            </Typography>
+          </Grid>
+          <Grid item xs={4}>
+            <Typography>
+              <b>Sort Code: </b>
+              {tenantDetails.sortCode}
             </Typography>
           </Grid>
         </Grid>

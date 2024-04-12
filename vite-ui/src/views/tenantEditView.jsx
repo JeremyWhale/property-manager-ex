@@ -39,6 +39,8 @@ export default function TenantEditView() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
 
+  const [bankName, setBankName] = useState("");
+
   const [sortCode, setSortCode] = useState("");
   const [sortCodeError, setSortCodeError] = useState(false);
 
@@ -73,6 +75,7 @@ export default function TenantEditView() {
       setPhone2(response.data.phone_number_2);
       setEmail(response.data.email);
       setEmail2(response.data.email_2);
+      setBankName(response.data.bank_name)
       setSortCode(response.data.bank_sort_code);
       setAccountNumber(response.data.bank_account_number);
       setEmergencyContactName(response.data.emergency_contact_name);
@@ -129,6 +132,7 @@ export default function TenantEditView() {
       phone_number_2: phone2,
       email: email,
       email_2: email2,
+      bank_name: bankName,
       bank_sort_code: sortCode,
       bank_account_number: accountNumber,
       emergency_contact_name: emergencyContactName,
@@ -217,7 +221,17 @@ export default function TenantEditView() {
                 onChange={(e) => setEmail2(e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
+              <TextField
+                id="outlined-basic"
+                label="Bank name"
+                variant="outlined"
+                fullWidth
+                value={bankName}
+                onChange={(e) => setBankName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4}>
               <TextField
                 id="outlined-basic"
                 label="Account number"
@@ -227,7 +241,7 @@ export default function TenantEditView() {
                 onChange={(e) => setAccountNumber(e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <TextField
                 id="outlined-basic"
                 label="Sort code"

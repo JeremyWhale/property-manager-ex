@@ -34,6 +34,8 @@ export default function TenantAddView() {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
 
+  const [bankName, setBankName] = useState("")
+
   const [sortCode, setSortCode] = useState("");
   const [sortCodeError, setSortCodeError] = useState(false);
 
@@ -100,6 +102,7 @@ export default function TenantAddView() {
       phone_number_2: phoneNumber2,
       email: email,
       email_2: email2,
+      bank_name: bankName,
       bank_sort_code: sortCode,
       bank_account_number: accountNumber,
       emergency_contact_name: emergencyContactName,
@@ -128,6 +131,7 @@ export default function TenantAddView() {
     setPhoneNumberError(false);
     setEmail("");
     setEmailError(false);
+    setBankName("")
     setSortCode("");
     setSortCodeError(false);
     setAccountNumber("");
@@ -202,7 +206,17 @@ export default function TenantAddView() {
                 onChange={(e) => setEmail2(e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
+              <TextField
+                id="outlined-basic"
+                label="Bank name"
+                variant="outlined"
+                fullWidth
+                value={bankName}
+                onChange={(e) => setBankName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={4}>
               <TextField
                 id="outlined-basic"
                 label="Account number"
@@ -212,7 +226,7 @@ export default function TenantAddView() {
                 onChange={(e) => setAccountNumber(e.target.value)}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={4}>
               <TextField
                 id="outlined-basic"
                 label="Sort code"
