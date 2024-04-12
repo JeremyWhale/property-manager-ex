@@ -962,7 +962,7 @@ export default function PropertyEditView() {
                 fullWidth
               >
                   <MenuItem key='none' value='Active'>Active</MenuItem>
-                  <MenuItem key='sold' value='Active'>Sold</MenuItem>
+                  <MenuItem key='sold' value='Sold'>Sold</MenuItem>
               </TextField>
             </Grid>
             <Grid item xs={6}>
