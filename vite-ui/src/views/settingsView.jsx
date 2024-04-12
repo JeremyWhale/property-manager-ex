@@ -12,6 +12,7 @@ import {
 import {
   Add,
   AdminPanelSettingsOutlined,
+  Delete,
   Edit,
   HelpOutlined,
   Logout,
@@ -353,6 +354,51 @@ export default function SettingsView({ setLoggedIn }) {
     getSuppliers();
   }
 
+  function handleSupplierDelete() {
+    if (supplierType === "electric") {
+      axios
+        .delete(`${apiLocation}/electric-supplier-delete/${supplierId}`)
+        .then((response) => {
+          setSupplierEditUploadSuccess(true);
+          setShowSupplierEditMessage(true);
+          getSuppliers();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    if (supplierType === "gas") {
+      axios
+        .delete(`${apiLocation}/gas-supplier-delete/${supplierId}`)
+        .then((response) => {
+          setSupplierEditUploadSuccess(true);
+          setShowSupplierEditMessage(true);
+          getSuppliers();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    if (supplierType === "water") {
+      axios
+        .delete(`${apiLocation}/water-supplier-delete/${supplierId}`)
+        .then((response) => {
+          setSupplierEditUploadSuccess(true);
+          setShowSupplierEditMessage(true);
+          getSuppliers();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+
+    setSupplierType("");
+    setSelectedSupplier("")
+    setSupplierName("");
+    setSupplierPhone("");
+    setSupplierEmail("");
+  }
+
   function handleSupplierEdit() {
     const data = {
       id: supplierId,
@@ -396,6 +442,7 @@ export default function SettingsView({ setLoggedIn }) {
     }
 
     setSupplierType("");
+    setSelectedSupplier("")
     setSupplierName("");
     setSupplierPhone("");
     setSupplierEmail("");
@@ -427,6 +474,24 @@ export default function SettingsView({ setLoggedIn }) {
     getDepositSchemes();
   }
 
+  function handleDsDelete(){
+    axios
+      .delete(`${apiLocation}/deposit-scheme-delete/${dsId}`)
+      .then((response) => {
+        setDsEditUploadSuccess(true);
+        setShowDsEditMessage(true);
+        getDepositSchemes();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+      setSelectedDs("")
+      setDsName("");
+      setDsPhone("");
+      setDsEmail("");
+  }
+
   function handleDsEdit() {
     const data = {
       id: dsId,
@@ -445,6 +510,7 @@ export default function SettingsView({ setLoggedIn }) {
         console.error("Error:", error);
       });
 
+    setSelectedDs("")
     setDsName("");
     setDsPhone("");
     setDsEmail("");
@@ -478,6 +544,25 @@ export default function SettingsView({ setLoggedIn }) {
     getAgentList();
   }
 
+  function handleAgentDelete(){
+    axios
+      .delete(`${apiLocation}/agent-delete/${agentId}`)
+      .then((response) => {
+        setAgentEditUploadSuccess(true);
+        setShowAgentEditMessage(true);
+        getAgentList();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+      setSelectedAgent("")
+      setAgentName("");
+      setAgentPhone("");
+      setAgentEmail("");
+      setAgentAddress("");
+  }
+
   function handleAgentEdit() {
     const data = {
       id: agentId,
@@ -497,6 +582,7 @@ export default function SettingsView({ setLoggedIn }) {
         console.error("Error:", error);
       });
 
+    setSelectedAgent("")
     setAgentName("");
     setAgentPhone("");
     setAgentEmail("");
@@ -535,6 +621,27 @@ export default function SettingsView({ setLoggedIn }) {
     getContractorList();
   }
 
+  function handleContractorDelete(){
+    axios
+      .delete(`${apiLocation}/contractor-delete/${contractorId}`)
+      .then((response) => {
+        setContractorEditUploadSuccess(true);
+        setShowContractorEditMessage(true);
+        getContractorList();
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+      setSelectedContractor("")
+      setCName("");
+      setCaddress("");
+      setCphone("");
+      setCEmail("");
+      setCSortCode("");
+      setCBankAccount("");
+  }
+
   function handleContractorEdit() {
     const data = {
       id: contractorId,
@@ -556,6 +663,7 @@ export default function SettingsView({ setLoggedIn }) {
         console.error("Error:", error);
       });
 
+    setSelectedContractor("")
     setCName("");
     setCaddress("");
     setCphone("");
@@ -1168,7 +1276,7 @@ export default function SettingsView({ setLoggedIn }) {
                 onChange={(e) => setSupplierPhone(e.target.value)}
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
@@ -1181,12 +1289,25 @@ export default function SettingsView({ setLoggedIn }) {
                 Upload Edited Supplier
               </Button>
             </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                startIcon={<Delete />}
+                color="error"
+                disabled={
+                  selectedSupplier === ""
+                }
+                onClick={() => handleSupplierDelete()}
+              >
+                Delete Supplier
+              </Button>
+            </Grid>
             {showSupplierEditMessage && (
               <Grid item xs={12}>
                 {supplierEditUploadSucess ? (
                   <StaticAlert
                     type="success"
-                    message="Supplier successfully edited"
+                    message="Supplier successfully edited/deleted"
                   />
                 ) : (
                   <StaticAlert
@@ -1268,7 +1389,7 @@ export default function SettingsView({ setLoggedIn }) {
                 onChange={(e) => setDsEmail(e.target.value)}
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
@@ -1278,12 +1399,25 @@ export default function SettingsView({ setLoggedIn }) {
                 Upload Edited Deposit Scheme
               </Button>
             </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                startIcon={<Delete />}
+                color="error"
+                disabled={
+                  selectedDs === ""
+                }
+                onClick={() => handleDsDelete()}
+              >
+                Delete Deposit Scheme
+              </Button>
+            </Grid>
             {showDsEditMessage && (
               <Grid item xs={12}>
                 {dsEditUploadSucess ? (
                   <StaticAlert
                     type="success"
-                    message="New deposit scheme successfully uploaded"
+                    message="Deposit scheme successfully edited/deleted"
                   />
                 ) : (
                   <StaticAlert
@@ -1378,7 +1512,7 @@ export default function SettingsView({ setLoggedIn }) {
                 onChange={(e) => setAgentAddress(e.target.value)}
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
@@ -1388,12 +1522,25 @@ export default function SettingsView({ setLoggedIn }) {
                 Upload Edited Agent
               </Button>
             </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                startIcon={<Delete />}
+                color="error"
+                disabled={
+                  selectedAgent === ""
+                }
+                onClick={() => handleAgentDelete()}
+              >
+                Delete Agent
+              </Button>
+            </Grid>
             {showAgentEditMessage && (
               <Grid item xs={12}>
                 {agentEditUploadSucess ? (
                   <StaticAlert
                     type="success"
-                    message="Agent successfully edited"
+                    message="Agent successfully edited/deleted"
                   />
                 ) : (
                   <StaticAlert
@@ -1508,7 +1655,7 @@ export default function SettingsView({ setLoggedIn }) {
                 onChange={(e) => setCBankAccount(e.target.value)}
               />
             </Grid>
-            <Grid item>
+            <Grid item xs={6}>
               <Button
                 variant="contained"
                 startIcon={<UploadOutlined />}
@@ -1518,12 +1665,25 @@ export default function SettingsView({ setLoggedIn }) {
                 Upload Edited Contractor
               </Button>
             </Grid>
+            <Grid item xs={6}>
+              <Button
+                variant="contained"
+                startIcon={<Delete />}
+                color="error"
+                disabled={
+                  selectedContractor === ""
+                }
+                onClick={() => handleContractorDelete()}
+              >
+                Delete Contractor
+              </Button>
+            </Grid>
             {showContractorEditMessage && (
               <Grid item xs={12}>
                 {contractorEditUploadSucess ? (
                   <StaticAlert
                     type="success"
-                    message="Contractor successfully edited"
+                    message="Contractor successfully edited/deleted"
                   />
                 ) : (
                   <StaticAlert
