@@ -236,7 +236,7 @@ export default function IssueView() {
 
   return (
     <>
-      <IcPageHeader heading="Property Issues">
+      <IcPageHeader heading="Issues">
         {selectedContractorName.length !== 0 && (
           <>
             {selectedContractorName !== "None" && (

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import TenancyEditView, PurchaseDetailsEditView, MortgageEditView, InsuranceEditView, UrlEditView, GasSupplierEditView, ElectricSupplierEditView, WaterSupplierEditView, ContractorEditView, DepositSchemeCreate, IssuesByAddressView, AgentDetailsByAddressView, InsuranceDetailsByAddressView, ContractorDetail, CouncilLicenseRenewalsDueList, ElectricalInspectionsDueList, EpcCertificatesDueList, GasCertificatesDueList, InsuranceRenewalsDueList, IssuesList, MortgageRenewalsDueList, PropertyAddressListView, PropertyByAddressView, RentReviewsDueList, TenancyDetailView, TenantDetailView, login_view, PurchaseDetailsByAddressView, MortgageDetailsByAddressView, UrlsByAddressView, AgentList, ContractorList, TenantCreate, IssueCreate, ContractorCreate, TenantReviewsDueList, GasSupplierCreate, ElectricSupplierCreate, WaterSupplierCreate, TenantList, DepositSchemeByName, GasSupplierSerializer, ElectricSupplierSerializer, WaterSupplierSerializer, DepositSchemeList, PropertyCreateView, TenancyCreateView, InsuranceCreateView, PurchaseDetailsCreateView, MortgageCreateView, UrlCreateView, AgentCreateView, GasHistoryGet, ElectricHistoryGet, TenantHistoryGet, TenantHistoryAddView, AgentHistoryGet, AgentHistoryAddView, GasHistoryAddView, ElectricHistoryAddView, GasSupplierLookupSerializer, ElectricSupplierLookupSerializer, WaterSupplierLookupSerializer, TenantEdit, TenantDelete, IssueEdit, IssueDelete, IssuesByIdView, PropertyEditView, PropertyDeleteView, DepositSchemeEditView, AgentEditView
+from api.views import AgentDelete, ContractorDelete, DepositSchemeDelete, WaterSupDelete, ElectricSupDelete, GasSupDelete, TenancyEditView, PurchaseDetailsEditView, MortgageEditView, InsuranceEditView, UrlEditView, GasSupplierEditView, ElectricSupplierEditView, WaterSupplierEditView, ContractorEditView, DepositSchemeCreate, IssuesByAddressView, AgentDetailsByAddressView, InsuranceDetailsByAddressView, ContractorDetail, CouncilLicenseRenewalsDueList, ElectricalInspectionsDueList, EpcCertificatesDueList, GasCertificatesDueList, InsuranceRenewalsDueList, IssuesList, MortgageRenewalsDueList, PropertyAddressListView, PropertyByAddressView, RentReviewsDueList, TenancyDetailView, TenantDetailView, login_view, PurchaseDetailsByAddressView, MortgageDetailsByAddressView, UrlsByAddressView, AgentList, ContractorList, TenantCreate, IssueCreate, ContractorCreate, TenantReviewsDueList, GasSupplierCreate, ElectricSupplierCreate, WaterSupplierCreate, TenantList, DepositSchemeByName, GasSupplierSerializer, ElectricSupplierSerializer, WaterSupplierSerializer, DepositSchemeList, PropertyCreateView, TenancyCreateView, InsuranceCreateView, PurchaseDetailsCreateView, MortgageCreateView, UrlCreateView, AgentCreateView, GasHistoryGet, ElectricHistoryGet, TenantHistoryGet, TenantHistoryAddView, AgentHistoryGet, AgentHistoryAddView, GasHistoryAddView, ElectricHistoryAddView, GasSupplierLookupSerializer, ElectricSupplierLookupSerializer, WaterSupplierLookupSerializer, TenantEdit, TenantDelete, IssueEdit, IssueDelete, IssuesByIdView, PropertyEditView, PropertyDeleteView, DepositSchemeEditView, AgentEditView
 
 urlpatterns = [
     path('api/admin/', admin.site.urls),
@@ -74,6 +74,7 @@ urlpatterns = [
     
     path('api/contractor-add/', ContractorCreate.as_view(), name='create-contractor'),
     path('api/contractor-edit/<int:id>', ContractorEditView.as_view(), name='edit-contractor'),
+    path('api/contractor-delete/<int:id>', ContractorDelete.as_view(), name='delete-contractor'),
 
     path('api/tenancy-add/', TenancyCreateView.as_view(), name='create-tenancy'),
     path('api/tenancy-edit/<int:id>', TenancyEditView.as_view(), name='edit-tenancy'),
@@ -92,6 +93,7 @@ urlpatterns = [
 
     path('api/agent-add/', AgentCreateView.as_view(), name='create-agent'),
     path('api/agent-edit/<int:id>', AgentEditView.as_view(), name='edit-agent'),
+    path('api/agent-delete/<int:id>', AgentDelete.as_view(), name='delete-agent'),
 
     path('api/electric-history-add/', ElectricHistoryAddView.as_view(), name='create-electric-history'),
     path('api/gas-history-add/', GasHistoryAddView.as_view(), name='create-gas-history'),
@@ -100,13 +102,17 @@ urlpatterns = [
 
     path('api/deposit-scheme-add/', DepositSchemeCreate.as_view(), name='create-deposit-scheme'),
     path('api/deposit-scheme-edit/<int:id>', DepositSchemeEditView.as_view(), name='edit-deposit-scheme'),
+    path('api/deposit-scheme-delete/<int:id>', DepositSchemeDelete.as_view(), name='delete-deposit-scheme'),
 
     path('api/gas-supplier-add/', GasSupplierCreate.as_view(), name='create-gas-supplier'),
     path('api/gas-supplier-edit/<int:id>', GasSupplierEditView.as_view(), name='edit-gas-supplier'),
+    path('api/gas-supplier-delete/<int:id>', GasSupDelete.as_view(), name='delete-gas-supplier'),
 
     path('api/electric-supplier-add/', ElectricSupplierCreate.as_view(), name='create-electric-supplier'),
     path('api/electric-supplier-edit/<int:id>', ElectricSupplierEditView.as_view(), name='edit-electric-supplier'),
+    path('api/electric-supplier-delete/<int:id>', ElectricSupDelete.as_view(), name='delete-electric-supplier'),
 
     path('api/water-supplier-add/', WaterSupplierCreate.as_view(), name='create-water-supplier'),
     path('api/water-supplier-edit/<int:id>', WaterSupplierEditView.as_view(), name='edit-water-supplier'),
+    path('api/water-supplier-delete/<int:id>', WaterSupDelete.as_view(), name='delete-water-supplier'),
 ]

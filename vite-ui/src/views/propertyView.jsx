@@ -858,9 +858,13 @@ export default function PropertyView() {
           <Grid item xs={4}>
             <Typography>
               <b>Tenant: </b>
-              <span className="linkText" onClick={handleTenantClick}>
-                {propertyDetails.currentTenant}
-              </span>
+              {propertyDetails.currentTenant === "No Assigned Tenant" ? (
+                propertyDetails.currentTenant
+              ) : (
+                <span className="linkText" onClick={handleTenantClick}>
+                  {propertyDetails.currentTenant}
+                </span>
+              )}
             </Typography>
           </Grid>
           <Grid item xs={4}>

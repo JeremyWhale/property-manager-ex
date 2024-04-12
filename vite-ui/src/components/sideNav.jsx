@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IcSideNavigation, IcNavigationItem } from "@ukic/react";
 import {
   ChecklistRtl,
+  ContactPhoneOutlined,
   ErrorOutline,
   HomeOutlined,
   MapsHomeWork,
@@ -41,8 +42,8 @@ export default function SideNav() {
   return (
     <IcSideNavigation
       appTitle="Property Manager"
-      status="v1.1.3"
-      collapsedIconLabels
+      status="v1.2.0"
+      collapsedIconLabels={false}
       href="#"
     >
       {/* App Logo */}
@@ -63,14 +64,6 @@ export default function SideNav() {
       >
         <PersonOutline slot="icon" />
       </IcNavigationItem>
-      {/* Reports view link */}
-      <IcNavigationItem
-        slot="primary-navigation"
-        onClick={() => navigate("/reports")}
-        label="Reports"
-      >
-        <ChecklistRtl slot="icon" />
-      </IcNavigationItem>
       {/* Issues view link */}
       <IcNavigationItem
         slot="primary-navigation"
@@ -85,6 +78,22 @@ export default function SideNav() {
           <ErrorOutline />
         </Badge>
       </IcNavigationItem>
+       {/* Reports view link */}
+       <IcNavigationItem
+        slot="primary-navigation"
+        onClick={() => navigate("/reports")}
+        label="Reports"
+      >
+        <ChecklistRtl slot="icon" />
+      </IcNavigationItem>
+      {/* Contacts view link */}
+      {/* <IcNavigationItem
+        slot="primary-navigation"
+        onClick={() => navigate("/contacts")}
+        label="Contacts"
+      >
+        <ContactPhoneOutlined slot="icon" />
+      </IcNavigationItem> */}
       {/* Settings view link */}
       <IcNavigationItem
         slot="secondary-navigation"

@@ -23,7 +23,7 @@ export default function TenantView() {
 
   useEffect(() => {
     function checkForUrlId() {
-      if (propertyTenant !== "") {
+      if (propertyTenant !== "" && propertyTenant !== "No Assigned Tenant") {
         setSelectedTenant(propertyTenant);
       }
     }

@@ -19,6 +19,7 @@ import PropertyEditView from "./views/propertyEditView";
 import { useAppContext } from "./App.context";
 import axios from "axios";
 import generateAuthToken from "./components/auth";
+import ContactView from "./views/contactView";
 
 function App() {
   const { currentUser } = useAppContext();
@@ -62,6 +63,7 @@ function App() {
                 <Route path="/issues/edit" Component={IssueEditView} />
                 <Route path="/settings" Component={SettingsView} />
                 <Route path="/reports" Component={ReportView} />
+                <Route path="/contacts" Component={ContactView} />
               </Routes>
             </Box>
           </Box>

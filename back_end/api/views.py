@@ -794,3 +794,70 @@ class WaterSupplierLookupSerializer(generics.RetrieveAPIView):
     queryset = Water_Supplier.objects.all()
     serializer_class = WaterSerializer
     lookup_field = 'name'
+
+
+class AgentDelete(APIView):
+    @csrf_exempt
+    def delete(self, request, id, *args, **kwargs):
+        try:
+            agent = Agent.objects.get(id=id)
+        except Agent.DoesNotExist:
+            raise Http404
+
+        agent.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class DepositSchemeDelete(APIView):
+    @csrf_exempt
+    def delete(self, request, id, *args, **kwargs):
+        try:
+            deposit_scheme = Deposit_scheme.objects.get(id=id)
+        except Deposit_scheme.DoesNotExist:
+            raise Http404
+
+        deposit_scheme.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class ContractorDelete(APIView):
+    @csrf_exempt
+    def delete(self, request, id, *args, **kwargs):
+        try:
+            contractor = Contractor.objects.get(id=id)
+        except Contractor.DoesNotExist:
+            raise Http404
+
+        contractor.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class GasSupDelete(APIView):
+    @csrf_exempt
+    def delete(self, request, id, *args, **kwargs):
+        try:
+            supplier = Gas_Supplier.objects.get(id=id)
+        except Gas_Supplier.DoesNotExist:
+            raise Http404
+
+        supplier.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ElectricSupDelete(APIView):
+    @csrf_exempt
+    def delete(self, request, id, *args, **kwargs):
+        try:
+            supplier = Electric_Supplier.objects.get(id=id)
+        except Electric_Supplier.DoesNotExist:
+            raise Http404
+
+        supplier.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class WaterSupDelete(APIView):
+    @csrf_exempt
+    def delete(self, request, id, *args, **kwargs):
+        try:
+            supplier = Water_Supplier.objects.get(id=id)
+        except Contractor.DoesNotExist:
+            raise Http404
+
+        supplier.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
