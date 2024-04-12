@@ -199,7 +199,7 @@ export default function SettingsView({ setLoggedIn }) {
     getDepositSchemes();
     getContractorList();
     getSuppliers();
-  }, []);
+  }, [supplierModalOpen, supplierEditModalOpen, dsEditModalOpen, dsModalOpen, agentModalOpen, agentEditModalOpen, contractorEditModalOpen, contractorModalOpen]);
 
   useEffect(() => {
     async function getAgentInfo() {
@@ -272,6 +272,32 @@ export default function SettingsView({ setLoggedIn }) {
       selectedSupplier !== "" && getSupplierInfo();
     }
   }, [selectedSupplier]);
+
+  useEffect(() => {
+    setSelectedSupplier("")
+    setSupplierName("");
+    setSupplierPhone("");
+    setSupplierEmail("");
+
+    setSelectedDs("")
+    setDsName("");
+    setDsPhone("");
+    setDsEmail("");
+
+    setSelectedAgent("")
+    setAgentName("");
+    setAgentPhone("");
+    setAgentEmail("");
+    setAgentAddress("");
+
+    setSelectedContractor("")
+    setCName("");
+    setCaddress("");
+    setCphone("");
+    setCEmail("");
+    setCSortCode("");
+    setCBankAccount("");
+  }, [supplierType, supplierModalOpen, supplierEditModalOpen, dsEditModalOpen, dsModalOpen, agentModalOpen, agentEditModalOpen, contractorEditModalOpen, contractorModalOpen])
 
   function handleLogout() {
     setCurrentUser(null);
