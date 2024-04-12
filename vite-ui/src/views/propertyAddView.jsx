@@ -111,6 +111,7 @@ export default function PropertyAddView() {
   const [mortgageType, setMortgageType] = useState("");
   const [monthlyAmount, setMonthlyAmount] = useState("");
   const [mortgageRenewalDate, setMortgageRenewalDate] = useState("");
+  const [mortgageStartDate, setMortgageStartDate] = useState("")
 
   //Insure
   const [insuranceCompany, setInsuranceCompany] = useState("");
@@ -397,6 +398,7 @@ export default function PropertyAddView() {
             interest_rate: interestRate,
             term: mortgageTerm,
             renewal_date: mortgageRenewalDate,
+            start_date: mortgageStartDate,
             lender_name: lenderName,
             lender_address: lenderAddress,
             lender_email: lenderEmail,
@@ -523,6 +525,7 @@ export default function PropertyAddView() {
     setMortgageType("");
     setMonthlyAmount("");
     setMortgageRenewalDate("");
+    setMortgageStartDate("")
 
     //Insure
     setInsuranceCompany("");
@@ -1163,7 +1166,20 @@ export default function PropertyAddView() {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={3}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label="Mortgage Start Date"
+                      format="DD/MM/YYYY"
+                      value={dayjs(mortgageStartDate)}
+                      onChange={(date) =>
+                        setMortgageStartDate(formatDate(date))
+                      }
+                      fullWidth
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={3}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Mortgage Renewal Date"

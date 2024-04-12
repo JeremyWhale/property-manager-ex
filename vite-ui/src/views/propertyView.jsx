@@ -337,6 +337,8 @@ export default function PropertyView() {
             lenderPhoneNumber: requestMortgage.data[0].lender_phone_number,
             mortgageType: requestMortgage.data[0].mortgage_type,
             monthlyAmount: requestMortgage.data[0].monthly_amount,
+            renewalDate: requestMortgage.data[0].renewal_date,
+            startDate: requestMortgage.data[0].start_date,
           };
           setPurchaseDetails(data);
         } else {
@@ -1060,6 +1062,19 @@ export default function PropertyView() {
               <Typography>
                 <b>Monthly Amount: </b>
                 £{purchaseDetails.monthlyAmount}
+              </Typography>
+            </Grid>
+            {/* Row */}
+            <Grid item xs={6}>
+              <Typography>
+                <b>Start date: </b>
+                {formatDisplayDate(purchaseDetails.startDate)}
+              </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography>
+                <b>Renewal date: </b>
+                {formatDisplayDate(purchaseDetails.renewalDate)}
               </Typography>
             </Grid>
           </Grid>

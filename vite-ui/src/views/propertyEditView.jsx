@@ -127,6 +127,7 @@ export default function PropertyEditView() {
   const [mortgageType, setMortgageType] = useState("");
   const [monthlyAmount, setMonthlyAmount] = useState("");
   const [mortgageRenewalDate, setMortgageRenewalDate] = useState("");
+  const [mortgageStartDate, setMortgageStartDate] = useState("")
 
   const [originalPurchaseMethod, setOriginalPurchaseMethod] = useState();
 
@@ -247,6 +248,7 @@ export default function PropertyEditView() {
         setMortgageType(requestMortgage.data[0].mortgage_type);
         setMonthlyAmount(requestMortgage.data[0].monthly_amount);
         setMortgageRenewalDate(requestMortgage.data[0].renewal_date);
+        setMortgageStartDate(requestMortgage.data[0].start_date)
       } else {
         setPurchaseId(requestPurchase.data[0].id);
         setPurchaseDate(requestPurchase.data[0].purchase_date);
@@ -648,6 +650,7 @@ export default function PropertyEditView() {
             interest_rate: interestRate,
             term: mortgageTerm,
             renewal_date: mortgageRenewalDate,
+            start_date: mortgageStartDate,
             lender_name: lenderName,
             lender_address: lenderAddress,
             lender_email: lenderEmail,
@@ -1345,7 +1348,20 @@ export default function PropertyEditView() {
                     fullWidth
                   />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={3}>
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                      label="Mortgage Start Date"
+                      format="DD/MM/YYYY"
+                      value={dayjs(mortgageStartDate)}
+                      onChange={(date) =>
+                        setMortgageStartDate(formatDate(date))
+                      }
+                      fullWidth
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid item xs={3}>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label="Mortgage Renewal Date"
@@ -1354,7 +1370,6 @@ export default function PropertyEditView() {
                       onChange={(date) =>
                         setMortgageRenewalDate(formatDate(date))
                       }
-                      color={mortgageRenewalDate === "" && "error"}
                       fullWidth
                     />
                   </LocalizationProvider>
