@@ -688,7 +688,7 @@ export default function SettingsView({ setLoggedIn }) {
         <IcButton
           slot="actions"
           variant="tertiary"
-          href="https://1drv.ms/f/s!AlsETmNsZjQugRSX82-qqkUwN1-X?e=K4oLoM"
+          href="https://www.dropbox.com/scl/fo/98rb9am8clf6tbm86hm31/AM0h4BCGtCykPUCFYlfKINM?rlkey=ebuo40bw7jy04cpbhr4maqgqk&dl=0"
           target="_blank"
         >
           <Storage slot="left-icon" /> Cloud Storage
