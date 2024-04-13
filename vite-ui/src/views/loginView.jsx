@@ -15,10 +15,6 @@ export default function LoginView() {
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
-
   function handleLogin() {
     setLoading(true);
     axios

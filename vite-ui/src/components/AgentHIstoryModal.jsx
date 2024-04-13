@@ -137,8 +137,6 @@ export default function AgentHistory(props) {
             endDate: 'Current agent',
         })
 
-        console.log('eow', mappedRows)
-
         setRows(mappedRows); // Update the state with the mapped data
       })
       .catch(error => {

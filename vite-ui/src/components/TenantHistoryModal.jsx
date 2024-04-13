@@ -145,8 +145,6 @@ export default function TenantHistory(props) {
             finalRent: issue.final_rent_amount,
         }));
 
-        console.log('prop', props.tenancyDetails)
-
         mappedRows.push({
             tenant: props.propertyDetails.currentTenant,
             moveInDate: props.tenancyDetails.moveInDate,

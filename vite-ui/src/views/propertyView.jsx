@@ -245,7 +245,6 @@ export default function PropertyView() {
 
   useEffect(() => {
     function checkForUrlId() {
-      console.log(propertySelected);
       if (propertySelected !== "") {
         setSelectedProperty(propertySelected);
       }
@@ -261,7 +260,6 @@ export default function PropertyView() {
           country: property.country,
         }));
 
-        console.log(data);
         setPropertyList(data);
       } catch (e) {
         // Handle your error here
@@ -687,7 +685,6 @@ export default function PropertyView() {
               slot="actions"
               variant="tertiary"
               onClick={() => {
-                console.log("Electric button clicked");
                 setElectricModalOpen(true);
               }}
             >

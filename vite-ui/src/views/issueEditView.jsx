@@ -78,7 +78,6 @@ export default function IssueEditView() {
 
   useEffect(() => {
     async function getIssue() {
-      console.log("issue", issueToEdit);
       const response = await axios.get(`${apiLocation}/issue/${issueToEdit}`);
 
       setProperty(response.data.property);
@@ -140,11 +139,6 @@ export default function IssueEditView() {
     getContractorList();
     getIssue();
   }, []);
-
-  useEffect(() => {
-    console.log(beenAllocated);
-    console.log(beenFixed);
-  }, [beenAllocated, beenFixed]);
 
   async function handleDelete() {
     await axios.delete(`${apiLocation}/issue-delete/${id}`).then((response) => {
@@ -258,7 +252,6 @@ export default function IssueEditView() {
         axios
           .post(`${apiLocation}/contractor-add/`, contractorData)
           .then((response) => {
-            console.log(response);
             const data = {
               id: id,
               property: property,

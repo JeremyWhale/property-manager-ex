@@ -212,7 +212,7 @@ export default function IssueAddView() {
         axios
           .post(`${apiLocation}/contractor-add/`, contractorData)
           .then((response) => {
-            console.log(response);
+
             const data = {
               property: property,
               problem: problem,

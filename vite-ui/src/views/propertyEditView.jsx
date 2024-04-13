@@ -234,7 +234,6 @@ export default function PropertyEditView() {
         setPurchaseType(requestPurchase.data[0].purchase_type);
 
         setOriginalPurchaseMethod(requestPurchase.data[0].purchase_type);
-        console.log("orig pm", requestPurchase.data[0].purchase_type);
 
         setMortgageId(requestMortgage.data[0].id);
         setMortgageAccountNumber(requestMortgage.data[0].account_number);
@@ -257,7 +256,6 @@ export default function PropertyEditView() {
         setPurchaseType(requestPurchase.data[0].purchase_type);
 
         setOriginalPurchaseMethod(requestPurchase.data[0].purchase_type);
-        console.log("orig pm", requestPurchase.data[0].purchase_type);
       }
     } catch (e) {
       //Alert saying api cannot be reached try again later
@@ -556,8 +554,6 @@ export default function PropertyEditView() {
               status: status,
               type: type,
             };
-
-            console.log(propertyData);
 
             axios
               .put(`${apiLocation}/property-edit/`, propertyData)

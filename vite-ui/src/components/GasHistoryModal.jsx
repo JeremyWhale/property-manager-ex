@@ -131,14 +131,14 @@ export default function ElectricHistory(props) {
     axios.get(`${apiLocation}/gas-history/${props.property}`)
       .then(response => {
         const data = response.data;
-        console.log('data:', data)
+
         const mappedRows = data.map(issue => ({
             readingDate: issue.reading_date,
             tenant: issue.tenant,
             supplier: issue.supplier,
             reading: issue.reading,
         }));
-        console.log('maprow:', mappedRows)
+
         setRows(mappedRows); // Update the state with the mapped data
       })
       .catch(error => {

@@ -118,7 +118,6 @@ export default function GasSafetyCertsTable(props) {
     axios.get(`${apiLocation}/gas-certificates-due/${props.range}/`)
       .then(response => {
         const data = response.data;
-        console.log(data)
 
         // Create an array of Axios requests to fetch the URLs
         const urlRequests = data.map(issue =>
@@ -181,6 +180,15 @@ export default function GasSafetyCertsTable(props) {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
+  };
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -249,6 +257,15 @@ export default function GasSafetyCertsTable(props) {
               </TableBody>
             </Table>
           </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </Paper>
       </Box>
     </>
