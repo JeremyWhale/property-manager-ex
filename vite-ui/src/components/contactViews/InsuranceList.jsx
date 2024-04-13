@@ -132,8 +132,23 @@ export default function InsuranceCompanyList() {
         const data = response.data;
 
         const filteredData = data.filter(issue => issue.company.length > 0);
+
+        // Create an object to store unique company names
+        const uniqueCompanies = [];
+
+        // Filter out the duplicates based on the company field
+        filteredData.filter(obj => {
+            // If the company name is not already in the uniqueCompanies object, add it
+            // Otherwise, return false to filter out the duplicate
+            if (!uniqueCompanies.hasOwnProperty(obj.company)) {
+                uniqueCompanies.push(obj);
+                uniqueCompanies[obj.company] = true;
+                return true;
+            }
+            return false;
+        });
   
-        const mappedRows = filteredData.map((issue) => ({
+        const mappedRows = uniqueCompanies.map((issue) => ({
             name: issue.company,
             phone: issue.company_phone_number,
             email: issue.company_email,

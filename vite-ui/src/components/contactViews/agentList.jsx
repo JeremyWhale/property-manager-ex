@@ -130,8 +130,23 @@ export default function AgentList() {
     axios.get(`${apiLocation}/agents`)
       .then(response => {
         const data = response.data;
+
+        // Create an object to store unique company names
+        const uniqueCompanies = [];
+
+        // Filter out the duplicates based on the company field
+        data.filter(obj => {
+            // If the company name is not already in the uniqueCompanies object, add it
+            // Otherwise, return false to filter out the duplicate
+            if (!uniqueCompanies.hasOwnProperty(obj.name)) {
+                uniqueCompanies.push(obj);
+                uniqueCompanies[obj.name] = true;
+                return true;
+            }
+            return false;
+        });
   
-        const mappedRows = data.map((issue) => ({
+        const mappedRows = uniqueCompanies.map((issue) => ({
             name: issue.name,
             phone: issue.phone_number,
             email: issue.email,

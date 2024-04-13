@@ -142,8 +142,25 @@ export default function TenantList() {
     axios.get(`${apiLocation}/tenant-list`)
       .then(response => {
         const data = response.data;
+
+        const filteredData = data.filter(issue => issue.full_name !== "No Assigned Tenant");
+
+        // Create an object to store unique company names
+        const uniqueCompanies = [];
+
+        // Filter out the duplicates based on the company field
+        filteredData.filter(obj => {
+            // If the company name is not already in the uniqueCompanies object, add it
+            // Otherwise, return false to filter out the duplicate
+            if (!uniqueCompanies.hasOwnProperty(obj.full_name)) {
+                uniqueCompanies.push(obj);
+                uniqueCompanies[obj.full_name] = true;
+                return true;
+            }
+            return false;
+        });
   
-        const mappedRows = data.map((issue) => ({
+        const mappedRows = uniqueCompanies.map((issue) => ({
             name: issue.full_name,
             phone: issue.phone_number,
             phone2: issue.phone_number_2,

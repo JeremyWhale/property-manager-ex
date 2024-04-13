@@ -132,8 +132,23 @@ export default function LenderList() {
         const data = response.data;
 
         const filteredData = data.filter(issue => issue.lender_name.length > 0);
+
+        // Create an object to store unique company names
+        const uniqueCompanies = [];
+
+        // Filter out the duplicates based on the company field
+        filteredData.filter(obj => {
+            // If the company name is not already in the uniqueCompanies object, add it
+            // Otherwise, return false to filter out the duplicate
+            if (!uniqueCompanies.hasOwnProperty(obj.lender_name)) {
+                uniqueCompanies.push(obj);
+                uniqueCompanies[obj.lender_name] = true;
+                return true;
+            }
+            return false;
+        });
   
-        const mappedRows = filteredData.map((issue) => ({
+        const mappedRows = uniqueCompanies.map((issue) => ({
             name: issue.lender_name,
             phone: issue.lender_phone_number,
             email: issue.lender_email,
