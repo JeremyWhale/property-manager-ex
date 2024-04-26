@@ -42,7 +42,7 @@ export default function SideNav() {
   return (
     <IcSideNavigation
       appTitle="Property Manager"
-      status="v1.2.0"
+      status="v1.3.0"
       collapsedIconLabels={false}
       href="#"
     >
