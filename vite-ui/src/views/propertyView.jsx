@@ -500,6 +500,8 @@ export default function PropertyView() {
         const data = {
           phoneNumber: response.data.phone_number,
           email: response.data.email,
+          address: response.data.address,
+
         };
 
         setGasSupplierDetails(data);
@@ -518,6 +520,7 @@ export default function PropertyView() {
         const data = {
           phoneNumber: response.data.phone_number,
           email: response.data.email,
+          address: response.data.address,
         };
 
         setElectricSupplierDetails(data);
@@ -536,6 +539,7 @@ export default function PropertyView() {
         const data = {
           phoneNumber: response.data.phone_number,
           email: response.data.email,
+          address: response.data.address,
         };
 
         setWaterSupplierDetails(data);
@@ -563,6 +567,7 @@ export default function PropertyView() {
         // Full name already exists
         email: response.data.scheme_email,
         phoneNumber: response.data.scheme_contact_number,
+        address: response.data.scheme_address,
       };
 
       setDepositDetails(data);
@@ -896,14 +901,14 @@ export default function PropertyView() {
             </Typography>
           </Grid>
           {/* Row */}
-          <Grid item xs={6}>
+          <Grid item xs={4}>
             <Typography>
               <b>Initial Rent: </b>
               £{tenancyDetails.initialRentAmount}
             </Typography>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={8}>
             <Typography>
               <b>Current Rent: </b>
               £{tenancyDetails.currentRentAmount}
@@ -927,14 +932,14 @@ export default function PropertyView() {
             <>
               <Grid item xs={4}>
                 <Typography>
-                  <b>Scheme Name: </b>
-                  {tenancyDetails.depositProvider}
+                  <b>Deposit Account Number: </b>
+                  {tenancyDetails.DPSPolicyNumber}
                 </Typography>
               </Grid>
               <Grid item xs={4}>
                 <Typography>
-                  <b>Deposit Account Number: </b>
-                  {tenancyDetails.DPSPolicyNumber}
+                  <b>Scheme Name: </b>
+                  {tenancyDetails.depositProvider}
                 </Typography>
               </Grid>
               <Grid item xs={4}>
@@ -947,6 +952,12 @@ export default function PropertyView() {
                 <Typography>
                   <b>Scheme Phone Number: </b>
                   {depositDetails !== undefined ? depositDetails.phoneNumber : ''}
+                </Typography>
+              </Grid>
+              <Grid item xs={4}>
+                <Typography>
+                  <b>Scheme Address: </b>
+                  {depositDetails !== undefined ? depositDetails.address : ''}
                 </Typography>
               </Grid>
             </>
@@ -1298,8 +1309,11 @@ export default function PropertyView() {
               href={urls.astUrl}
               disabled={urls.astUrl === ''}
             >
-              View AST (Review by{" "}
-              {formatDisplayDate(tenancyDetails.tenancyReviewDate)}){" "}
+              {tenancyDetails.tenancyReviewDate ? (
+                `View AST (Review by ${formatDisplayDate(tenancyDetails.tenancyReviewDate)})`
+              ) : (
+                "View AST"
+              )}
             </Button>
           </Grid>
           <Grid item xs={6}>
@@ -1310,8 +1324,11 @@ export default function PropertyView() {
               href={urls.epcUrl}
               disabled={urls.epcUrl === ''}
             >
-              View EPC Certificate (Review by{" "}
-              {formatDisplayDate(propertyDetails.epcRenewalDate)}){" "}
+              {propertyDetails.epcRenewalDate ? (
+                `View EPC Certificate (Review by ${formatDisplayDate(propertyDetails.epcRenewalDate)})`
+              ) : (
+                "View EPC Certificate"
+              )}
             </Button>
           </Grid>
           {/* Row */}
@@ -1323,8 +1340,11 @@ export default function PropertyView() {
               href={urls.electricalCertUrl}
               disabled={urls.electricalCertUrl === ''}
             >
-              View Electrical Certificate (Review by{" "}
-              {formatDisplayDate(propertyDetails.electricalInspectionDate)}){" "}
+              {propertyDetails.electricalInspectionDate ? (
+                `View Electrical Certificate (Review by ${formatDisplayDate(propertyDetails.electricalInspectionDate)})`
+              ) : (
+                "View Electrical Certificate"
+              )}
             </Button>
           </Grid>
           <Grid item xs={6}>
@@ -1335,8 +1355,11 @@ export default function PropertyView() {
               href={urls.gasSafetyUrl}
               disabled={urls.gasSafetyUrl === ''}
             >
-              View Gas Safety Certificate (Review by{" "}
-              {formatDisplayDate(propertyDetails.gasCertificateRenewalDate)}){" "}
+              {propertyDetails.gasCertificateRenewalDate ? (
+                `View Gas Safety Certificate (Review by ${formatDisplayDate(propertyDetails.gasCertificateRenewalDate)})`
+              ) : (
+                "View Gas Safety Certificate"
+              )}
             </Button>
           </Grid>
           {/* Row */}
@@ -1722,6 +1745,11 @@ export default function PropertyView() {
                   <b>Email Address:</b> {gasSupplierDetails.email}
                 </Typography>
               </Grid>
+              <Grid item xs={12}>
+                <Typography>
+                  <b>Address:</b> {gasSupplierDetails.address}
+                </Typography>
+              </Grid>
             </Grid>
           </Box>
         </Modal>
@@ -1777,6 +1805,11 @@ export default function PropertyView() {
                     <b>Email Address:</b> {electricSupplierDetails.email}
                   </Typography>
                 </Grid>
+                <Grid item xs={12}>
+                  <Typography>
+                    <b>Address:</b> {electricSupplierDetails.address}
+                  </Typography>
+                </Grid>
               </Grid>
             </Box>
           </Modal>
@@ -1824,6 +1857,11 @@ export default function PropertyView() {
               <Grid item xs={12}>
                 <Typography>
                   <b>Email Address:</b> {waterSupplierDetails.email}
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography>
+                  <b>Address:</b> {waterSupplierDetails.address}
                 </Typography>
               </Grid>
             </Grid>

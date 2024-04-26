@@ -23,7 +23,6 @@ import apiLocation from "../components/apiLocation";
 import axios from "axios";
 import StaticAlert from "../components/staticAlert";
 import { useAppContext } from "../App.context";
-import generateAuthToken from "../components/auth";
 
 export default function SettingsView({ setLoggedIn }) {
   const { currentUser, setCurrentUser } = useAppContext()
@@ -42,6 +41,7 @@ export default function SettingsView({ setLoggedIn }) {
   const [supplierName, setSupplierName] = useState("");
   const [supplierEmail, setSupplierEmail] = useState("");
   const [supplierPhone, setSupplierPhone] = useState("");
+  const [supplierAddress, setSupplierAddress] = useState("");
 
   const [supplierUploadSucess, setSupplierUploadSuccess] = useState(false);
   const [showSupplierMessage, setShowSupplierMessage] = useState(false);
@@ -61,6 +61,7 @@ export default function SettingsView({ setLoggedIn }) {
   const [dsName, setDsName] = useState("");
   const [dsPhone, setDsPhone] = useState("");
   const [dsEmail, setDsEmail] = useState("");
+  const [dsAddress, setDsAddress] = useState("");
 
   const [dsUploadSucess, setDsUploadSuccess] = useState(false);
   const [showDsMessage, setShowDsMessage] = useState(false);
@@ -229,6 +230,7 @@ export default function SettingsView({ setLoggedIn }) {
           setDsName(response.data.scheme_name);
           setDsPhone(response.data.scheme_contact_number);
           setDsEmail(response.data.scheme_email);
+          setDsAddress(response.data.scheme_address);
         });
     }
 
@@ -266,6 +268,7 @@ export default function SettingsView({ setLoggedIn }) {
           setSupplierName(response.data.name);
           setSupplierPhone(response.data.phone_number);
           setSupplierEmail(response.data.email);
+          setSupplierAddress(response.data.address);
         });
     }
 
@@ -279,11 +282,13 @@ export default function SettingsView({ setLoggedIn }) {
     setSupplierName("");
     setSupplierPhone("");
     setSupplierEmail("");
+    setSupplierAddress("")
 
     setSelectedDs("")
     setDsName("");
     setDsPhone("");
     setDsEmail("");
+    setDsAddress("")
 
     setSelectedAgent("")
     setAgentName("");
@@ -310,6 +315,7 @@ export default function SettingsView({ setLoggedIn }) {
       name: supplierName,
       phone_number: supplierPhone,
       email: supplierEmail,
+      address: supplierAddress,
     };
 
     if (supplierType === "electric") {
@@ -350,6 +356,7 @@ export default function SettingsView({ setLoggedIn }) {
     setSupplierName("");
     setSupplierPhone("");
     setSupplierEmail("");
+    setSupplierAddress("")
 
     getSuppliers();
   }
@@ -397,6 +404,7 @@ export default function SettingsView({ setLoggedIn }) {
     setSupplierName("");
     setSupplierPhone("");
     setSupplierEmail("");
+    setSupplierAddress("")
   }
 
   function handleSupplierEdit() {
@@ -405,6 +413,7 @@ export default function SettingsView({ setLoggedIn }) {
       name: supplierName,
       phone_number: supplierPhone,
       email: supplierEmail,
+      address: supplierAddress,
     };
 
     if (supplierType === "electric") {
@@ -446,6 +455,7 @@ export default function SettingsView({ setLoggedIn }) {
     setSupplierName("");
     setSupplierPhone("");
     setSupplierEmail("");
+    setSupplierAddress("")
 
     getSuppliers();
   }
@@ -455,6 +465,7 @@ export default function SettingsView({ setLoggedIn }) {
       scheme_name: dsName,
       scheme_contact_number: dsPhone,
       scheme_email: dsEmail,
+      scheme_address: dsAddress,
     };
 
     axios
@@ -470,6 +481,7 @@ export default function SettingsView({ setLoggedIn }) {
     setDsName("");
     setDsPhone("");
     setDsEmail("");
+    setDsAddress("")
 
     getDepositSchemes();
   }
@@ -490,6 +502,7 @@ export default function SettingsView({ setLoggedIn }) {
       setDsName("");
       setDsPhone("");
       setDsEmail("");
+      setDsAddress("")
   }
 
   function handleDsEdit() {
@@ -498,6 +511,7 @@ export default function SettingsView({ setLoggedIn }) {
       scheme_name: dsName,
       scheme_contact_number: dsPhone,
       scheme_email: dsEmail,
+      scheme_address: dsAddress,
     };
 
     axios
@@ -514,6 +528,7 @@ export default function SettingsView({ setLoggedIn }) {
     setDsName("");
     setDsPhone("");
     setDsEmail("");
+    setDsAddress("")
 
     getDepositSchemes();
   }
@@ -857,6 +872,16 @@ export default function SettingsView({ setLoggedIn }) {
                 onChange={(e) => setSupplierPhone(e.target.value)}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-basic"
+                label="Supplier Address"
+                variant="outlined"
+                fullWidth
+                value={supplierAddress}
+                onChange={(e) => setSupplierAddress(e.target.value)}
+              />
+            </Grid>
             <Grid item>
               <Button
                 variant="contained"
@@ -935,6 +960,16 @@ export default function SettingsView({ setLoggedIn }) {
                 fullWidth
                 value={dsEmail}
                 onChange={(e) => setDsEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-basic"
+                label="Scheme Address"
+                variant="outlined"
+                fullWidth
+                value={dsAddress}
+                onChange={(e) => setDsAddress(e.target.value)}
               />
             </Grid>
             <Grid item>
@@ -1276,6 +1311,16 @@ export default function SettingsView({ setLoggedIn }) {
                 onChange={(e) => setSupplierPhone(e.target.value)}
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-basic"
+                label="Supplier Address"
+                variant="outlined"
+                fullWidth
+                value={supplierAddress}
+                onChange={(e) => setSupplierAddress(e.target.value)}
+              />
+            </Grid>
             <Grid item xs={6}>
               <Button
                 variant="contained"
@@ -1387,6 +1432,16 @@ export default function SettingsView({ setLoggedIn }) {
                 fullWidth
                 value={dsEmail}
                 onChange={(e) => setDsEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="outlined-basic"
+                label="Scheme Address"
+                variant="outlined"
+                fullWidth
+                value={dsAddress}
+                onChange={(e) => setDsAddress(e.target.value)}
               />
             </Grid>
             <Grid item xs={6}>

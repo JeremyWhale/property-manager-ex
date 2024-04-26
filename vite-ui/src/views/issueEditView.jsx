@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
 import { FormRender } from "../components/FormRender";
 
-const steps = ["Issue Details", "Contractor Details"];
+const steps = ["Issue Details"];
 
 export default function IssueEditView() {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ export default function IssueEditView() {
 
   // Existing
   const [contractorList, setContractorList] = useState([]);
-  const [selectedContractorName, setSelectedContractorName] = useState(0);
+  const [selectedContractorName, setSelectedContractorName] = useState("");
   // New
   const [name, setName] = useState("");
   const [nameError, setNameError] = useState(false);
@@ -108,7 +108,6 @@ export default function IssueEditView() {
         const data = response.data.map((property) => ({
           id: property.id,
           addressLine1: property.address_line_1,
-          country: property.country,
         }));
 
         setPropertyList(data);
@@ -213,15 +212,21 @@ export default function IssueEditView() {
     const dateReportedFormatted = dateReported.toString().split("T");
     const dateFixedFormatted = dateFixed.toString().split("T");
 
-    if (selectedContractorName !== 0) {
+    let dateFixedUpload = dateFixedFormatted[0]
+
+    // 01-01-2000 for Unallocated, 02-01-2000 for Allocated
+    beenAllocated && !beenFixed && (dateFixedUpload = "2000-01-02")
+    !beenAllocated && (dateFixedUpload = "2000-01-01" )
+
       const data = {
         id: id,
         property: property,
         problem: problem,
         date_reported: dateReportedFormatted[0],
-        date_fixed: dateFixedFormatted[0],
+        date_fixed: dateFixedUpload,
         contractor_responsible: selectedContractorName,
       };
+
       axios
         .put(`${apiLocation}/issue-edit/${id}`, data)
         .then((response) => {
@@ -235,51 +240,6 @@ export default function IssueEditView() {
       newCompleted[activeStep] = true;
       setCompleted(newCompleted);
       setActiveStep(3);
-    } else {
-      //New
-      //Post request for contractor
-      if (name === "") {
-        setNameError(true);
-      } else {
-        const contractorData = {
-          name: name,
-          address: address,
-          phone_number: phoneNumber,
-          email: email,
-          bank_sort_code: sortCode,
-          bank_account_number: accountNumber,
-        };
-        axios
-          .post(`${apiLocation}/contractor-add/`, contractorData)
-          .then((response) => {
-            const data = {
-              id: id,
-              property: property,
-              problem: problem,
-              date_reported: dateReportedFormatted[0],
-              date_fixed: dateFixedFormatted[0],
-              contractor_responsible: response.data.id,
-            };
-            axios
-              .put(`${apiLocation}/issue-edit/${id}`, data)
-              .then((response) => {
-                setUploadSuccess(true);
-              })
-              .catch((error) => {
-                setUploadSuccess(false);
-                console.error("Error:", error);
-              });
-          })
-          .catch((error) => {
-            setUploadSuccess(false);
-            console.error("Error:", error);
-          });
-        const newCompleted = completed;
-        newCompleted[activeStep] = true;
-        setCompleted(newCompleted);
-        setActiveStep(3);
-      }
-    }
   };
 
   function formatDate(date) {
@@ -308,14 +268,14 @@ export default function IssueEditView() {
       return (
         <>
           <Grid container spacing={2} sx={{ paddingTop: 2 }}>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <TextField
                 slot="input"
                 labelId="demo-simple-select-label"
                 variant="outlined"
                 id="demo-simple-select"
                 value={property}
-                label="Property"
+                label="Property (required)"
                 select
                 onChange={(e) => setProperty(e.target.value)}
                 color={propertyError && "error"}
@@ -325,23 +285,12 @@ export default function IssueEditView() {
                 .sort((a, b) => a.addressLine1.localeCompare(b.addressLine1))
                 .map((property, index) => (
                   <MenuItem key={property.id} value={property.id}>
-                    {property.addressLine1} ({property.country})
+                    {property.addressLine1}
                   </MenuItem>
                 ))}
               </TextField>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="outlined-basic"
-                label="Problem"
-                variant="outlined"
-                value={problem}
-                onChange={(e) => setProblem(e.target.value)}
-                color={problemError && "error"}
-                fullWidth
-              />
-            </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={3}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   label="Date reported"
@@ -353,7 +302,34 @@ export default function IssueEditView() {
                 />
               </LocalizationProvider>
             </Grid>
+            {beenFixed && beenAllocated && (
+              <Grid item xs={3}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    label="Date fixed"
+                    format="DD/MM/YYYY"
+                    value={dayjs(dateFixed)}
+                    onChange={(date) => setDateFixed(formatDate(date))}
+                    sx={{ marginLeft: 2 }}
+                    fullWidth
+                    color={dateFixedError && "error"}
+                  />
+                </LocalizationProvider>
+              </Grid>
+                )}
             <Grid item xs={12}>
+              <TextField
+                id="outlined-basic"
+                label="Problem"
+                variant="outlined"
+                value={problem}
+                onChange={(e) => setProblem(e.target.value)}
+                color={problemError && "error"}
+                fullWidth
+                multiline
+              />
+            </Grid>
+            <Grid item xs={3}>
               <FormControlLabel
                 checked={beenAllocated}
                 control={<Checkbox />}
@@ -365,7 +341,8 @@ export default function IssueEditView() {
               />
             </Grid>
             {beenAllocated && (
-              <Grid item xs={12}>
+              <>
+              <Grid item xs={3}>
                 <FormControlLabel
                   checked={beenFixed}
                   control={<Checkbox />}
@@ -373,127 +350,28 @@ export default function IssueEditView() {
                   labelPlacement="start"
                   onClick={() => {
                     setBeenFixed(!beenFixed);
-                  }}
-                />
-                {beenFixed && (
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                      label="Date fixed"
-                      value={dayjs(dateFixed)}
-                      format="DD/MM/YYYY"
-                      onChange={(date) => setDateFixed(formatDate(date))}
-                      sx={{ marginLeft: 2 }}
-                      fullWidth
-                      color={dateFixedError && "error"}
-                    />
-                  </LocalizationProvider>
-                )}
+                  } } />
               </Grid>
-            )}
-          </Grid>
-        </>
-      );
-    }
-
-    // Contractor details
-    if (activeStep === 1) {
-      return (
-        <>
-          <Grid container spacing={2} sx={{ paddingTop: 2 }}>
-            <Grid item xs={12}>
-              <TextField
-                slot="input"
-                labelId="demo-simple-select-label"
-                variant="outlined"
-                id="demo-simple-select"
-                value={selectedContractorName}
-                label="Contractor"
-                select
-                onChange={(e) => setSelectedContractorName(e.target.value)}
-                fullWidth
-              >
-                {selectedContractorName !== 0 && (
-                  <MenuItem key={""} value={0}>
-                    New Contractor
-                  </MenuItem>
-                )}
-                {contractorList
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map((property, index) => (
-                  <MenuItem key={index} value={property.id}>
-                    {property.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-            {selectedContractorName === 0 && (
-              // None selected (manual fill)
-              <>
-                <Grid item xs={12}>
+              <Grid item xs={6}>
                   <TextField
-                    id="outlined-basic"
-                    label="Name (required)"
+                    slot="input"
+                    labelId="demo-simple-select-label"
                     variant="outlined"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    id="demo-simple-select"
+                    value={selectedContractorName}
+                    label="Contractor"
+                    select
+                    onChange={(e) => setSelectedContractorName(e.target.value)}
                     fullWidth
-                    color={nameError && "error"}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Address"
-                    variant="outlined"
-                    onChange={(e) => setAddress(e.target.value)}
-                    value={address}
-                    color={addressError && "error"}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Phone Number"
-                    variant="outlined"
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                    value={phoneNumber}
-                    color={phoneNumberError && "error"}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Email"
-                    variant="outlined"
-                    onChange={(e) => setEmail(e.target.value)}
-                    value={email}
-                    color={emailError && "error"}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Sort Code"
-                    variant="outlined"
-                    onChange={(e) => setSortCode(e.target.value)}
-                    value={sortCode}
-                    color={sortCodeError && "error"}
-                    fullWidth
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="outlined-basic"
-                    label="Account Number"
-                    variant="outlined"
-                    onChange={(e) => setAccountNumber(e.target.value)}
-                    value={accountNumber}
-                    color={accountNumberError && "error"}
-                    fullWidth
-                  />
+                  >
+                    {contractorList
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map((property, index) => (
+                        <MenuItem key={index} value={property.name}>
+                          {property.name}
+                        </MenuItem>
+                    ))}
+                  </TextField>
                 </Grid>
               </>
             )}

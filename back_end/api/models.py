@@ -30,6 +30,7 @@ class Gas_Supplier(models.Model):
     name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=13, blank=True)
     email = models.EmailField(blank=True)
+    address = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.name
@@ -38,6 +39,7 @@ class Electric_Supplier(models.Model):
     name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=13, blank=True)
     email = models.EmailField(blank=True)
+    address = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.name
@@ -46,6 +48,7 @@ class Water_Supplier(models.Model):
     name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=13, blank=True)
     email = models.EmailField(blank=True)
+    address = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.name
@@ -170,14 +173,14 @@ class Contractor(models.Model):
 # Issues model
 class Issues(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    problem = models.TextField()
-    date_reported = models.DateField()
+    problem = models.TextField(blank=True)
+    date_reported = models.TextField(blank=True)
     # 01-01-2000 for Unallocated, 02-01-2000 for Allocated
-    date_fixed = models.DateField() 
-    contractor_responsible = models.ForeignKey(Contractor, on_delete=models.CASCADE)
+    date_fixed = models.TextField(blank=True)
+    contractor_responsible = models.TextField(blank=True)
     
     def __str__(self):
-        return f'{self.property.address_line_1} {self.date_reported}'
+        return f'{self.property.address_line_1}'
     
 # Tenant history model
 class Tenant_history(models.Model):
@@ -196,6 +199,7 @@ class Deposit_scheme(models.Model):
     scheme_name = models.CharField(max_length=50)
     scheme_contact_number = models.CharField(max_length=13, blank=True)
     scheme_email = models.EmailField(blank=True)
+    scheme_address = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.scheme_name

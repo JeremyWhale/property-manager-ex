@@ -21,7 +21,6 @@ class AgentHistoryAddSerializer(serializers.ModelSerializer):
 #Return all issues
 class IssuesSerializer(serializers.ModelSerializer):
     property = serializers.StringRelatedField()
-    contractor_responsible = serializers.StringRelatedField()
 
     class Meta:
         model = Issues
@@ -36,7 +35,6 @@ class IssuesWIthIDSerializer(serializers.ModelSerializer):
 
 class IssuesAddSerializer(serializers.ModelSerializer):
     property = serializers.PrimaryKeyRelatedField(queryset=Property.objects.all())
-    contractor_responsible = serializers.PrimaryKeyRelatedField(queryset=Contractor.objects.all())
 
     class Meta:
         model = Issues
