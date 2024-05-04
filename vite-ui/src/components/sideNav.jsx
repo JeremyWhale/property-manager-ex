@@ -8,6 +8,7 @@ import {
   MapsHomeWork,
   PersonOutline,
   Settings,
+  ShoppingCartOutlined,
 } from "@mui/icons-material";
 import apiLocation from "./apiLocation";
 import axios from "axios";
@@ -42,7 +43,7 @@ export default function SideNav() {
   return (
     <IcSideNavigation
       appTitle="Property Manager"
-      status="v1.3.0"
+      status="v1.4.0"
       collapsedIconLabels={false}
       href="#"
     >
@@ -77,6 +78,14 @@ export default function SideNav() {
         >
           <ErrorOutline />
         </Badge>
+      </IcNavigationItem>
+       {/* Purchases view link */}
+       <IcNavigationItem
+        slot="primary-navigation"
+        onClick={() => navigate("/purchases")}
+        label="Purchases"
+      >
+        <ShoppingCartOutlined slot="icon" />
       </IcNavigationItem>
        {/* Reports view link */}
        <IcNavigationItem

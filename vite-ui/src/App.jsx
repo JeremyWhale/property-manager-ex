@@ -20,6 +20,9 @@ import { useAppContext } from "./App.context";
 import axios from "axios";
 import generateAuthToken from "./components/auth";
 import ContactView from "./views/contactView";
+import PurchasesView from "./views/purchasesView";
+import PurchaseAddView from "./views/purchasesAddView";
+import PurchaseEditView from "./views/purchasesEditView";
 
 function App() {
   const { currentUser } = useAppContext();
@@ -64,6 +67,9 @@ function App() {
                 <Route path="/settings" Component={SettingsView} />
                 <Route path="/reports" Component={ReportView} />
                 <Route path="/contacts" Component={ContactView} />
+                <Route path="/purchases" Component={PurchasesView} />
+                <Route path="/purchases/add" Component={PurchaseAddView} />
+                <Route path="/purchases/edit" Component={PurchaseEditView} />
               </Routes>
             </Box>
           </Box>

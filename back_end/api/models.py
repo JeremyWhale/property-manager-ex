@@ -183,6 +183,17 @@ class Issues(models.Model):
     def __str__(self):
         return f'{self.property.address_line_1}'
     
+# Purchases model
+class Purchases(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
+    items = models.TextField(blank=True)
+    date = models.TextField(blank=True)
+    cost = models.TextField(blank=True)
+    trade_supplier = models.TextField(blank=True)
+    
+    def __str__(self):
+        return f'{self.property.address_line_1}'
+    
 # Tenant history model
 class Tenant_history(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)

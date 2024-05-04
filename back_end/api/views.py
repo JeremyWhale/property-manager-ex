@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from django.http import Http404, JsonResponse, HttpResponseForbidden
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
-from .models import Contractor, Issues, Property, Tenancy, Tenant, Purchase_details, Agent, Mortgage, Insurance, Urls, Gas_Supplier, Electric_Supplier, Water_Supplier, Deposit_scheme, Gas_Reading, Electric_Reading, Tenant_history, AgentHistory
-from .serializers import ContractorSerializer, DashboardSerializer, FullPropertySerializer, InsuranceSerializer, IssuesSerializer, MortgageSerializer, PropertyAddressSerializer, TenancyDetailsSerializer, TenantSerializer, PurchaseDetailsSerializer, AgentSerializer, UrlSerializer, GasSerializer, ElectricSerializer, WaterSerializer, IssuesAddSerializer, DepositSchemeSerializer, InsuranceAddSerializer, PropertyAddSerializer, TenancyAddSerializer, PurchaseDetailsAddSerializer, MortgageAddSerializer, UrlAddSerializer, GasHistorySerializer, ElectricHistorySerializer, TenantHistorySerializer, TenantHistoryAddSerializer, AgentHistorySerializer, AgentHistoryAddSerializer, GasHistoryAddSerializer, ElectricHistoryAddSerializer, TenantListSerializer, IssuesWIthIDSerializer
+from .models import Trade_Supplier, Purchases, Contractor, Issues, Property, Tenancy, Tenant, Purchase_details, Agent, Mortgage, Insurance, Urls, Gas_Supplier, Electric_Supplier, Water_Supplier, Deposit_scheme, Gas_Reading, Electric_Reading, Tenant_history, AgentHistory
+from .serializers import PurchaseWithIDSerializer, TradeSerializer, PurchasesAddSerializer, PurchasesSerializer, ContractorSerializer, DashboardSerializer, FullPropertySerializer, InsuranceSerializer, IssuesSerializer, MortgageSerializer, PropertyAddressSerializer, TenancyDetailsSerializer, TenantSerializer, PurchaseDetailsSerializer, AgentSerializer, UrlSerializer, GasSerializer, ElectricSerializer, WaterSerializer, IssuesAddSerializer, DepositSchemeSerializer, InsuranceAddSerializer, PropertyAddSerializer, TenancyAddSerializer, PurchaseDetailsAddSerializer, MortgageAddSerializer, UrlAddSerializer, GasHistorySerializer, ElectricHistorySerializer, TenantHistorySerializer, TenantHistoryAddSerializer, AgentHistorySerializer, AgentHistoryAddSerializer, GasHistoryAddSerializer, ElectricHistoryAddSerializer, TenantListSerializer, IssuesWIthIDSerializer
 from datetime import date, timedelta
 from rest_framework import status
 from rest_framework.views import APIView
@@ -41,6 +41,10 @@ class DepositSchemeByName(generics.RetrieveAPIView):
 class IssuesList(generics.ListAPIView):
     queryset = Issues.objects.all()
     serializer_class = IssuesSerializer
+
+class PurchasesList(generics.ListAPIView):
+    queryset = Purchases.objects.all()
+    serializer_class = PurchasesSerializer
 
 class MortgageList(generics.ListAPIView):
     queryset = Mortgage.objects.all()
@@ -81,6 +85,11 @@ class TenancyDetailView(generics.RetrieveAPIView):
 class ContractorDetail(generics.RetrieveAPIView):
     queryset = Contractor.objects.all()
     serializer_class = ContractorSerializer
+    lookup_field = 'name'
+
+class TradeSupplierDetail(generics.RetrieveAPIView):
+    queryset = Trade_Supplier.objects.all()
+    serializer_class = TradeSerializer
     lookup_field = 'name'
 
 class GasCertificatesDueList(generics.ListAPIView):
@@ -222,6 +231,16 @@ class IssuesByIdView(generics.RetrieveAPIView):
         serializer = IssuesWIthIDSerializer(issue)
         return JsonResponse(serializer.data)
     
+class PurchasesByIdView(generics.RetrieveAPIView):
+    serializer_class = PurchaseWithIDSerializer
+    queryset = Purchases.objects.all()
+
+    def get(self, request, pk, *args, **kwargs):
+        # Assuming 'pk' is the primary key of the Issues model
+        issue = self.get_object()
+        serializer = PurchaseWithIDSerializer(issue)
+        return JsonResponse(serializer.data)
+    
 class UrlsByAddressView(generics.ListAPIView):
     serializer_class = UrlSerializer
     queryset = Urls.objects.all()
@@ -311,6 +330,44 @@ class IssueDelete(APIView):
         try:
             tenant = Issues.objects.get(id=id)
         except Issues.DoesNotExist:
+            raise Http404
+
+        tenant.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class PurchasesCreate(APIView):
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        serializer = PurchasesAddSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class PurchasesEdit(APIView):
+    @csrf_exempt
+    def put(self, request, id, *args, **kwargs):
+        # 'id' is the primary key or record ID provided in the URL
+        instance = self.get_object(id)
+        serializer = PurchasesAddSerializer(instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get_object(self, id):
+        # Helper method to get the object based on the primary key (id)
+        try:
+            return Purchases.objects.get(id=id)
+        except Purchases.DoesNotExist:
+            raise Http404
+
+class PurchasesDelete(APIView):
+    @csrf_exempt
+    def delete(self, request, id, *args, **kwargs):
+        try:
+            tenant = Purchases.objects.get(id=id)
+        except Purchases.DoesNotExist:
             raise Http404
 
         tenant.delete()
@@ -865,6 +922,51 @@ class WaterSupDelete(APIView):
         try:
             supplier = Water_Supplier.objects.get(id=id)
         except Contractor.DoesNotExist:
+            raise Http404
+
+        supplier.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+class TradeSupplierList(generics.ListAPIView):
+    queryset = Trade_Supplier.objects.all()
+    serializer_class = TradeSerializer
+
+class TradeSupplierCreate(APIView):
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        serializer = TradeSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            
+            response = Response(serializer.data, status=status.HTTP_201_CREATED)
+            return response
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TradeSupplierEditView(APIView):
+    @csrf_exempt
+    def put(self, request, id, *args, **kwargs):
+        instance = self.get_object(id)
+        serializer = TradeSerializer(instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            
+            response = Response(serializer.data, status=status.HTTP_201_CREATED)
+            return response
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get_object(self, id):
+        # Helper method to get the object based on the primary key (id)
+        try:
+            return Trade_Supplier.objects.get(id=id)
+        except Trade_Supplier.DoesNotExist:
+            raise Http404
+        
+class TradeSupDelete(APIView):
+    @csrf_exempt
+    def delete(self, request, id, *args, **kwargs):
+        try:
+            supplier = Trade_Supplier.objects.get(id=id)
+        except Trade_Supplier.DoesNotExist:
             raise Http404
 
         supplier.delete()

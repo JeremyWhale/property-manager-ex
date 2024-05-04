@@ -34,6 +34,7 @@ export default function SettingsView({ setLoggedIn }) {
   const [gasSupplierOptions, setGasSupplierOptions] = useState([]);
   const [electricSupplierOptions, setElectricSupplierOptions] = useState([]);
   const [waterSupplierOptions, setWaterSupplierOptions] = useState([]);
+  const [tradeSupplierOptions, setTradeSupplierOptions] = useState([])
   const [selectedSupplier, setSelectedSupplier] = useState("");
 
   const [supplierId, setSupplierId] = useState("");
@@ -171,6 +172,10 @@ export default function SettingsView({ setLoggedIn }) {
           `${apiLocation}/water-supplier-list/`
         );
 
+        const Tresponse = await axios.get(
+          `${apiLocation}/trade-supplier-list/`
+        );
+
         // Convert the response data into your desired format
         const Gdata = Gresponse.data.map((tenant) => ({
           name: tenant.name,
@@ -187,9 +192,15 @@ export default function SettingsView({ setLoggedIn }) {
           id: tenant.id,
         }));
 
+        const Tdata = Tresponse.data.map((tenant) => ({
+          name: tenant.name,
+          id: tenant.id,
+        }));
+
         setGasSupplierOptions(Gdata);
         setElectricSupplierOptions(Edata);
         setWaterSupplierOptions(Wdata);
+        setTradeSupplierOptions(Tdata)
       } catch (e) {
         // Handle your error here
         console.error("Error fetching data:", e);
@@ -351,6 +362,17 @@ export default function SettingsView({ setLoggedIn }) {
           console.error("Error:", error);
         });
     }
+    if (supplierType === "trade") {
+      axios
+        .post(`${apiLocation}/trade-supplier-add/`, data)
+        .then((response) => {
+          setSupplierUploadSuccess(true);
+          setShowSupplierMessage(true);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
 
     setSupplierType("");
     setSupplierName("");
@@ -389,6 +411,18 @@ export default function SettingsView({ setLoggedIn }) {
     if (supplierType === "water") {
       axios
         .delete(`${apiLocation}/water-supplier-delete/${supplierId}`)
+        .then((response) => {
+          setSupplierEditUploadSuccess(true);
+          setShowSupplierEditMessage(true);
+          getSuppliers();
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    if (supplierType === "trade") {
+      axios
+        .delete(`${apiLocation}/trade-supplier-delete/${supplierId}`)
         .then((response) => {
           setSupplierEditUploadSuccess(true);
           setShowSupplierEditMessage(true);
@@ -441,6 +475,17 @@ export default function SettingsView({ setLoggedIn }) {
     if (supplierType === "water") {
       axios
         .put(`${apiLocation}/water-supplier-edit/${supplierId}`, data)
+        .then((response) => {
+          setSupplierEditUploadSuccess(true);
+          setShowSupplierEditMessage(true);
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
+    if (supplierType === "trade") {
+      axios
+        .put(`${apiLocation}/trade-supplier-edit/${supplierId}`, data)
         .then((response) => {
           setSupplierEditUploadSuccess(true);
           setShowSupplierEditMessage(true);
@@ -838,6 +883,7 @@ export default function SettingsView({ setLoggedIn }) {
               >
                 <MenuItem value={"electric"}> Electric </MenuItem>
                 <MenuItem value={"gas"}> Gas </MenuItem>
+                <MenuItem value={"trade"}> Trade </MenuItem>
                 <MenuItem value={"water"}> Water </MenuItem>
               </TextField>
             </Grid>
@@ -1237,6 +1283,7 @@ export default function SettingsView({ setLoggedIn }) {
               >
                 <MenuItem value={"electric"}> Electric </MenuItem>
                 <MenuItem value={"gas"}> Gas </MenuItem>
+                <MenuItem value={"trade"}> Trade </MenuItem>
                 <MenuItem value={"water"}> Water </MenuItem>
               </TextField>
             </Grid>
@@ -1272,6 +1319,14 @@ export default function SettingsView({ setLoggedIn }) {
                   ))}
                 {supplierType === "water" &&
                   waterSupplierOptions
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((data) => (
+                    <MenuItem key={data.id} value={data.name}>
+                      {data.name}
+                    </MenuItem>
+                  ))}
+                {supplierType === "trade" &&
+                  tradeSupplierOptions
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((data) => (
                     <MenuItem key={data.id} value={data.name}>

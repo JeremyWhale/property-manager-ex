@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Property, Tenancy, Tenant, Gas_Reading, Electric_Reading, Mortgage, Purchase_details, Issues, Tenant_history, Contractor, Insurance, Agent, Urls, Deposit_scheme, AgentHistory, Gas_Supplier, Electric_Supplier, Water_Supplier
+from .models import Property, Tenancy, Tenant, Gas_Reading, Electric_Reading, Mortgage, Purchase_details, Issues, Tenant_history, Contractor, Insurance, Agent, Urls, Deposit_scheme, AgentHistory, Gas_Supplier, Electric_Supplier, Water_Supplier, Trade_Supplier, Purchases
 
 admin.site.register(Property)
 admin.site.register(Tenancy)
@@ -20,3 +20,5 @@ admin.site.register(AgentHistory)
 admin.site.register(Gas_Supplier)
 admin.site.register(Electric_Supplier)
 admin.site.register(Water_Supplier)
+admin.site.register(Trade_Supplier)
+admin.site.register(Purchases)

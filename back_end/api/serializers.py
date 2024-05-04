@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Contractor, Insurance, Issues, Mortgage, Property, Tenancy, Tenant, Purchase_details, Agent, Urls, Gas_Supplier, Electric_Supplier, Water_Supplier, Deposit_scheme, Electric_Reading, Gas_Reading, Tenant_history, AgentHistory
+from .models import Trade_Supplier, Purchases, Contractor, Insurance, Issues, Mortgage, Property, Tenancy, Tenant, Purchase_details, Agent, Urls, Gas_Supplier, Electric_Supplier, Water_Supplier, Deposit_scheme, Electric_Reading, Gas_Reading, Tenant_history, AgentHistory
 
 
 class AgentHistorySerializer(serializers.ModelSerializer):
@@ -26,6 +26,21 @@ class IssuesSerializer(serializers.ModelSerializer):
         model = Issues
         fields = '__all__'
 
+#Return all purchases
+class PurchasesSerializer(serializers.ModelSerializer):
+    property = serializers.StringRelatedField()
+
+    class Meta:
+        model = Purchases
+        fields = '__all__'
+
+#Return all issues
+class PurchaseWithIDSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Purchases
+        fields = '__all__'
+
 #Return all issues
 class IssuesWIthIDSerializer(serializers.ModelSerializer):
 
@@ -38,6 +53,13 @@ class IssuesAddSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Issues
+        fields = '__all__'
+
+class PurchasesAddSerializer(serializers.ModelSerializer):
+    property = serializers.PrimaryKeyRelatedField(queryset=Property.objects.all())
+
+    class Meta:
+        model = Purchases
         fields = '__all__'
     
 #Return list of properties
@@ -223,6 +245,12 @@ class ElectricSerializer(serializers.ModelSerializer):
 class WaterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Water_Supplier
+        fields = '__all__'
+
+#Gas
+class TradeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Trade_Supplier
         fields = '__all__'
 
 #Deposit scheme
