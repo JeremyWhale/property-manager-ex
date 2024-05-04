@@ -132,7 +132,7 @@ export default function PurchasesView() {
   const { setIssueToEdit } = useAppContext()
 
   const [order, setOrder] = useState("desc");
-  const [orderBy, setOrderBy] = useState("dateReported");
+  const [orderBy, setOrderBy] = useState("date");
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);

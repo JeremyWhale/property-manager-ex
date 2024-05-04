@@ -17,7 +17,7 @@ import { visuallyHidden } from "@mui/utils";
 import { Add, Edit, Engineering } from "@mui/icons-material";
 import axios from "axios";
 import apiLocation from "../components/apiLocation";
-import { Modal, Typography } from "@mui/material";
+import { MenuItem, Modal, TextField, Typography } from "@mui/material";
 import formatDisplayDate from "../components/formatdisplayDate";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
@@ -143,6 +143,8 @@ export default function IssueView() {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [rows, setRows] = useState([]);
+  const [originalRows, setOriginalRows] = useState([])
+  const [filter, setFilter] = useState("none")
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedContractorName, setSelectedContractorName] = useState("");
   const [selectedIssueId, setSelectedIssueId] = useState("");
@@ -163,12 +165,45 @@ export default function IssueView() {
           contractor: issue.contractor_responsible,
         }));
 
-        setRows(mappedRows); // Update the state with the mapped data
+        setOriginalRows(mappedRows); // Update the state with the mapped data
       })
       .catch((error) => {
         console.error("There was an error fetching the issues:", error);
       });
   }, []);
+
+  useEffect(() => {
+    if(filter === "unallocated"){
+      const data = originalRows.filter(obj => {
+        if (obj.dateResolved === "2000-01-01") {
+            return true;
+        }
+        return false;
+      })
+      setRows(data)
+    }
+    if(filter === "allocated"){
+      const data = originalRows.filter(obj => {
+        if (obj.dateResolved === "2000-01-02") {
+            return true;
+        }
+        return false;
+      })
+      setRows(data)
+    }
+    if(filter === "resolved"){
+      const data = originalRows.filter(obj => {
+        if (obj.dateResolved !== "2000-01-01" && obj.dateResolved !== "2000-01-02" && obj.dateResolved.length > 0) {
+            return true;
+        }
+        return false;
+      })
+      setRows(data)
+    }
+    if(filter === "none"){
+      setRows(originalRows)
+    }
+  })
 
   useEffect(() => {
     // Make an Axios GET request to fetch the data
@@ -244,6 +279,22 @@ export default function IssueView() {
   return (
     <>
       <IcPageHeader heading="Issues">
+        <TextField
+            slot="input"
+            labelId="demo-simple-select-label"
+            variant="outlined"
+            id="demo-simple-select"
+            value={filter}
+            label="Filter"
+            select
+            onChange={(e) => setFilter(e.target.value)}
+            fullWidth
+        >
+          <MenuItem key="none" value="none"> {filter === 'none' ? "No filter" : "Remove filter"}</MenuItem>
+          <MenuItem key="allocated" value="allocated">Allocated</MenuItem>
+          <MenuItem key="unallocated" value="unallocated">Unallocated</MenuItem>
+          <MenuItem key="resolved" value="resolved">Resolved</MenuItem>
+        </TextField>
           <>
             {selectedContractorName.length !== 0 && selectedContractorName !== "None" && (
               <IcButton
