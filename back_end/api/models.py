@@ -175,6 +175,7 @@ class Issues(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     problem = models.TextField(blank=True)
     date_reported = models.TextField(blank=True)
+    date_allocated = models.TextField(blank=True)
     # 01-01-2000 for Unallocated, 02-01-2000 for Allocated
     date_fixed = models.TextField(blank=True)
     contractor_responsible = models.TextField(blank=True)
@@ -236,3 +237,12 @@ class Urls(models.Model):
 
     def __str__(self):
         return self.property.address_line_1
+    
+class Trade_Supplier(models.Model):
+    name = models.CharField(max_length=50)
+    phone_number = models.CharField(max_length=13, blank=True)
+    email = models.EmailField(blank=True)
+    address = models.CharField(max_length=50, blank=True)
+
+    def __str__(self):
+        return self.name

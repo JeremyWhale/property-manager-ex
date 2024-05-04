@@ -42,6 +42,8 @@ export default function IssueAddView() {
   const [dateReported, setDateReported] = useState("");
   const [dateReportedError, setDateReportedError] = useState(false);
 
+  const [dateAllocated, setDateAllocated] = useState("")
+
   const [dateFixed, setDateFixed] = useState("");
   const [dateFixedError, setDateFixedError] = useState(false);
 
@@ -146,6 +148,7 @@ export default function IssueAddView() {
   const handleComplete = () => {
     const dateReportedFormatted = dateReported.toString().split("T");
     const dateFixedFormatted = dateFixed.toString().split("T");
+    const dateAllocatedFormatted = dateAllocated.toString().split("T")
 
     let dateFixedUpload = dateFixedFormatted[0]
 
@@ -157,6 +160,7 @@ export default function IssueAddView() {
         property: property,
         problem: problem,
         date_reported: dateReportedFormatted[0],
+        date_allocated: dateAllocatedFormatted[0],
         date_fixed: dateFixedUpload,
         contractor_responsible: selectedContractorName,
       };
@@ -181,6 +185,7 @@ export default function IssueAddView() {
     setProperty("");
     setProblem("");
     setDateReported("");
+    setDateAllocated("")
     setDateFixed("");
     setSelectedContractorName("");
     setBeenAllocated(false);
@@ -215,7 +220,7 @@ export default function IssueAddView() {
       return (
         <>
           <Grid container spacing={2} sx={{ paddingTop: 2 }}>
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <TextField
                 slot="input"
                 labelId="demo-simple-select-label"
@@ -249,6 +254,19 @@ export default function IssueAddView() {
                 />
               </LocalizationProvider>
             </Grid>
+            {beenAllocated && (
+              <Grid item xs={3}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date allocated"
+                  format="DD/MM/YYYY"
+                  value={dayjs(dateAllocated)}
+                  onChange={(date) => setDateAllocated(formatDate(date))}
+                  fullWidth
+                />
+              </LocalizationProvider>
+            </Grid>
+            )}
             {beenFixed && beenAllocated && (
               <Grid item xs={3}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>

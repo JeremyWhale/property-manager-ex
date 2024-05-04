@@ -70,6 +70,12 @@ const headCells = [
     label: "Problem",
   },
   {
+    id: "dateAllocated",
+    numeric: false,
+    disablePadding: false,
+    label: "Date Allocated",
+  },
+  {
     id: "dateResolved",
     numeric: false,
     disablePadding: false,
@@ -152,6 +158,7 @@ export default function IssueView() {
           dateReported: issue.date_reported,
           property: issue.property,
           problem: issue.problem,
+          dateAllocated: issue.date_allocated,
           dateResolved: issue.date_fixed,
           contractor: issue.contractor_responsible,
         }));
@@ -237,9 +244,8 @@ export default function IssueView() {
   return (
     <>
       <IcPageHeader heading="Issues">
-        {selectedContractorName.length !== 0 && (
           <>
-            {selectedContractorName !== "None" && (
+            {selectedContractorName.length !== 0 && selectedContractorName !== "None" && (
               <IcButton
                 slot="actions"
                 variant="tertiary"
@@ -248,15 +254,16 @@ export default function IssueView() {
                 <Engineering slot="left-icon" /> Contactor Details
               </IcButton>
             )}
-            <IcButton
-              slot="actions"
-              variant="tertiary"
-              onClick={handleIssueEditSelect}
-            >
-              <Edit slot="left-icon" /> Edit Issue
-            </IcButton>
-          </>
-        )}
+            {selectedIssueId !== "" && (
+              <IcButton
+                slot="actions"
+                variant="tertiary"
+                onClick={handleIssueEditSelect}
+              >
+                <Edit slot="left-icon" /> Edit Issue
+              </IcButton>
+            )}
+          </>        
         <IcButton
           slot="actions"
           variant="primary"
@@ -283,16 +290,27 @@ export default function IssueView() {
               />
               <TableBody>
                 {visibleRows.map((row, index) => {
+                  let dateAllocatedContent = row.dateAllocated;
                   // Check if the dateResolved is '2000-01-01' and display 'Unresolved' in that case
                   let dateResolvedContent = row.dateResolved;
                   let contractorContent = row.contractor;
                   {
                     row.dateResolved === "2000-01-01" &&
-                      (dateResolvedContent = "Unallocated");
+                      (dateAllocatedContent = "Unallocated", dateResolvedContent = "")
+                  }
+                  {
+                    row.dateResolved !== "2000-01-01" &&
+                      (dateAllocatedContent = formatDisplayDate(
+                        row.dateAllocated
+                      ))
                   }
                   {
                     row.dateResolved === "2000-01-01" &&
                       (contractorContent = "None");
+                  }
+                  {
+                    row.contractor.length === 0 &&
+                      (contractorContent = "None")
                   }
                   {
                     row.dateResolved === "2000-01-02" &&
@@ -303,7 +321,7 @@ export default function IssueView() {
                       row.dateResolved !== "2000-01-01" &&
                       (dateResolvedContent = formatDisplayDate(
                         row.dateResolved
-                      ));
+                      )) 
                   }
 
                   return (
@@ -324,6 +342,7 @@ export default function IssueView() {
                       </TableCell>
                       <TableCell align="left">{row.property}</TableCell>
                       <TableCell align="left">{row.problem}</TableCell>
+                      <TableCell align="left">{dateAllocatedContent}</TableCell>
                       <TableCell align="left">{dateResolvedContent}</TableCell>
                       <TableCell align="left">{contractorContent}</TableCell>
                     </TableRow>

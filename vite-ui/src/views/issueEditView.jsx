@@ -48,30 +48,14 @@ export default function IssueEditView() {
   const [dateReported, setDateReported] = useState("");
   const [dateReportedError, setDateReportedError] = useState(false);
 
+  const [dateAllocated, setDateAllocated] = useState("")
+
   const [dateFixed, setDateFixed] = useState("");
   const [dateFixedError, setDateFixedError] = useState(false);
 
   // Existing
   const [contractorList, setContractorList] = useState([]);
   const [selectedContractorName, setSelectedContractorName] = useState("");
-  // New
-  const [name, setName] = useState("");
-  const [nameError, setNameError] = useState(false);
-
-  const [address, setAddress] = useState("");
-  const [addressError, setAddressError] = useState(false);
-
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [phoneNumberError, setPhoneNumberError] = useState(false);
-
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState(false);
-
-  const [sortCode, setSortCode] = useState("");
-  const [sortCodeError, setSortCodeError] = useState(false);
-
-  const [accountNumber, setAccountNumber] = useState("");
-  const [accountNumberError, setAccountNumberError] = useState(false);
 
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -83,6 +67,7 @@ export default function IssueEditView() {
       setProperty(response.data.property);
       setProblem(response.data.problem);
       setDateReported(response.data.date_reported);
+      setDateAllocated(response.data.date_allocated)
       if (
         response.data.date_fixed === "2000-01-02" ||
         response.data.date_fixed === "2000-01-01"
@@ -211,6 +196,8 @@ export default function IssueEditView() {
   const handleComplete = () => {
     const dateReportedFormatted = dateReported.toString().split("T");
     const dateFixedFormatted = dateFixed.toString().split("T");
+    const dateAllocatedFormatted = dateAllocated.toString().split("T")
+
 
     let dateFixedUpload = dateFixedFormatted[0]
 
@@ -223,6 +210,7 @@ export default function IssueEditView() {
         property: property,
         problem: problem,
         date_reported: dateReportedFormatted[0],
+        date_allocated: dateAllocatedFormatted[0],
         date_fixed: dateFixedUpload,
         contractor_responsible: selectedContractorName,
       };
@@ -268,7 +256,7 @@ export default function IssueEditView() {
       return (
         <>
           <Grid container spacing={2} sx={{ paddingTop: 2 }}>
-            <Grid item xs={6}>
+            <Grid item xs={3}>
               <TextField
                 slot="input"
                 labelId="demo-simple-select-label"
@@ -302,6 +290,19 @@ export default function IssueEditView() {
                 />
               </LocalizationProvider>
             </Grid>
+            {beenAllocated && (
+              <Grid item xs={3}>
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  label="Date allocated"
+                  format="DD/MM/YYYY"
+                  value={dayjs(dateAllocated)}
+                  onChange={(date) => setDateAllocated(formatDate(date))}
+                  fullWidth
+                />
+              </LocalizationProvider>
+            </Grid>
+            )}
             {beenFixed && beenAllocated && (
               <Grid item xs={3}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
