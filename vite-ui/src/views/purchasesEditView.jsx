@@ -68,6 +68,7 @@ export default function PurchaseEditView() {
       setProblem(response.data.items);
       setDateReported(response.data.date);
       setDateFixed(response.data.cost)
+      setSelectedContractorName(response.data.trade_supplier)
     }
 
     async function getPropertyList() {
@@ -302,7 +303,7 @@ export default function PurchaseEditView() {
                     {contractorList
                       .sort((a, b) => a.name.localeCompare(b.name))
                       .map((property, index) => (
-                        <MenuItem key={index} value={property.name}>
+                        <MenuItem key={property.name} value={property.name}>
                           {property.name}
                         </MenuItem>
                     ))}
