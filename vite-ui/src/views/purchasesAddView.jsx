@@ -74,7 +74,7 @@ export default function PurchaseAddView() {
 
     async function getContractorList() {
       try {
-        const response = await axios.get(`${apiLocation}/contractor-list`);
+        const response = await axios.get(`${apiLocation}/trade-supplier-list`);
 
         // Convert the response data into your desired format
         const data = response.data.map((contractor) => ({
