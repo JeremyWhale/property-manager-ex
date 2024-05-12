@@ -17,7 +17,7 @@ import { visuallyHidden } from "@mui/utils";
 import { Add, Edit, Engineering } from "@mui/icons-material";
 import axios from "axios";
 import apiLocation from "../components/apiLocation";
-import { Modal, Typography } from "@mui/material";
+import { MenuItem, Modal, TextField, Typography } from "@mui/material";
 import formatDisplayDate from "../components/formatdisplayDate";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../App.context";
@@ -142,6 +142,10 @@ export default function PurchasesView() {
   const [selectedIssueId, setSelectedIssueId] = useState("");
   const [contractor, setContractor] = useState();
 
+  const [selectedProperty, setSelectedProperty] = useState('none')
+  const [propertyList, setPropertyList] = useState([])
+  const [unfilteredRows, setUnfilteredRows] = useState([])
+
   useEffect(() => {
     axios
       .get(`${apiLocation}/purchases/`)
@@ -156,12 +160,28 @@ export default function PurchasesView() {
           contractor: issue.trade_supplier,
         }));
 
-        setRows(mappedRows); // Update the state with the mapped data
+        setUnfilteredRows(mappedRows); // Update the state with the mapped data
       })
       .catch((error) => {
         console.error("There was an error fetching the purchases:", error);
       });
   }, []);
+
+  useEffect(() => {
+    if (selectedProperty === 'none'){
+      setRows(unfilteredRows)
+    }
+    else{
+      const filteredRows = unfilteredRows.filter(obj => {
+        if (obj.property === selectedProperty) {
+            return true;
+        }
+        return false;
+      })
+
+      setRows(filteredRows)
+    }
+  }, [selectedProperty, unfilteredRows])
 
   useEffect(() => {
     // Make an Axios GET request to fetch the data
@@ -182,6 +202,29 @@ export default function PurchasesView() {
         console.error("Error fetching data:", error);
       });
   }, [selectedContractorName]);
+
+  useEffect(() => {
+    async function getPropertyList(){
+      try {
+        const response = await axios.get(`${apiLocation}/property-list`);
+
+        // Convert the response data into your desired format
+        const data = response.data.map((property) => ({
+          addressLine1: property.address_line_1,
+          country: property.country,
+        }));
+
+        setPropertyList(data);
+      } catch (e) {
+        // Handle your error here
+        console.error("Error fetching data:", e);
+      }
+    }
+
+    getPropertyList()
+  }, [])
+
+
 
   // Function to open the modal when the contractor name is clicked
   const handleOpenModal = (contractorName, issueID) => {
@@ -262,6 +305,26 @@ export default function PurchasesView() {
         >
           <Add slot="left-icon" /> Add Purchase
         </IcButton>
+        <TextField
+          slot="input"
+          labelId="demo-simple-select-label"
+          variant="outlined"
+          id="demo-simple-select"
+          value={selectedProperty}
+          label="Property filter"
+          select
+          onChange={(e) => setSelectedProperty(e.target.value)}
+          fullWidth
+        >
+          <MenuItem key='none' value='none'>No filter</MenuItem>
+          {propertyList
+          .sort((a, b) => a.addressLine1.localeCompare(b.addressLine1))
+          .map((property, index) => (
+            <MenuItem key={index} value={property.addressLine1}>
+              {property.addressLine1}
+            </MenuItem>
+          ))}
+        </TextField>
       </IcPageHeader>
       <Box sx={{ width: "100%" }}>
         <Paper sx={{ width: "100%", mb: 2 }}>

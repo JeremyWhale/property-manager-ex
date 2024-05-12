@@ -14,11 +14,9 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 // import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
-import { Add, Edit, Engineering } from "@mui/icons-material";
 import axios from "axios";
 import apiLocation from "../apiLocation";
 import StaticAlert from "../staticAlert";
-import formatDisplayDate from "../formatdisplayDate";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -53,7 +51,7 @@ const headCells = [
     id: 'name',
     numeric: false,
     disablePadding: false,
-    label: 'Deposit Scheme',
+    label: 'Supplier',
   },
   {
     id: 'phone',
@@ -118,7 +116,7 @@ EnhancedTableHead.propTypes = {
   rowCount: PropTypes.number.isRequired,
 };
 
-export default function DepositSchemeList() {
+export default function TradeSupplierList() {
   const [order, setOrder] = useState('asc');
   const [orderBy, setOrderBy] = useState('name');
   const [selected, setSelected] = useState([]);
@@ -127,7 +125,7 @@ export default function DepositSchemeList() {
   const [rows, setRows] = useState([]);
 
   useEffect(() => {
-    axios.get(`${apiLocation}/deposit-scheme-list/`)
+    axios.get(`${apiLocation}/trade-supplier-list`)
       .then(response => {
         const data = response.data;
 
@@ -138,19 +136,19 @@ export default function DepositSchemeList() {
         data.filter(obj => {
             // If the company name is not already in the uniqueCompanies object, add it
             // Otherwise, return false to filter out the duplicate
-            if (!uniqueCompanies.hasOwnProperty(obj.scheme_name)) {
+            if (!uniqueCompanies.hasOwnProperty(obj.name)) {
                 uniqueCompanies.push(obj);
-                uniqueCompanies[obj.scheme_name] = true;
+                uniqueCompanies[obj.name] = true;
                 return true;
             }
             return false;
         });
   
         const mappedRows = uniqueCompanies.map((issue) => ({
-            name: issue.scheme_name,
-            phone: issue.scheme_contact_number,
-            email: issue.scheme_email,
-            address: issue.scheme_address,
+            name: issue.name,
+            phone: issue.phone_number,
+            email: issue.email,
+            address: issue.address,
         }));
     
         setRows(mappedRows); // Update the state with the mapped data
@@ -190,7 +188,7 @@ export default function DepositSchemeList() {
 
   if(rows.length === 0){
     return(
-        <StaticAlert type='info' message={`No deposit schemes listed`} />
+        <StaticAlert type='info' message={`No trade suppliers listed`} />
     )
   }
 

@@ -416,6 +416,9 @@ export default function PropertyView() {
           gasSafetyUrl: request.data[0].gas_safety_url,
           inventoryUrl: request.data[0].inventory_url,
           otherDocsUrl: request.data[0].other_docs_url,
+          mortgageUrl: request.data[0].lender_url,
+          insuranceUrl: request.data[0].insurance_url,
+          legalUrl: request.data[0].legal_url,
         };
         setUrls(data);
       } catch (e) {
@@ -1380,6 +1383,39 @@ export default function PropertyView() {
               ) : (
                 "View Gas Safety Certificate"
               )}
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="outlined"
+              fullWidth
+              target="_blank"
+              href={urls.mortgageUrl}
+              disabled={urls.mortgageUrl === ''}
+            >
+              View Mortgage Documents{" "}
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="outlined"
+              fullWidth
+              target="_blank"
+              href={urls.insuranceUrl}
+              disabled={urls.insuranceUrl === ''}
+            >
+              View Insurance Documents{" "}
+            </Button>
+          </Grid>
+          <Grid item xs={6}>
+            <Button
+              variant="outlined"
+              fullWidth
+              target="_blank"
+              href={urls.legalUrl}
+              disabled={urls.legalUrl === ''}
+            >
+              View Legal Documents{" "}
             </Button>
           </Grid>
           {/* Row */}

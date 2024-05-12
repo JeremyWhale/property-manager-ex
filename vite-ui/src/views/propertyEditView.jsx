@@ -169,6 +169,9 @@ export default function PropertyEditView() {
 
   const [inventoryLink, setInventoryLink] = useState("");
   const [otherDocumentsLink, setOtherDocumentsLink] = useState("");
+  const [mortgageLink, setMortgageLink]  = useState("");
+  const [insuranceLink, setInsuranceLink] = useState("");
+  const [legalLink, setLegalLink] = useState("");
 
   async function handleDelete() {
     await axios
@@ -295,6 +298,9 @@ export default function PropertyEditView() {
       setGscLink(request.data[0].gas_safety_url);
       setInventoryLink(request.data[0].inventory_url);
       setOtherDocumentsLink(request.data[0].other_docs_url);
+      setMortgageLink(request.data[0].lender_url)
+      setInsuranceLink(request.data[0].insurance_url)
+      setLegalLink(request.data[0].legal_url)
     } catch (e) {
       //Alert saying api cannot be reached try again later
     }
@@ -686,6 +692,9 @@ export default function PropertyEditView() {
           gas_safety_url: gscLink,
           inventory_url: inventoryLink,
           other_docs_url: otherDocumentsLink,
+          lender_url: mortgageLink,
+          insurance_url: insuranceLink,
+          legal_url: legalLink,
         };
 
         axios
@@ -1575,19 +1584,25 @@ export default function PropertyEditView() {
       return (
         <>
           <Grid container spacing={2} sx={{ paddingTop: 2 }}>
-            <Grid item xs={6}>
+          <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
                 label="AST folder link"
                 variant="outlined"
                 value={astLink}
                 onChange={(e) => setAstLink(e.target.value)}
-                color={astLink === "" && "error"}
                 fullWidth
               />
             </Grid>
             <Grid item xs={6}>
-              <></>
+              <TextField
+                id="outlined-basic"
+                label="Legal documents folder link"
+                variant="outlined"
+                value={legalLink}
+                onChange={(e) => setLegalLink(e.target.value)}
+                fullWidth
+              />
             </Grid>
             <Grid item xs={6}>
               <TextField
@@ -1596,7 +1611,6 @@ export default function PropertyEditView() {
                 variant="outlined"
                 value={epcLink}
                 onChange={(e) => setEpcLink(e.target.value)}
-                color={epcLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1607,7 +1621,6 @@ export default function PropertyEditView() {
                   format="DD/MM/YYYY"
                   value={dayjs(epcReviewDate)}
                   onChange={(date) => setEpcReviewDate(formatDate(date))}
-                  color={epcReviewDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -1619,7 +1632,6 @@ export default function PropertyEditView() {
                 variant="outlined"
                 value={escLink}
                 onChange={(e) => setEscLink(e.target.value)}
-                color={escLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1630,7 +1642,6 @@ export default function PropertyEditView() {
                   value={dayjs(escReviewDate)}
                   format="DD/MM/YYYY"
                   onChange={(date) => setEscReviewDate(formatDate(date))}
-                  color={escReviewDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
@@ -1642,7 +1653,6 @@ export default function PropertyEditView() {
                 variant="outlined"
                 value={gscLink}
                 onChange={(e) => setGscLink(e.target.value)}
-                color={gscLink === "" && "error"}
                 fullWidth
               />
             </Grid>
@@ -1653,10 +1663,29 @@ export default function PropertyEditView() {
                   value={dayjs(gscReviewDate)}
                   format="DD/MM/YYYY"
                   onChange={(date) => setGscReviewDate(formatDate(date))}
-                  color={gscReviewDate === "" && "error"}
                   fullWidth
                 />
               </LocalizationProvider>
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-basic"
+                label="Mortgage documents folder link"
+                variant="outlined"
+                value={mortgageLink}
+                onChange={(e) => setMortgageLink(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-basic"
+                label="Insurance documents folder link"
+                variant="outlined"
+                value={insuranceLink}
+                onChange={(e) => setInsuranceLink(e.target.value)}
+                fullWidth
+              />
             </Grid>
             <Grid item xs={6}>
               <TextField
@@ -1665,18 +1694,16 @@ export default function PropertyEditView() {
                 variant="outlined"
                 value={inventoryLink}
                 onChange={(e) => setInventoryLink(e.target.value)}
-                color={inventoryLink === "" && "error"}
                 fullWidth
               />
             </Grid>
             <Grid item xs={6}>
               <TextField
                 id="outlined-basic"
-                label="Other document folder link"
+                label="Other documents folder link"
                 variant="outlined"
                 value={otherDocumentsLink}
                 onChange={(e) => setOtherDocumentsLink(e.target.value)}
-                color={otherDocumentsLink === "" && "error"}
                 fullWidth
               />
             </Grid>

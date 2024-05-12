@@ -245,6 +245,9 @@ class Urls(models.Model):
     gas_safety_url = models.TextField(blank=True)
     inventory_url = models.TextField(blank=True)
     other_docs_url = models.TextField(blank=True)
+    lender_url = models.TextField(blank=True)
+    insurance_url = models.TextField(blank=True)
+    legal_url = models.TextField(blank=True)
 
     def __str__(self):
         return self.property.address_line_1

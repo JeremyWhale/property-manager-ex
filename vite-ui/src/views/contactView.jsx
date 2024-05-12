@@ -11,6 +11,7 @@ import InsuranceCompanyList from "../components/contactViews/InsuranceList";
 import GasSupplierList from "../components/contactViews/GasSupplierList";
 import ElectricSupplierList from "../components/contactViews/ElectricSupplierList";
 import WaterSupplierList from "../components/contactViews/WaterSupplierList";
+import TradeSupplierList from "../components/contactViews/TradeSupplierList";
 
 export default function ContactView() {
 //   T, M, I, A, D, C, GS, ES, WS
@@ -44,6 +45,9 @@ export default function ContactView() {
     if(contactType === 'WS'){
         return(<WaterSupplierList />)   
     }
+    if(contactType === 'TS'){
+        return(<TradeSupplierList />)
+    }
     else{
         return(
             <StaticAlert
@@ -76,6 +80,7 @@ export default function ContactView() {
             <MenuItem key='I' value='I'>Insurance Companies</MenuItem>
             <MenuItem key='M' value='M'>Mortgage Lenders</MenuItem>
             <MenuItem key='T' value='T'>Tenants</MenuItem>
+            <MenuItem key='TS' value='TS'>Trade Suppliers</MenuItem>
             <MenuItem key='WS' value='WS'>Water Suppliers</MenuItem>
 
         </TextField>

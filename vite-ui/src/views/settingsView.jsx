@@ -294,18 +294,24 @@ export default function SettingsView({ setLoggedIn }) {
     setSupplierPhone("");
     setSupplierEmail("");
     setSupplierAddress("")
+    setShowSupplierMessage(false)
+    setShowSupplierEditMessage(false)
 
     setSelectedDs("")
     setDsName("");
     setDsPhone("");
     setDsEmail("");
     setDsAddress("")
+    setShowDsMessage(false)
+    setShowDsEditMessage(false)
 
     setSelectedAgent("")
     setAgentName("");
     setAgentPhone("");
     setAgentEmail("");
     setAgentAddress("");
+    setShowAgentMessage(false)
+    setShowAgentEditMessage(false)
 
     setSelectedContractor("")
     setCName("");
@@ -314,6 +320,8 @@ export default function SettingsView({ setLoggedIn }) {
     setCEmail("");
     setCSortCode("");
     setCBankAccount("");
+    setShowContractorMessage(false)
+    setShowContractorEditMessage(false)
   }, [supplierType, supplierModalOpen, supplierEditModalOpen, dsEditModalOpen, dsModalOpen, agentModalOpen, agentEditModalOpen, contractorEditModalOpen, contractorModalOpen])
 
   function handleLogout() {

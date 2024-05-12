@@ -151,6 +151,9 @@ export default function PropertyAddView() {
 
   const [inventoryLink, setInventoryLink] = useState("");
   const [otherDocumentsLink, setOtherDocumentsLink] = useState("");
+  const [mortgageLink, setMortgageLink]  = useState("");
+  const [insuranceLink, setInsuranceLink] = useState("");
+  const [legalLink, setLegalLink] = useState("");
 
   useEffect(() => {
     async function getTenantList() {
@@ -439,6 +442,9 @@ export default function PropertyAddView() {
           gas_safety_url: gscLink,
           inventory_url: inventoryLink,
           other_docs_url: otherDocumentsLink,
+          lender_url: mortgageLink,
+          insurance_url: insuranceLink,
+          legal_url: legalLink,
         };
 
         axios
@@ -558,6 +564,9 @@ export default function PropertyAddView() {
     setGscReviewDate("");
     setInventoryLink("");
     setOtherDocumentsLink("");
+    setMortgageLink("")
+    setInsuranceLink("")
+    setLegalLink("")
 
     setActiveStep(0);
     setCompleted({});
@@ -1404,7 +1413,14 @@ export default function PropertyAddView() {
               />
             </Grid>
             <Grid item xs={6}>
-              <></>
+              <TextField
+                id="outlined-basic"
+                label="Legal documents folder link"
+                variant="outlined"
+                value={legalLink}
+                onChange={(e) => setLegalLink(e.target.value)}
+                fullWidth
+              />
             </Grid>
             <Grid item xs={6}>
               <TextField
@@ -1468,6 +1484,26 @@ export default function PropertyAddView() {
                   fullWidth
                 />
               </LocalizationProvider>
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-basic"
+                label="Mortgage documents folder link"
+                variant="outlined"
+                value={mortgageLink}
+                onChange={(e) => setMortgageLink(e.target.value)}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                id="outlined-basic"
+                label="Insurance documents folder link"
+                variant="outlined"
+                value={insuranceLink}
+                onChange={(e) => setInsuranceLink(e.target.value)}
+                fullWidth
+              />
             </Grid>
             <Grid item xs={6}>
               <TextField

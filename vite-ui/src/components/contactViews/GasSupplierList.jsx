@@ -67,6 +67,12 @@ const headCells = [
     disablePadding: false,
     label: 'Email',
   },
+  {
+    id: 'address',
+    numeric: false,
+    disablePadding: false,
+    label: 'Address',
+  },
 ];
 
 function EnhancedTableHead(props) {
@@ -144,6 +150,7 @@ export default function GasSupplierList() {
             name: issue.name,
             phone: issue.phone_number,
             email: issue.email,
+            address: issue.address,
         }));
     
         setRows(mappedRows); // Update the state with the mapped data
@@ -218,6 +225,7 @@ export default function GasSupplierList() {
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">{row.phone}</TableCell>
                       <TableCell align="left">{row.email}</TableCell>
+                      <TableCell align="left">{row.address}</TableCell>
                     </TableRow>
                   );
                 })}

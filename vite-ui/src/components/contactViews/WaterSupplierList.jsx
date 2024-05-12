@@ -14,11 +14,9 @@ import TableSortLabel from '@mui/material/TableSortLabel';
 // import Toolbar from '@mui/material/Toolbar';
 import Paper from '@mui/material/Paper';
 import { visuallyHidden } from '@mui/utils';
-import { Add, Edit, Engineering } from "@mui/icons-material";
 import axios from "axios";
 import apiLocation from "../apiLocation";
 import StaticAlert from "../staticAlert";
-import formatDisplayDate from "../formatdisplayDate";
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -66,6 +64,12 @@ const headCells = [
     numeric: false,
     disablePadding: false,
     label: 'Email',
+  },
+  {
+    id: 'address',
+    numeric: false,
+    disablePadding: false,
+    label: 'Address',
   },
 ];
 
@@ -144,6 +148,7 @@ export default function WaterSupplierList() {
             name: issue.name,
             phone: issue.phone_number,
             email: issue.email,
+            address: issue.address,
         }));
     
         setRows(mappedRows); // Update the state with the mapped data
@@ -218,6 +223,7 @@ export default function WaterSupplierList() {
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">{row.phone}</TableCell>
                       <TableCell align="left">{row.email}</TableCell>
+                      <TableCell align="left">{row.address}</TableCell>
                     </TableRow>
                   );
                 })}
