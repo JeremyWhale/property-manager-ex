@@ -825,6 +825,9 @@ export default function PropertyEditView() {
                 color={selectedGasSupplier === "" && "error"}
                 fullWidth
               >
+                <MenuItem key={'no-gas'} value={'no-gas'}>
+                  No gas at property
+                </MenuItem>
                 {gasSupplierOptions
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .map((tenant, index) => (

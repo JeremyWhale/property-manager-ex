@@ -817,12 +817,17 @@ export default function PropertyView() {
           <Grid item xs={6}>
             <Typography>
               <b>Gas supplier: </b>
-              <span
-                onClick={() => setGasSupplierOpen(true)}
-                className="linkText"
-              >
-                {propertyDetails.gasSupplier}
-              </span>
+              {propertyDetails.gasSupplier !== undefined && propertyDetails.gasSupplier !== 'no-gas' ?
+              (
+                <span
+                  onClick={() => setGasSupplierOpen(true)}
+                  className="linkText"
+                >
+                  {propertyDetails.gasSupplier}
+                </span>
+              ) : (
+                'No gas at property'
+              )}
             </Typography>
           </Grid>
           {/* Row */}
@@ -1319,7 +1324,8 @@ export default function PropertyView() {
     if (
       selectedInfoView === "D" &&
       propertyDetails !== undefined &&
-      tenancyDetails !== undefined
+      tenancyDetails !== undefined &&
+      urls !== undefined
     ) {
       return (
         <Grid container spacing={2} sx={{ paddingTop: 2 }}>

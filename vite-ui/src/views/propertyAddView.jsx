@@ -672,6 +672,9 @@ export default function PropertyAddView() {
                 onChange={(e) => setSelectedGasSupplier(e.target.value)}
                 fullWidth
               >
+                <MenuItem key={'no-gas'} value={'no-gas'}>
+                  No gas at property
+                </MenuItem>
                 {gasSupplierOptions
                 .sort((a, b) => a.name.localeCompare(b.name))
                 .map((tenant, index) => (
